@@ -1,0 +1,56 @@
+/*
+ Localizable.strings
+ Shy7lo
+ 
+ Created by Sajjad Yousaf on 8/6/18.
+ Copyright © 2018 Sajjad Yousaf. All rights reserved.
+ */
+
+"WelcomeWVC" = "Welcome to";
+"YourPremierWVC" = "Your premier style destination";
+"HaveAccountWVC" = "I already have an account";
+"BuLoginWVC" = "Log In";
+
+//    country View Controler
+"BuSkipCVC" = "  SKIP";
+"TagLineCVC" = "Free and fast shipping in GCC" ;
+"SubTagLineCVC" = "guaranteed with every purchase";
+"ChooseCountryCVC" = "Choose your country";
+"BuNextCVC" = "NEXT";
+
+//
+
+"BuSkipGVC" = "  SKIP";
+"TagLineGVC" = "100% genuine" ;
+"SubTagLineGVC" = "highest quality clothes, shoes and accessories";
+"ShoppinForGVC" = "Who I shopping for";
+"BuShopNowGVC" = "SHOP NOW";
+
+//AVC account View Controler
+"AccountAVC" = "ACCOUNT";
+
+
+//Setting View Controller
+
+"SettingSVC" = "SETTINGS";
+"LanguageSVC" = "Language";
+"EnglishSVC" = "English";
+"CurrencySVC" = "Currency";
+"SaudiRiyalSVC" = "Saudi Riyal SR";
+"SizeSVC" = "Size";
+"UKSVC" = "UK";
+"NotificationsSVC" = "Notifications";
+"SalesPromotionsSVC" = "Sales and promotions";
+"EmailSVC" = "E-mail";
+"PasswordSVC" = "Password";
+"ChangeEmailSVC" = "Change e-mail";
+"ChangePasswordSVC" = "Change Password";
+
+
+
+
+//language View COntroller
+
+"LanguageLVC" = "LANGUAGE";
+
+

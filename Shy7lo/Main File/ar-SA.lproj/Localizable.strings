@@ -1,0 +1,53 @@
+/*
+ Localizable.strings
+ Shy7lo
+ 
+ Created by Sajjad Yousaf on 8/6/18.
+ Copyright © 2018 Sajjad Yousaf. All rights reserved.
+ */
+
+
+"WelcomeWVC" = "مرحبًا بك!";
+"YourPremierWVC" = "وجهتك الأقوى للموضة والأناقة";
+"HaveAccountWVC" = "لدي حساب بالفعل";
+"BuLoginWVC" = "تسجيل الدخول";
+
+"BuSkipCVC" = "تخطي";
+"TagLineCVC" = "شحن مجاني وسريع لجميع دول الخليج" ;
+"SubTagLineCVC" = "مضمون لجميع الطلبات من شي حلو";
+"ChooseCountryCVC" = " الدولة";
+"BuNextCVC" = "التالي";
+
+"BuSkipGVC" = "تخطي";
+"TagLineGVC" = "منتجات اصلية %100" ;
+"SubTagLineGVC" = "تشكيلة من أرقى المنتجات في فئات الملابس والأحذية والاكسسوارات";
+"ShoppinForGVC" = "لمن أتسوق؟";
+"BuShopNowGVC" =   "تسوق";
+
+//AVC account View Controler
+"AccountAVC" = "الحساب";
+
+
+//Setting View Controller
+
+"SettingSVC" = "إعدادات";
+"LanguageSVC" = "لغة";
+"EnglishSVC" = "عـربـي";
+"CurrencySVC" = "دقة";
+"SaudiRiyalSVC" = "الريال السعودي";
+"SizeSVC" = "بحجم";
+"UKSVC" = "المملكة المتحدة";
+"NotificationsSVC" = "إخطارات";
+"SalesPromotionsSVC" = "المبيعات والترويج";
+"EmailSVC" = "البريد الإلكتروني";
+"PasswordSVC" = "كلمه السر";
+"ChangeEmailSVC" = "تغيير الايميل";
+"ChangePasswordSVC" = "تغيير كلمة السر";
+
+
+//language View COntroller
+
+"LanguageLVC" = "لغة";
+
+
+

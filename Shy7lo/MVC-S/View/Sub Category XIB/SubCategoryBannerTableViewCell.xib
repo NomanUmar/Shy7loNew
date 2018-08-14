@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubCategoryBannerTableViewCell" rowHeight="76" id="KGk-i7-Jjw" customClass="SubCategoryBannerTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-EB-I28">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRT-is-cdw">
+                                <rect key="frame" x="0.0" y="75" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="O1W-D5-Ixr"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U56-C5-wME">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="76" id="8Js-mO-t8u"/>
+                            <constraint firstAttribute="width" secondItem="i6r-EB-I28" secondAttribute="height" multiplier="375:76" id="9A2-kI-sCU"/>
+                            <constraint firstItem="U56-C5-wME" firstAttribute="leading" secondItem="i6r-EB-I28" secondAttribute="leading" id="H5s-2z-TSu"/>
+                            <constraint firstAttribute="trailing" secondItem="U56-C5-wME" secondAttribute="trailing" id="Ht6-Rj-HKE"/>
+                            <constraint firstItem="FRT-is-cdw" firstAttribute="leading" secondItem="i6r-EB-I28" secondAttribute="leading" id="Tho-BF-G85"/>
+                            <constraint firstAttribute="trailing" secondItem="FRT-is-cdw" secondAttribute="trailing" id="bap-GY-aKP"/>
+                            <constraint firstAttribute="bottom" secondItem="FRT-is-cdw" secondAttribute="bottom" id="keR-D1-fKf"/>
+                            <constraint firstItem="U56-C5-wME" firstAttribute="top" secondItem="i6r-EB-I28" secondAttribute="top" id="kwn-aq-yjN"/>
+                            <constraint firstItem="FRT-is-cdw" firstAttribute="top" secondItem="U56-C5-wME" secondAttribute="bottom" id="tNW-Gc-buL"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="i6r-EB-I28" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B70-cI-i42"/>
+                    <constraint firstAttribute="bottom" secondItem="i6r-EB-I28" secondAttribute="bottom" id="H6L-9J-rls"/>
+                    <constraint firstAttribute="trailing" secondItem="i6r-EB-I28" secondAttribute="trailing" id="XZe-qe-94w"/>
+                    <constraint firstItem="i6r-EB-I28" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hDe-dl-UEl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bannerImage" destination="U56-C5-wME" id="emf-Bm-znm"/>
+                <outlet property="subCategoryView" destination="i6r-EB-I28" id="TTl-Pc-aPY"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="134"/>
+        </tableViewCell>
+    </objects>
+</document>

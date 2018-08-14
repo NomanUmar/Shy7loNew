@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Medium.otf">
+            <string>SFProDisplay-Medium</string>
+        </array>
+        <array key="SF-Pro-Display-Regular.otf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyTableViewCell" id="KGk-i7-Jjw" customClass="CurrencyTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hz6-1V-oGb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhL-Z9-qrW">
+                                <rect key="frame" x="10" y="9" width="355" height="18"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
+                                <color key="textColor" red="0.52151495219999999" green="0.52160614729999999" blue="0.52150297160000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gHo-qm-vHd">
+                                <rect key="frame" x="10" y="36" width="355" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="PEx-sz-IPy"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saudi Riyal DR" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shi-Au-Q3I">
+                                <rect key="frame" x="10" y="59" width="100" height="19.5"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arX-Ln-YiL">
+                                <rect key="frame" x="10" y="99" width="355" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jBB-H7-mah"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBa-KR-zcu">
+                                <rect key="frame" x="335" y="53" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eYd-0Y-EUG"/>
+                                    <constraint firstAttribute="width" constant="30" id="ltz-7e-G1X"/>
+                                </constraints>
+                                <state key="normal" image="next_icon"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gHo-qm-vHd" firstAttribute="leading" secondItem="EhL-Z9-qrW" secondAttribute="leading" id="4je-cl-DCb"/>
+                            <constraint firstItem="gHo-qm-vHd" firstAttribute="trailing" secondItem="EhL-Z9-qrW" secondAttribute="trailing" id="6Be-nu-Xle"/>
+                            <constraint firstItem="gHo-qm-vHd" firstAttribute="top" secondItem="EhL-Z9-qrW" secondAttribute="bottom" constant="9" id="81b-in-brg"/>
+                            <constraint firstItem="shi-Au-Q3I" firstAttribute="leading" secondItem="gHo-qm-vHd" secondAttribute="leading" id="FJS-Kr-qNc"/>
+                            <constraint firstItem="arX-Ln-YiL" firstAttribute="leading" secondItem="gHo-qm-vHd" secondAttribute="leading" id="RYl-JD-glh"/>
+                            <constraint firstItem="nBa-KR-zcu" firstAttribute="trailing" secondItem="arX-Ln-YiL" secondAttribute="trailing" id="S6J-hW-lPy"/>
+                            <constraint firstAttribute="trailing" secondItem="EhL-Z9-qrW" secondAttribute="trailing" constant="10" id="YyZ-tl-SMa"/>
+                            <constraint firstItem="EhL-Z9-qrW" firstAttribute="top" secondItem="hz6-1V-oGb" secondAttribute="top" constant="9" id="Zrc-ou-VOG"/>
+                            <constraint firstItem="shi-Au-Q3I" firstAttribute="top" secondItem="gHo-qm-vHd" secondAttribute="bottom" constant="22" id="c0Y-n8-st2"/>
+                            <constraint firstAttribute="bottom" secondItem="arX-Ln-YiL" secondAttribute="bottom" id="eBl-9g-ZWa"/>
+                            <constraint firstItem="arX-Ln-YiL" firstAttribute="trailing" secondItem="gHo-qm-vHd" secondAttribute="trailing" id="fF9-NJ-IG7"/>
+                            <constraint firstItem="EhL-Z9-qrW" firstAttribute="leading" secondItem="hz6-1V-oGb" secondAttribute="leading" constant="10" id="ilF-j3-XXB"/>
+                            <constraint firstAttribute="height" constant="100" id="kfz-bA-zJJ"/>
+                            <constraint firstItem="arX-Ln-YiL" firstAttribute="top" secondItem="shi-Au-Q3I" secondAttribute="bottom" constant="20.5" id="kh2-hK-x1f"/>
+                            <constraint firstItem="nBa-KR-zcu" firstAttribute="centerY" secondItem="shi-Au-Q3I" secondAttribute="centerY" id="tMr-EM-5Yc"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hz6-1V-oGb" secondAttribute="trailing" id="Omi-12-lTZ"/>
+                    <constraint firstAttribute="bottom" secondItem="hz6-1V-oGb" secondAttribute="bottom" id="Xa0-eD-cJJ"/>
+                    <constraint firstItem="hz6-1V-oGb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dKy-7M-QO4"/>
+                    <constraint firstItem="hz6-1V-oGb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ecT-QL-nJS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="buttonNext" destination="nBa-KR-zcu" id="TrW-47-Rum"/>
+                <outlet property="laCurrancyName" destination="shi-Au-Q3I" id="OpR-o8-kPF"/>
+                <outlet property="laCurrency" destination="EhL-Z9-qrW" id="k1Q-yG-h6N"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="next_icon" width="9" height="16"/>
+    </resources>
+</document>

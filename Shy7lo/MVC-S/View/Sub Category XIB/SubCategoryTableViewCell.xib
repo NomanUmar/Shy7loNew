@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Regular.otf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubCategoryTableViewCell" rowHeight="114" id="KGk-i7-Jjw" customClass="SubCategoryTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hO6-YM-odf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IeS-tR-saJ">
+                                <rect key="frame" x="0.0" y="75" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="QX2-wu-oyY"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDc-lx-YDa">
+                                <rect key="frame" x="10" y="10" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Hvw-gm-77r"/>
+                                    <constraint firstAttribute="height" constant="60" id="i4M-SU-6Al"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVT-o9-x8R">
+                                <rect key="frame" x="90" y="29" width="277" height="18"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IeS-tR-saJ" firstAttribute="top" secondItem="FDc-lx-YDa" secondAttribute="bottom" constant="5" id="00M-md-McH"/>
+                            <constraint firstItem="PVT-o9-x8R" firstAttribute="centerY" secondItem="hO6-YM-odf" secondAttribute="centerY" id="93t-0m-eIC"/>
+                            <constraint firstItem="PVT-o9-x8R" firstAttribute="leading" secondItem="FDc-lx-YDa" secondAttribute="trailing" constant="20" id="Byr-cP-dEf"/>
+                            <constraint firstAttribute="bottom" secondItem="IeS-tR-saJ" secondAttribute="bottom" id="CRP-bz-SfN"/>
+                            <constraint firstAttribute="width" secondItem="hO6-YM-odf" secondAttribute="height" multiplier="375:76" id="Oib-5s-7yE"/>
+                            <constraint firstAttribute="height" constant="76" id="YPy-7w-vDC"/>
+                            <constraint firstAttribute="trailing" secondItem="IeS-tR-saJ" secondAttribute="trailing" id="Yd5-DJ-Hge"/>
+                            <constraint firstItem="IeS-tR-saJ" firstAttribute="leading" secondItem="hO6-YM-odf" secondAttribute="leading" id="dYQ-JA-oH1"/>
+                            <constraint firstItem="FDc-lx-YDa" firstAttribute="leading" secondItem="hO6-YM-odf" secondAttribute="leading" constant="10" id="lvg-M8-7R0"/>
+                            <constraint firstAttribute="trailing" secondItem="PVT-o9-x8R" secondAttribute="trailing" constant="8" id="mXn-cY-buj"/>
+                            <constraint firstItem="FDc-lx-YDa" firstAttribute="top" secondItem="hO6-YM-odf" secondAttribute="top" constant="10" id="xen-vh-7Do"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hO6-YM-odf" secondAttribute="trailing" id="2Om-UK-CP8"/>
+                    <constraint firstAttribute="bottom" secondItem="hO6-YM-odf" secondAttribute="bottom" id="VOD-Mc-dOH"/>
+                    <constraint firstItem="hO6-YM-odf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vei-XQ-RGN"/>
+                    <constraint firstItem="hO6-YM-odf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XgJ-ex-W1B"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="laSubCategoryName" destination="PVT-o9-x8R" id="vRP-tQ-EN2"/>
+                <outlet property="subCategoryImage" destination="FDc-lx-YDa" id="bO3-ZS-aXi"/>
+                <outlet property="subCategoryView" destination="hO6-YM-odf" id="23M-wB-kip"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="110"/>
+        </tableViewCell>
+    </objects>
+</document>
