@@ -43,11 +43,21 @@
 "PasswordSVC" = "كلمه السر";
 "ChangeEmailSVC" = "تغيير الايميل";
 "ChangePasswordSVC" = "تغيير كلمة السر";
+"CountrySVC" = "بلد" ;
 
 
 //language View COntroller
 
 "LanguageLVC" = "لغة";
 
+//country change
+
+
+"countryChangeVC"   = "بلد";
+
+//Sub category
+
+
+"ViewAllSubCategoryvc" = "عرض الكل";
 
 

@@ -195,8 +195,6 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     //======================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
        
-        
-        
         self.imageAnimate()
         
         return true
@@ -241,7 +239,12 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         
         UIView.animate(withDuration: 0.8 , animations: {
         }, completion: {(isCompleted) in
-            self.imageView.frame = CGRect(x: 7 , y: 7, width: 20 , height: 20)
+            if self.lang.contains("ar"){
+                self.imageView.frame = CGRect(x: self.view.bounds.width - 50 , y: 7, width: 20 , height: 20)
+            }
+            else{
+                self.imageView.frame = CGRect(x: 7 , y: 7, width: 20 , height: 20)
+            }
             
         })
      

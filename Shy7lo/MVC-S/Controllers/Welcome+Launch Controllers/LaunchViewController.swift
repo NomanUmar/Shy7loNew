@@ -12,6 +12,9 @@ import UIKit
 class LaunchViewController: UIViewController {
     var window: UIWindow?
     @IBOutlet var preLoader: UIProgressView!
+    
+    var countriesData : [CountriesObj]!
+    
     let maxTime : Float = 3.0
     var currentTime : Float = 0.0
     
@@ -59,10 +62,12 @@ class LaunchViewController: UIViewController {
             perform(#selector(updateLoader), with: nil, afterDelay: 1.0)
         }else{
             self.nextController()
+            
         }
     }
     
-    
+   //=====================================================================================
+   //check first lounch or not  and go to next controller
     func nextController(){
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -81,7 +86,7 @@ class LaunchViewController: UIViewController {
             }else{
                 TransitionArabic.switchViewControllers(isArabic: false)
             }
-            // self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController")
+            
             
             let vc = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
             
@@ -92,7 +97,7 @@ class LaunchViewController: UIViewController {
             
         } else {
             print("First launch, setting UserDefault.")
-            UserDefaults.standard.set(true, forKey: "newInstallation")
+            
             let locale = Locale.current
             
             let countrycode = locale.regionCode!
@@ -102,15 +107,18 @@ class LaunchViewController: UIViewController {
             let preferredLanguage = NSLocale.preferredLanguages[0]
             
             print(preferredLanguage)
+           
             
             if preferredLanguage.contains("ar"){
                 UserInfoDefault.saveLanguage(language: "ar-SA")
                 
                 
                 TransitionArabic.switchViewControllers(isArabic: true)
-                //for arabic system font
+                
+                //for arabic, system font
                 UILabel.appearance().substituteFontName = "System"
                 UITextField.appearance().substituteFontName = "System"
+                
                 
                 let vc = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
                 self.navigationController?.pushViewController(vc,animated: true)
@@ -126,7 +134,8 @@ class LaunchViewController: UIViewController {
         }
         //present((self.window?.rootViewController)!, animated:false, completion:nil)
     }
-    
+  //=================================================================================
+  // call api get app init data and save response in user defaults
     func callForAppInit(){
         let deviceToken = UserInfoDefault.getDeviceToken()
         let country = UserInfoDefault.getCountryCode()
@@ -140,7 +149,7 @@ class LaunchViewController: UIViewController {
                 
                 let apiInitResponse : AppInitResponse = data!
                 print(apiInitResponse)
-                
+                self.countriesData = data?.countries
                 let token = apiInitResponse.api_token
                 UserInfoDefault.saveToken(token: token)
                 //save apiInitdata to default
@@ -153,5 +162,11 @@ class LaunchViewController: UIViewController {
             }
         }
     }
+    
+    //=====================================================================================
+  
+    
+    
+    //===================================================================================
 }
 

@@ -98,7 +98,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     @IBAction func buSkip(_ sender: Any) {
         
         print("Skip")
-        
+        UserDefaults.standard.set(true, forKey: "newInstallation")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as!
         LandingViewController
@@ -108,7 +108,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     
     @IBAction func buNext(_ sender: Any) {
         print("Next")
-        
+        UserDefaults.standard.set(true, forKey: "newInstallation")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "CategoriesViewController") as! CategoriesViewController
           vc.categoryData =  self.appInitResponse?.landing_screens.base_screens
@@ -135,10 +135,15 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         //self.countryImage.image = UIImage(named: countryListEn[row])
         print(self.countriesName[row])
         self.selectedCountry = self.countriesName[row]
+        
+        
         //function call
         countryId = self.forLoadImage(countryName: selectedCountry)
         print(countryId!)
         self.countryImage.image = UIImage(named: countryId!)
+         UserInfoDefault.saveCountryName(countryName: self.countriesName[row])
+        self.countryId = self.forLoadImage(countryName: self.selectedCountry)
+        UserInfoDefault.saveCountyCode(countyCode: self.countryId)
     }
     
     
@@ -154,19 +159,23 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
             self.appInitResponse = res
             self.countriesData = res.countries
             var country = [String]()
+           
         //=========================================================================
         //get countries from response
             for i in 0..<self.countriesData.count {
                 print("country------>\(self.countriesData[i])  \n \n \n \n")
-
+                
                 
                 if lang.contains("ar"){
                     country.append(self.countriesData[i].full_name_locale)
+                    
                 }else{
                     country.append(self.countriesData[i].full_name_english)
+                    
                 }
                 
             }
+           
             //==============================================================================
             //array sort and save in countiesName
             self.countriesName = country.sorted()
@@ -178,23 +187,68 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                     if lang.contains("ar"){
                         self.selectedCountry = self.countriesData[j].full_name_locale
                         self.defaultCountry = self.selectedCountry
+                        
+                        
+                        //country in arabic because use at setting time
+                        
+                        UserInfoDefault.saveCountryName(countryName: self.selectedCountry)
+                       
+                        
+                        //both language in arabic or english because use at setting time
+                        let currancyArabic = self.countriesData[j].currency_ar
+                        UserInfoDefault.saveCurrancyArabic(currancyArabic: currancyArabic)
+                        let currancyEnglish = self.countriesData[j].currency_en
+                        UserInfoDefault.saveCurrancyEnglish(currancyEnglish: currancyEnglish)
+                        
                     
                     }else{
-                    self.selectedCountry = self.countriesData[j].full_name_english
+                        self.selectedCountry = self.countriesData[j].full_name_english
                         self.defaultCountry = self.selectedCountry
+              
+                        
+                        //country in english because use at setting time
+                        
+                        UserInfoDefault.saveCountryName(countryName: self.selectedCountry)
+                        
+                        
+                        //both language in arabic or english because use at setting time
+                        let currancyArabic = self.countriesData[j].currency_ar
+                        UserInfoDefault.saveCurrancyArabic(currancyArabic: currancyArabic)
+                        let currancyEnglish = self.countriesData[j].currency_en
+                        UserInfoDefault.saveCurrancyEnglish(currancyEnglish: currancyEnglish)
                         
                     }
                 }else{
                     if lang.contains("ar"){
                         self.selectedCountry = "المملكة العربية السعودية"
                         self.defaultCountry = self.selectedCountry
+                        
+                        //country arabic because use at setting time
+                        
+                        
+                        UserInfoDefault.saveCountryName(countryName: "المملكة العربية السعودية")
+                        
+                        //both language in arabic or english because use at setting time
                         UserInfoDefault.saveCountyCode(countyCode: "SA")
+                        UserInfoDefault.saveCurrancyArabic(currancyArabic: "ر.س")
+                        UserInfoDefault.saveCurrancyEnglish(currancyEnglish: "SAR")
+                        
         
                     }else{
                         self.selectedCountry = "Saudi Arabia"
                         self.defaultCountry = self.selectedCountry
+                        
+                        
+                        //country in english because use at setting time
+                        
+                        UserInfoDefault.saveCountryName(countryName: "Saudi Arabia")
+                    
+                        
+                        //both language in arabic or english because use at setting time
+                        
                         UserInfoDefault.saveCountyCode(countyCode: "SA")
-                       
+                        UserInfoDefault.saveCurrancyEnglish(currancyEnglish: "SAR")
+                        UserInfoDefault.saveCurrancyArabic(currancyArabic: "ر.س")
                     }
                    
                 }
@@ -226,13 +280,20 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                 if selectedCountry == self.countriesData[i].full_name_locale{
                     
                     code = self.countriesData[i].id
+                    //save currancy
+                    UserInfoDefault.saveCurrancyArabic(currancyArabic: self.countriesData[i].currency_ar)
+                    UserInfoDefault.saveCurrancyEnglish(currancyEnglish: self.countriesData[i].currency_en)
                 }
             }else{
                 if selectedCountry == self.countriesData[i].full_name_english{
                     code =  self.countriesData[i].id
+                    //save currancy
+                    UserInfoDefault.saveCurrancyArabic(currancyArabic: self.countriesData[i].currency_ar)
+                    UserInfoDefault.saveCurrancyEnglish(currancyEnglish: self.countriesData[i].currency_en)
                 }
             }
         }
+        UserInfoDefault.saveCountyCode(countyCode: code)
         print(code!)
         return code!
     }

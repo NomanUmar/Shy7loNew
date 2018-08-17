@@ -67,6 +67,44 @@ class ApisCallingClass: NSObject {
                 let message = JSON(data)
                 let msg = message["message"].stringValue
                 print(msg)
+                
+                onCompletion(nil)
+            }
+        }
+    }
+    
+    
+    //get product by Id
+    
+    //get Sub Categories by IDs
+    
+    class func  getProductdID(id: String,sort_by:String,direction:String,page:Int,onCompletion :@escaping (ProductResponse?)-> Void){
+        //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
+        let category_id = "category_id=" + id
+        let sort = "&sort_by=" + sort_by
+        let direction = "&direction=" + direction
+        let page = "&page=" + String(page)
+        let url = URLs.getProductsId +  category_id + sort + direction + page
+        print(url)
+        ApiManager.get(Url: url) { (data,success:Bool) in
+            if success {
+                do {
+                    print(JSON(data))
+                    let jsonDecoder = JSONDecoder()
+                    let res = try jsonDecoder.decode(ProductResponse.self, from: data) as ProductResponse
+                    print(res)
+                    
+                    onCompletion(res)
+                    
+                }    catch let error {
+                    print(" error --->  \(error)")
+                }
+            }
+            else {
+                let message = JSON(data)
+                let msg = message["message"].stringValue
+                print(msg)
+                onCompletion(nil)
             }
         }
     }

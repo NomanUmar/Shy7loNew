@@ -13,6 +13,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     @IBOutlet var buttonBack: UIButton!
     @IBOutlet var categoryName: UILabel!
     @IBOutlet var tableView: UITableView!
+    var lang:String!
     var SubCategoryId:String!
     var categoriesAll = [child_data_response]()
     var banner = [banner_response]()
@@ -32,11 +33,17 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     override func viewWillAppear(_ animated: Bool) {
         
+        
+        self.lang = UserInfoDefault.getLanguage()
+        
         //Name of category form previous controller
         self.categoryName.text = self.SubCategoryName.uppercased()
         tableView.register(UINib(nibName: "SubCategoryBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "SubCategoryBannerTableViewCell")
+        //ViewAllTableViewCell
         
         tableView.register(UINib(nibName: "SubCategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "SubCategoryTableViewCell")
+        
+        tableView.register(UINib(nibName: "ViewAllTableViewCell", bundle: nil), forCellReuseIdentifier: "ViewAllTableViewCell")
         
         
         //function call for load data
@@ -56,15 +63,18 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.categoriesAll.count != 0 || banner.count != 0{
         let countBanner = self.banner.count
         let countCategory = self.categoriesAll.count
-        return countCategory + countBanner
+            return countCategory + countBanner + 1
+            
+        }else{
+            return 0
+        }
         
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
         
         
         if indexPath.row < self.banner.count{
@@ -77,7 +87,22 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             }
             
             return bannerCell
+        }else if indexPath.row == self.banner.count{
+            //ViewAllTableViewCell
+            
+            
+            let viewAllCell = tableView.dequeueReusableCell(withIdentifier: "ViewAllTableViewCell", for:indexPath) as! ViewAllTableViewCell
+            viewAllCell.laViewAll.text = "ViewAllSubCategoryvc".localizableString(loc: lang)
+            viewAllCell.ViewAllView.tag = indexPath.row
+            let tapViewAll = UITapGestureRecognizer(target: self, action: #selector(tapViewAllCell(sender:)))
+            viewAllCell.ViewAllView.addGestureRecognizer(tapViewAll)
+            viewAllCell.ViewAllView.isUserInteractionEnabled = true
+            
+           
+            return viewAllCell
+            
         }
+            
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubCategoryTableViewCell", for:indexPath) as! SubCategoryTableViewCell
             print("Row---->")
@@ -89,8 +114,8 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             cell.subCategoryView.addGestureRecognizer(tapCategoryView)
             cell.subCategoryView.isUserInteractionEnabled = true
             //end for cell selection
-            cell.laSubCategoryName.text = self.categoriesAll[indexPath.row - banner.count].name
-            let postPicUrl =  URL(string: self.categoriesAll[indexPath.row - banner.count].thumb!)!
+            cell.laSubCategoryName.text = self.categoriesAll[(indexPath.row - 1 ) - banner.count].name
+            let postPicUrl =  URL(string: self.categoriesAll[(indexPath.row - 1) - banner.count].thumb!)!
             cell.subCategoryImage.kf.setImage(with: postPicUrl, options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
                 
             }
@@ -122,11 +147,53 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let categoryCellTag = sender.view
         
+        //start ignoring intrection
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
         
         let index  = (categoryCellTag?.tag)!
         print(index as Any)
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as!  ProductViewController
+           vc.subCategoryId =  self.categoriesAll[index - self.banner.count - 1].id
+           vc.subCategoryName = self.categoriesAll[index - self.banner.count - 1].name
+        
+        
+        
+        //end ignoring intrection
+        
+        UIApplication.shared.endIgnoringInteractionEvents()
+        
+        self.navigationController?.pushViewController(vc,animated: true)
     
+    }
+    
+    @objc func tapViewAllCell(sender: UITapGestureRecognizer) {
+        //.. view all comment
+        
+        let viewAllCellTag = sender.view
+        
+        
+        let index  = (viewAllCellTag?.tag)!
+        print(index as Any)
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as!  ProductViewController
+        vc.subCategoryId =  self.SubCategoryId
+        vc.subCategoryName = self.SubCategoryName
+        
+        print(self.SubCategoryId)
+        print(self.SubCategoryName)
+        
+       
+        //end ignoring intrection
+        UIApplication.shared.endIgnoringInteractionEvents()
+        self.navigationController?.pushViewController(vc,animated: true)
+        
+        
     }
     
     @IBAction func buBack(_ sender: Any) {

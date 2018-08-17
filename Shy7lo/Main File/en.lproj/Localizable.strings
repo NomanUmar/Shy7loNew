@@ -45,6 +45,7 @@
 "PasswordSVC" = "Password";
 "ChangeEmailSVC" = "Change e-mail";
 "ChangePasswordSVC" = "Change Password";
+"CountrySVC" = "Country" ;
 
 
 
@@ -52,5 +53,17 @@
 //language View COntroller
 
 "LanguageLVC" = "LANGUAGE";
+
+
+//country change
+
+
+"countryChangeVC" = "COUNTRY";
+
+
+//Sub category
+
+
+"ViewAllSubCategoryvc" = "View All";
 
 

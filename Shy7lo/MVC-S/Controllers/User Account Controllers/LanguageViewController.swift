@@ -64,14 +64,16 @@ class LanguageViewController: UIViewController {
             
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
             UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
+            UITextField.appearance().semanticContentAttribute = .forceRightToLeft
             UILabel.appearance().substituteFontName = "System"
             UITextField.appearance().substituteFontName = "System"
             
         }else{
             UIView.appearance().semanticContentAttribute = .forceLeftToRight
             UINavigationBar.appearance().semanticContentAttribute = .forceLeftToRight
-            UILabel.appearance().substituteFontName = "SF-Pro-Display"
-            UITextField.appearance().substituteFontName = "SF-Pro-Display"
+            UITextField.appearance().semanticContentAttribute = .forceLeftToRight
+            
+           
         }
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
         appDelegate?.window?.rootViewController = homeViewController

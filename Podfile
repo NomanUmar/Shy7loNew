@@ -14,6 +14,7 @@ target 'Shy7lo' do
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
   pod 'Kingfisher', '~> 4.0'
+  pod 'DropDown'
   
 
 end

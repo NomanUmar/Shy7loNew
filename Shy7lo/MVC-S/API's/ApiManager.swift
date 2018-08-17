@@ -26,9 +26,9 @@ class ApiManager: NSObject {
         request.addValue(token, forHTTPHeaderField: "Api-Token")
         if lang.contains("ar"){
             
-            request.addValue("ar", forHTTPHeaderField: "Lang")
+            request.addValue("ar", forHTTPHeaderField: "X-Lang")
         }else{
-            request.addValue("en", forHTTPHeaderField: "Lang")
+            request.addValue("en", forHTTPHeaderField: "X-Lang")
         }
         
         Alamofire.request(request)
@@ -68,9 +68,9 @@ class ApiManager: NSObject {
         request.addValue(token, forHTTPHeaderField: "Api-Token")
         if lang.contains("ar"){
             
-            request.addValue("ar", forHTTPHeaderField: "Lang")
+            request.addValue("ar", forHTTPHeaderField: "X-Lang")
         }else{
-             request.addValue("en", forHTTPHeaderField: "Lang")
+             request.addValue("en", forHTTPHeaderField: "X-Lang")
         }
         
         request.httpBody = user

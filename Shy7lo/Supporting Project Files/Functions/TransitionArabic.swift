@@ -16,9 +16,11 @@ class TransitionArabic: NSObject {
         if arabic {
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
             UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
+            UITextField.appearance().semanticContentAttribute = .forceRightToLeft
         }else{
             UIView.appearance().semanticContentAttribute = .forceLeftToRight
             UINavigationBar.appearance().semanticContentAttribute = .forceLeftToRight
+            UITextField.appearance().semanticContentAttribute = .forceLeftToRight
         }
     }
 

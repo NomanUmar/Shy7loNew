@@ -109,7 +109,7 @@ class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPicker
    //=====================================================================================
     
     @IBAction func buSkip(_ sender: Any) {
-        
+        UserDefaults.standard.set(true, forKey: "newInstallation")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as!
         LandingViewController
@@ -117,7 +117,7 @@ class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPicker
     }
     
     @IBAction func buShopNow(_ sender: Any) {
-        
+        UserDefaults.standard.set(true, forKey: "newInstallation")
         let mytabbar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
         let appDelegate = UIApplication.shared.delegate  as! AppDelegate
         appDelegate.window?.rootViewController = mytabbar

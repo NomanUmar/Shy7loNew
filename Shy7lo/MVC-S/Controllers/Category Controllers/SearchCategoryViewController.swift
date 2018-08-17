@@ -191,8 +191,6 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     //=================================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        
-        
         self.imageAnimate()
         
         return true
@@ -232,7 +230,12 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         
         UIView.animate(withDuration: 0.8 , animations: {
         }, completion: {(isCompleted) in
-            self.imageView.frame = CGRect(x: 7 , y: 7, width: 20 , height: 20)
+            if self.lang.contains("ar"){
+                self.imageView.frame = CGRect(x: self.view.bounds.width - 50 , y: 7, width: 20 , height: 20)
+            }
+            else{
+                self.imageView.frame = CGRect(x: 7 , y: 7, width: 20 , height: 20)
+            }
             
         })
         
@@ -333,7 +336,19 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             if (res.data?.category?.child_data?.isEmpty)!{
                 //end ignoring intrection
                 UIApplication.shared.endIgnoringInteractionEvents()
-                self.showToast(message: "no sub category")
+            
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as!  ProductViewController
+                vc.subCategoryId =  selectedCategoryID
+                vc.subCategoryName = self.categoriesAll[index - self.banner.count].name
+                //end ignoring intrection
+                
+               
+                self.navigationController?.pushViewController(vc,animated: true)
+                
+                
+                
             }else{
                  let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SubCategoryViewController") as! SubCategoryViewController
@@ -344,11 +359,6 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                 UIApplication.shared.endIgnoringInteractionEvents()
                 self.navigationController?.pushViewController(vc,animated: true)
             }
-            
-            
         }
-        
-       
-        
     }
 }

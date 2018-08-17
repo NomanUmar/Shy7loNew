@@ -15,7 +15,7 @@ extension UIViewController {
         let ai = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
         ai.startAnimating()
         ai.center = spinnerView.center
-        ai.color = UIColor.green
+        ai.color = UIColor.gray
         let  transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         ai.transform = transform
         

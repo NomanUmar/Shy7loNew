@@ -10,6 +10,7 @@ import UIKit
 
 class CurrencyTableViewCell: UITableViewCell {
 
+    @IBOutlet var currancyView: UIView!
     @IBOutlet var buttonNext: UIButton!
     
     @IBOutlet var laCurrancyName: UILabel!

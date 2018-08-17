@@ -94,6 +94,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="buttonNext" destination="nBa-KR-zcu" id="TrW-47-Rum"/>
+                <outlet property="currancyView" destination="hz6-1V-oGb" id="zVf-cl-5AC"/>
                 <outlet property="laCurrancyName" destination="shi-Au-Q3I" id="OpR-o8-kPF"/>
                 <outlet property="laCurrency" destination="EhL-Z9-qrW" id="k1Q-yG-h6N"/>
             </connections>

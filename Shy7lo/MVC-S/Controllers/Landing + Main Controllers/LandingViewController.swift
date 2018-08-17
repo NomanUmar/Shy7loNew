@@ -59,26 +59,15 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
             print("Clicked")
             print(request.url!)
             let url =  request.url
-            let newUrl =  String(describing: url!)
-            if newUrl.contains("cat_id") || newUrl.contains("category_id"){
-            // if else for get category id id arabic so category_id else cat_id
-            if lang.contains("ar"){
+            //  let newUrl =  String(describing: url!)
             let cat_id = url?.valueOf("category_id")
             print("\(String(describing: cat_id))")
              UserInfoDefault.saveCategoryID(categoryID: cat_id!)
-            }else{
-                let cat_id = url?.valueOf("cat_id")
-                print("\(String(describing: cat_id))")
-                UserInfoDefault.saveCategoryID(categoryID: cat_id!)
-            }
+            
                 let mytabbar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
                 let appDelegate = UIApplication.shared.delegate  as! AppDelegate
                 appDelegate.window?.rootViewController = mytabbar
-            }
-           
-        
-          
-          
+            
         
         }
         return true
