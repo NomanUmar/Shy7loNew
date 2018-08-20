@@ -83,6 +83,8 @@ class LaunchViewController: UIViewController {
                 TransitionArabic.switchViewControllers(isArabic: true)
                 UILabel.appearance().substituteFontName = "System"
                 UITextField.appearance().substituteFontName = "System"
+            
+                
             }else{
                 TransitionArabic.switchViewControllers(isArabic: false)
             }

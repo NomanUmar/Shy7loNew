@@ -30,7 +30,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     override func viewDidLoad() {
         
         
-       
+        
         
         //set image in same direction with language
         let flippedImage = UIImage(named: "back_icon")?.imageFlippedForRightToLeftLayoutDirection()
@@ -62,18 +62,15 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         
         // self.dropDownLoad()
-        
-        collectionView.dataSource = self
         collectionView.delegate = self
-    
-      /*  let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 2, bottom: 10, right: 2)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        collectionView!.collectionViewLayout = layout*/
+        collectionView.dataSource = self
         
-        self.currencyCall()
+    
         self.ProductById(id: subCategoryId , page : 1)
+        
+       
+        self.currencyCall()
+        
         
         self.laProductName.text = self.subCategoryName.uppercased()
         
@@ -97,8 +94,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        
         return self.productList.count
+        
         
     }
     
@@ -113,25 +110,69 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         cell.productImage.kf.setImage(with: postPicUrl, placeholder: UIImage(named: "imagePlaceHolder"), options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
             
         }
-       
         
+        
+        
+       
+        //=========================================================================
+        
+        let specialFromDate =  self.productList[indexPath.row].special_from_date
+        let specialT0Date =  self.productList[indexPath.row].special_from_date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.date(from:specialFromDate!)
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFrom = dateFormatter.date(from: specialFromDate!)
+        dateFormatter.dateStyle = .medium
+        let finalFromDate = dateFormatter.string(from: dateFrom!)
+        
+        dateFormatter.date(from:specialFromDate!)
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let toDate = dateFormatter.date(from: specialT0Date!)
+        dateFormatter.dateStyle = .medium
+        let finaltoDate = dateFormatter.string(from: toDate!)
+        
+        
+        //====================================================================
         
         
         
         
         let specialPrice = self.productList[indexPath.row].special_price!
-        if specialPrice == 0 {
+        
+        
+        if finalFromDate <= finaltoDate {
+            
+            if specialPrice != 0{
+                
+                let specialRate = Float(self.productList[indexPath.row].special_price!) * self.currencyChangeRate
+                // round off up to 2 decimal
+                let roundSpecialRate = String(format: "%.1f", specialRate)
+                // result = 3.3
+                
+                cell.laSpecialPrice.text = self.currancy + " " + String( roundSpecialRate)
+                
+                cell.textCutView.isHidden = false
+                print( "Hight-->\(cell.laSpecialPrice.frame.height)")
+            }else{
+                cell.laSpecialPrice.text = ""
+                cell.textCutView.isHidden = true
+            }
+        }else{
             cell.laSpecialPrice.text = ""
             cell.textCutView.isHidden = true
             
-        }else{
-               let specialRate = Float(self.productList[indexPath.row].special_price!) * self.currencyChangeRate
-            cell.laSpecialPrice.text = self.currancy + " " + String( specialRate)
-            cell.textCutView.isHidden = false
-           print( "Hight-->\(cell.laSpecialPrice.frame.height)")
         }
+        
+        
+        
         let priceRate = Float(self.productList[indexPath.row].price!) * self.currencyChangeRate
-        cell.laprice.text = self.currancy + " " + String(priceRate)
+        
+        // round off up to 2 decimal
+        let roundPriceRate = String(format: "%.1f", priceRate)
+        
+        
+        cell.laprice.text = self.currancy + " " + String(roundPriceRate)
         
         
         //==================================================================
@@ -147,27 +188,31 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let string: NSMutableAttributedString = NSMutableAttributedString(string: finalStr)
         string.setColorForText(textToFind: str1!, withColor: UIColor.black)
         string.setColorForText(textToFind: str2!, withColor: color)
+        
         cell.laDiscription.attributedText = string
         
-         print( "Hight-->\(cell.laDiscription.frame.height)")
-        //==================================================================
+        
+        print( "Hight-->\(cell.laDiscription.frame.height)")
+        
+        
+        //====================================================================
         return cell
+        
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = self.collectionView.bounds.width/2.0
-       // let cellHight = cellWidth * 1.75
-        var discription:Int!
-        if  self.lang.contains("ar"){
-            discription = 41 + 10
-        }else{
-            discription = 17 + 17
-        }
+        // let cellHight = cellWidth * 1.75
     
-         let value = 10 + 6 + 15
+       
+          let  discription = 17 + 17
+        
+        
+        
+        let value = 10 + 6 + 15
         let newHight = ((239 / 181) * cellWidth) + CGFloat(value + discription)
         print("new Hight-->\(newHight)")
-         print("cell width-->\(cellWidth)")
+        print("cell width-->\(cellWidth)")
         return CGSize(width: cellWidth - 12, height: newHight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -189,11 +234,9 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("\n \n load more willDisplay \n \n \(indexPath)")
+        
+        
         if indexPath.row ==  self.productList.count  - 4 {
-            
-            
-            
-            
             
             let totalCount = self.productRespone.data?.total_count!
             let pageLimit = Int((self.productRespone.data?.request_params.limit!)!)
@@ -202,19 +245,16 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
             print(pageLimit! * page! )
             print(totalCount!)
             if  pageLimit! * page! <= totalCount!{
-            
-            
-            if   self.isLoading == false
-            {
-                self.ProductById(id: self.subCategoryId, page: page! + 1)
                 
                 
-                
-                
-            }else{
-                
-                print(" \n \n Wait load more willDisplay \n \n \(indexPath)")
-            }
+                if   self.isLoading == false
+                {
+                    self.ProductById(id: self.subCategoryId, page: page! + 1)
+                    
+                }else{
+                    
+                    print(" \n \n Wait load more willDisplay \n \n \(indexPath)")
+                }
             }else{
                 
             }
@@ -227,7 +267,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     func ProductById(id:String , page: Int){
         //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
         
-       
+        
         self.isLoading = true
         
         ApisCallingClass.getProductdID(id: id, sort_by: "created_at", direction: "DESC", page: page) { (data) in
@@ -240,9 +280,19 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 
                 self.isLoading = false
                 self.collectionView.reloadData()
+                
+                
+              /*  let when = DispatchTime.now()  // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    
+                    self.collectionView.reloadData()
+                    
+                    
+                }*/
             }
             
         }
+        
     }
     //===============================================================================
     //for make dropdown
@@ -290,7 +340,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let jsonDecoder = JSONDecoder()
         if let res = try? jsonDecoder.decode ( AppInitResponse.self , from: data!  ) as   AppInitResponse {
             
-           self.ExchangeRate = res.currencies.exchange_rates
+            self.ExchangeRate = res.currencies.exchange_rates
             
             print(self.ExchangeRate[1].rate)
         }
