@@ -15,6 +15,6 @@ target 'Shy7lo' do
   pod 'Firebase/DynamicLinks'
   pod 'Kingfisher', '~> 4.0'
   pod 'DropDown'
-  
+  pod 'RangeSeekSlider'
 
 end

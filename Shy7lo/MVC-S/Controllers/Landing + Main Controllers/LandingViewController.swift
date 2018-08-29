@@ -45,11 +45,11 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
         // Do any additional setup after loading the view.
     }
     func webViewDidStartLoad(_ webView: UIWebView) {
-      //  indecator = UIViewController.displaySpinner(onView: self.view)
+        indecator = UIViewController.displaySpinner(onView: self.view)
     }
     func webViewDidFinishLoad(_ webView: UIWebView) {
         
-      //   UIViewController.removeSpinner(spinner: indecator)
+         UIViewController.removeSpinner(spinner: indecator)
         
     }
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
@@ -80,7 +80,7 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
     
     func loadUrl(){
         
-        
+       
         
         
         var url:URL!
@@ -89,8 +89,9 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
         }else{
              url = URL(string: AdditionalURLs.LandingScreen + "en")
         }
-        
-        landingWebView.loadRequest(URLRequest(url: url))
+         var urlRequest = URLRequest(url: url!)
+         urlRequest.cachePolicy = .returnCacheDataElseLoad
+        landingWebView.loadRequest(urlRequest)
     }
 }
 

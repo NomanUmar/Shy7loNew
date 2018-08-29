@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Medium.ttf">
+            <string>SFProDisplay-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryTableViewCell" id="KGk-i7-Jjw" customClass="CategoryTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gi-Bi-WBb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEh-1U-k2D">
+                                <rect key="frame" x="10" y="21.5" width="21.5" height="19.5"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FnL-u4-6hv">
+                                <rect key="frame" x="17" y="60.5" width="341" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="304-7i-3ts"/>
+                                </constraints>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectedFilter" translatesAutoresizingMaskIntoConstraints="NO" id="oCc-l2-jXv">
+                                <rect key="frame" x="348" y="25" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="qME-WP-ZI2"/>
+                                    <constraint firstAttribute="width" constant="10" id="wC5-zX-gcG"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TEh-1U-k2D" firstAttribute="centerY" secondItem="9gi-Bi-WBb" secondAttribute="centerY" id="5rs-Bd-UyS"/>
+                            <constraint firstItem="TEh-1U-k2D" firstAttribute="leading" secondItem="9gi-Bi-WBb" secondAttribute="leading" constant="10" id="EUx-mk-ZaI"/>
+                            <constraint firstAttribute="trailing" secondItem="oCc-l2-jXv" secondAttribute="trailing" constant="17" id="Gs3-8D-Znx"/>
+                            <constraint firstItem="FnL-u4-6hv" firstAttribute="leading" secondItem="9gi-Bi-WBb" secondAttribute="leading" constant="17" id="PKL-PC-5Eh"/>
+                            <constraint firstAttribute="bottom" secondItem="FnL-u4-6hv" secondAttribute="bottom" id="dDv-Yb-eLS"/>
+                            <constraint firstAttribute="height" constant="61.5" id="kYk-ju-JCx"/>
+                            <constraint firstAttribute="trailing" secondItem="FnL-u4-6hv" secondAttribute="trailing" constant="17" id="qvT-ch-UVX"/>
+                            <constraint firstItem="oCc-l2-jXv" firstAttribute="centerY" secondItem="9gi-Bi-WBb" secondAttribute="centerY" constant="-0.75" id="ty4-B0-rk5"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="9gi-Bi-WBb" secondAttribute="trailing" id="115-HY-8B4"/>
+                    <constraint firstAttribute="bottom" secondItem="9gi-Bi-WBb" secondAttribute="bottom" id="9Dd-Nt-vGo"/>
+                    <constraint firstItem="9gi-Bi-WBb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gnY-tY-EtK"/>
+                    <constraint firstItem="9gi-Bi-WBb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xzQ-2Z-Tkg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="laFilterName" destination="TEh-1U-k2D" id="N5Y-xc-zeE"/>
+                <outlet property="selecteedImage" destination="oCc-l2-jXv" id="Xy4-45-fZG"/>
+                <outlet property="tapView" destination="9gi-Bi-WBb" id="4n9-BX-48V"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="88"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="selectedFilter" width="107" height="107"/>
+    </resources>
+</document>

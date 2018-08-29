@@ -22,12 +22,12 @@ struct  URLs {
     static let SubCateoryId = baseUrl + "/api/catalog/sub-category/"
     
     // get products
-    //https://api2.shylabs.com/api/catalog/related/products/177
     static let getProductsId = baseUrl +  "/api/catalog/products?"
     
-   //https://api2.shylabs.com/api/catalog/products?category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
+ 
     
+   //https://api2.shylabs.com/api/catalog/brand
+    //brands
     
-    
-    
+    static let BrandsUrl = baseUrl +  "/api/catalog/brand"
 }

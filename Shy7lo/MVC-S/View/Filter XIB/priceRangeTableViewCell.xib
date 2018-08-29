@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Bold.ttf">
+            <string>SFProDisplay-Bold</string>
+        </array>
+        <array key="SF-Pro-Display-Medium.ttf">
+            <string>SFProDisplay-Medium</string>
+        </array>
+        <array key="SF-Pro-Display-Regular.ttf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="priceRangeTableViewCell" rowHeight="125" id="KGk-i7-Jjw" customClass="priceRangeTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNb-Q4-xAN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ae8-bt-sqV" customClass="RangeSeekSlider" customModule="RangeSeekSlider">
+                                <rect key="frame" x="17" y="60" width="341" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.8548173308" green="0.8549612164" blue="0.85479831699999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Ndl-Y5-KxJ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hideLabels" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                        <real key="value" value="1000"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="handleImage" value="handdle"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="colorBetweenHandles">
+                                        <color key="value" red="0.52151495218276978" green="0.52160614728927612" blue="0.52150297164916992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialColor">
+                                        <color key="value" red="0.85481733083724976" green="0.85496121644973755" blue="0.85479831695556641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedMinValue">
+                                        <real key="value" value="0.98999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedMaxValue">
+                                        <real key="value" value="999.99000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="handleBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="handleBorderColor">
+                                        <color key="value" red="0.52151495219999999" green="0.52160614729999999" blue="0.52150297160000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="handleDiameter">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhT-K8-sXT">
+                                <rect key="frame" x="17" y="21" width="35" height="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uK8-d4-vNN">
+                                <rect key="frame" x="17" y="120" width="29.5" height="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y82-Gd-I8d">
+                                <rect key="frame" x="327" y="120" width="31" height="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRE-Jb-sZX">
+                                <rect key="frame" x="290" y="120" width="29" height="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pG1-SU-zoC">
+                                <rect key="frame" x="54" y="120" width="31.5" height="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pG1-SU-zoC" firstAttribute="leading" secondItem="uK8-d4-vNN" secondAttribute="trailing" constant="8" id="33q-O0-Y2f"/>
+                            <constraint firstItem="ae8-bt-sqV" firstAttribute="leading" secondItem="sNb-Q4-xAN" secondAttribute="leading" constant="17" id="EF2-AG-nfE"/>
+                            <constraint firstAttribute="height" constant="149.5" id="FEC-PB-D1N"/>
+                            <constraint firstItem="uK8-d4-vNN" firstAttribute="top" secondItem="ae8-bt-sqV" secondAttribute="bottom" constant="5" id="KrM-oI-Eyh"/>
+                            <constraint firstItem="y82-Gd-I8d" firstAttribute="centerY" secondItem="uK8-d4-vNN" secondAttribute="centerY" id="MTO-aD-Ao8"/>
+                            <constraint firstItem="y82-Gd-I8d" firstAttribute="leading" secondItem="LRE-Jb-sZX" secondAttribute="trailing" constant="8" id="Thd-PG-LV4"/>
+                            <constraint firstItem="WhT-K8-sXT" firstAttribute="top" secondItem="sNb-Q4-xAN" secondAttribute="top" constant="21" id="Vyn-7r-dGi"/>
+                            <constraint firstItem="ae8-bt-sqV" firstAttribute="top" secondItem="WhT-K8-sXT" secondAttribute="bottom" constant="19" id="h8M-l9-Rt9"/>
+                            <constraint firstItem="WhT-K8-sXT" firstAttribute="leading" secondItem="sNb-Q4-xAN" secondAttribute="leading" constant="17" id="mTn-mn-ueq"/>
+                            <constraint firstItem="pG1-SU-zoC" firstAttribute="centerY" secondItem="uK8-d4-vNN" secondAttribute="centerY" id="ne6-iH-3KO"/>
+                            <constraint firstItem="y82-Gd-I8d" firstAttribute="top" secondItem="ae8-bt-sqV" secondAttribute="bottom" constant="5" id="nhO-oc-HSX"/>
+                            <constraint firstAttribute="trailing" secondItem="ae8-bt-sqV" secondAttribute="trailing" constant="17" id="nzk-UV-Iht"/>
+                            <constraint firstAttribute="trailing" secondItem="y82-Gd-I8d" secondAttribute="trailing" constant="17" id="pZS-MD-jVb"/>
+                            <constraint firstItem="uK8-d4-vNN" firstAttribute="leading" secondItem="sNb-Q4-xAN" secondAttribute="leading" constant="17" id="w6N-cx-0Ef"/>
+                            <constraint firstItem="y82-Gd-I8d" firstAttribute="centerY" secondItem="LRE-Jb-sZX" secondAttribute="centerY" id="ypd-EF-0Uc"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sNb-Q4-xAN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1EV-oR-2ii"/>
+                    <constraint firstAttribute="trailing" secondItem="sNb-Q4-xAN" secondAttribute="trailing" id="Fv3-Ik-LX9"/>
+                    <constraint firstAttribute="bottom" secondItem="sNb-Q4-xAN" secondAttribute="bottom" id="Zfs-w4-Sh2"/>
+                    <constraint firstItem="sNb-Q4-xAN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dKL-13-u8G"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="currencyMax" destination="LRE-Jb-sZX" id="B6y-gX-MrY"/>
+                <outlet property="currencyMin" destination="uK8-d4-vNN" id="qV9-MO-Fsx"/>
+                <outlet property="maxPrice" destination="y82-Gd-I8d" id="fMz-mm-kMM"/>
+                <outlet property="minPrice" destination="pG1-SU-zoC" id="gKw-3t-R2d"/>
+                <outlet property="priceRangeView" destination="ae8-bt-sqV" id="T5i-Wr-5gx"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="181"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="handdle" width="30" height="30"/>
+    </resources>
+</document>

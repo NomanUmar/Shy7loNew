@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.9.2</string>
+	<string>3.9.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -52,11 +52,11 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SF-Pro-Display-Bold</string>
-		<string>SF-Pro-Display-Regular</string>
-		<string>SF-Pro-Display-Semibold</string>
-		<string>Tahoma Bold</string>
-		<string>SF-Pro-Display-Medium</string>
+		<string>Tahoma Bold.ttf</string>
+		<string>SF-Pro-Display-Medium.ttf</string>
+		<string>SF-Pro-Display-Bold.ttf</string>
+		<string>SF-Pro-Display-Semibold.ttf</string>
+		<string>SF-Pro-Display-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

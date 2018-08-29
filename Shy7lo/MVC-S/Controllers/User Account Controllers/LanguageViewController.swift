@@ -61,17 +61,31 @@ class LanguageViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
         if arabic {
-            
+            UILabel.appearance().substituteFontName = "System"
+            UITextField.appearance().substituteFontName = "System"
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
             UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
             UITextField.appearance().semanticContentAttribute = .forceRightToLeft
-            UILabel.appearance().substituteFontName = "System"
-            UITextField.appearance().substituteFontName = "System"
+           
+        }
+        else{
             
-        }else{
             UIView.appearance().semanticContentAttribute = .forceLeftToRight
             UINavigationBar.appearance().semanticContentAttribute = .forceLeftToRight
             UITextField.appearance().semanticContentAttribute = .forceLeftToRight
+            //SFProDisplay
+            UILabel.appearance().substituteFontName = "SFProDisplay"
+            UITextField.appearance().substituteFontName = "SFProDisplay"
+           
+            
+            for family in UIFont.familyNames {
+                print("\(family)")
+                
+                for name in UIFont.fontNames(forFamilyName: family) {
+                    print("   \(name)")
+                }
+            }
+            
             
            
         }

@@ -62,6 +62,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         collectionview.dataSource = self
         
         //function call for load data
+        self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.apiCategoryData(id: self.cat_id)
         
         //table view delegates
@@ -180,9 +181,11 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             //end for cell selection
             cell.lacategoryName.text = self.categoriesAll[indexPath.row - banner.count].name
             let postPicUrl =  URL(string: self.categoriesAll[indexPath.row - banner.count].thumb!)!
-            cell.categoryImage.kf.setImage(with: postPicUrl, options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
+           
                 
-            }
+                cell.categoryImage.kf.indicatorType = .activity
+                cell.categoryImage.kf.setImage(with: postPicUrl)
+            
             return cell
         }
    
@@ -254,10 +257,10 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     
     //==================================================================
     func getUrl_and_Load (cat_id:String)  {
+       
         let data = UserDefaults.standard.value(forKey:"AppInit") as? Data
         let jsonDecoder = JSONDecoder()
         if let res = try? jsonDecoder.decode ( AppInitResponse.self , from: data!  ) as   AppInitResponse {
-            
             
             for j in 0..<res.landing_screens.base_screens.count{
                 print(j)
@@ -286,8 +289,10 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             
             
             
-        } // api init response
+        }
+        // api init response
         
+       
     } //  function
     
     //===============================================================
@@ -306,7 +311,9 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                 self.SubCategoryResponse = data
                 self.categoriesAll = (self.SubCategoryResponse.data?.category?.child_data!)!
                 self.banner = (self.SubCategoryResponse.data?.category?.banner!)!
+                UIViewController.removeSpinner(spinner: self.indecator)
                 self.tableView.reloadData()
+               
             }
         }
     }

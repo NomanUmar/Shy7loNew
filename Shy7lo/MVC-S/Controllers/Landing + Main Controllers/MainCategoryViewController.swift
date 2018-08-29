@@ -10,6 +10,7 @@ import UIKit
 
 class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate {
     
+    @IBOutlet var Activity: UIActivityIndicatorView!
     @IBOutlet var searchTF: UITextField!
     @IBOutlet var landingWebView: UIWebView!
     @IBOutlet var TFView: UIView!
@@ -17,7 +18,6 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     
     var lang:String!
     var selected:Int!
-    var indecator:UIView! = nil
     var imageView : UIImageView!
     var cat_id: String!
     var catagoryArray = [BaseScreenObj]()
@@ -34,7 +34,8 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     override func viewWillAppear(_ animated: Bool) {
        // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
         
-        
+        let  transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        self.Activity.transform = transform
         self.cat_id = UserInfoDefault.getCategoryID()
         self.lang = UserInfoDefault.getLanguage()
         
@@ -81,14 +82,7 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     
     //=====================================================================
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-      //  self.indecator = UIViewController.displaySpinner(onView: self.view)
-    }
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        
-       // UIViewController.removeSpinner(spinner: self.indecator)
-        
-    }
+
     
     //=======================================================================================
     
@@ -171,6 +165,9 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
+        
+        
+        self.landingWebView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
         var url:String!
         if lang.contains("ar"){
         url = self.catagoryArray[indexPath.row].url_ar
@@ -217,8 +214,20 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     func loadUrl(url:String){
         
         let url = URL(string: url)
-        landingWebView.loadRequest(URLRequest(url: url!))
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.cachePolicy = .returnCacheDataElseLoad
+        landingWebView.loadRequest(urlRequest)
+        
+        
     }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.Activity.isHidden = false
+    }
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+      self.Activity.isHidden = true
+    }
+    
     
     //=================================================================
     //functions for image in text field

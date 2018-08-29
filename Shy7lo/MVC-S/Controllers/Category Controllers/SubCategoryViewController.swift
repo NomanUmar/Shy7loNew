@@ -15,6 +15,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     @IBOutlet var tableView: UITableView!
     var lang:String!
     var SubCategoryId:String!
+    var indecator:UIView? = nil
     var categoriesAll = [child_data_response]()
     var banner = [banner_response]()
     var SubCategoryResponse:SubCategoriesResponse!
@@ -47,6 +48,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         //function call for load data
+        self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.apiCategoryData(id: self.SubCategoryId)
         
         //table view delegates
@@ -116,9 +118,11 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             //end for cell selection
             cell.laSubCategoryName.text = self.categoriesAll[(indexPath.row - 1 ) - banner.count].name
             let postPicUrl =  URL(string: self.categoriesAll[(indexPath.row - 1) - banner.count].thumb!)!
-            cell.subCategoryImage.kf.setImage(with: postPicUrl, options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
-                
-            }
+          
+                cell.subCategoryImage.kf.indicatorType = .activity
+                cell.subCategoryImage.kf.setImage(with: postPicUrl)
+
+            
             cell.subCategoryImage.maskCircle()
             return cell
         }
@@ -133,6 +137,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
                 self.SubCategoryResponse = data
                 self.categoriesAll = (self.SubCategoryResponse.data?.category?.child_data!)!
                 self.banner = (self.SubCategoryResponse.data?.category?.banner!)!
+                UIViewController.removeSpinner(spinner: self.indecator!)
                 self.tableView.reloadData()
             }
         }

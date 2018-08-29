@@ -109,6 +109,35 @@ class ApisCallingClass: NSObject {
         }
     }
     
+    //get Sub Categories by IDs
+    
+    class func  getBrands(onCompletion :@escaping (BrandsResponse?)-> Void){
+        //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
+       
+        let url =  URLs.BrandsUrl
+        print(url)
+        ApiManager.get(Url: url) { (data,success:Bool) in
+            if success {
+                do {
+                    print(JSON(data))
+                    let jsonDecoder = JSONDecoder()
+                    let res = try jsonDecoder.decode(BrandsResponse.self, from: data) as BrandsResponse
+                    print(res)
+                    
+                    onCompletion(res)
+                    
+                }    catch let error {
+                    print(" error --->  \(error)")
+                }
+            }
+            else {
+                let message = JSON(data)
+                let msg = message["message"].stringValue
+                print(msg)
+                onCompletion(nil)
+            }
+        }
+    }
     
     
     

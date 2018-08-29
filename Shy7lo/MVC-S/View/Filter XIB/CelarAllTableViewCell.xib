@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Medium.ttf">
+            <string>SFProDisplay-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CelarAllTableViewCell" id="KGk-i7-Jjw" customClass="CelarAllTableViewCell" customModule="Shy7lo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CuX-Zb-rvo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCZ-il-IdM">
+                                <rect key="frame" x="17" y="59.5" width="341" height="1"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="dDR-Wu-YnM"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear all filters" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOc-Am-iWX">
+                                <rect key="frame" x="139.5" y="20.5" width="97" height="19.5"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
+                                <color key="textColor" red="0.51759380102157593" green="0.51768434047698975" blue="0.51758182048797607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SOc-Am-iWX" firstAttribute="centerX" secondItem="CuX-Zb-rvo" secondAttribute="centerX" id="1uR-YJ-OcH"/>
+                            <constraint firstAttribute="trailing" secondItem="aCZ-il-IdM" secondAttribute="trailing" constant="17" id="Ctk-TY-2wq"/>
+                            <constraint firstItem="SOc-Am-iWX" firstAttribute="centerY" secondItem="CuX-Zb-rvo" secondAttribute="centerY" id="Itm-eJ-DA8"/>
+                            <constraint firstAttribute="bottom" secondItem="aCZ-il-IdM" secondAttribute="bottom" id="RDi-uX-ceQ"/>
+                            <constraint firstItem="aCZ-il-IdM" firstAttribute="leading" secondItem="CuX-Zb-rvo" secondAttribute="leading" constant="17" id="WU9-In-dnw"/>
+                            <constraint firstAttribute="height" constant="60.5" id="ZaK-Jf-rql"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="CuX-Zb-rvo" secondAttribute="bottom" id="6TD-I1-ssI"/>
+                    <constraint firstItem="CuX-Zb-rvo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Hxa-rk-7uJ"/>
+                    <constraint firstItem="CuX-Zb-rvo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="MH1-KD-Wbh"/>
+                    <constraint firstAttribute="trailing" secondItem="CuX-Zb-rvo" secondAttribute="trailing" id="QIc-Qr-zqR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="laClearFilters" destination="SOc-Am-iWX" id="A74-gs-klu"/>
+                <outlet property="tapView" destination="CuX-Zb-rvo" id="hSo-Mt-ndE"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="106.5"/>
+        </tableViewCell>
+    </objects>
+</document>

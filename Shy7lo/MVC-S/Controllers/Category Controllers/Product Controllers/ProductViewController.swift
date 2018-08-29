@@ -12,12 +12,17 @@ import Kingfisher
 
 class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
+    
+    @IBOutlet var TFNewest: UITextField!
+    @IBOutlet var laFilter: UILabel!
+    @IBOutlet var filterView: UIView!
     @IBOutlet var buttonBack: UIButton!
     @IBOutlet var collectionView: UICollectionView!
     //@IBOutlet var dropDownTF: UITextField!
     @IBOutlet var laProductName: UILabel!
     
     var isLoading:Bool!
+    var indecator:UIView? = nil
     var subCategoryName:String!
     var subCategoryId:String!
     let dropDown = DropDown()
@@ -36,6 +41,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let flippedImage = UIImage(named: "back_icon")?.imageFlippedForRightToLeftLayoutDirection()
         
         self.buttonBack.setImage(flippedImage, for: .normal)
+        
+        
         super.viewDidLoad()
         
         
@@ -43,6 +50,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.tabBarController?.tabBar.isHidden = false
         //dropDownTF.delegate = self
         
         //get language from user defaults
@@ -51,7 +60,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         // courrancy get from userfault
         
-        
+        self.laFilter.text =  "Filter".localizableString(loc: self.lang)
+        self.TFNewest.text = "Newest".localizableString(loc: self.lang)
         
         if lang.contains("ar"){
             self.currancy = UserInfoDefault.getCurrancyArabic()
@@ -65,7 +75,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         collectionView.delegate = self
         collectionView.dataSource = self
         
-    
+        self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.ProductById(id: subCategoryId , page : 1)
         
        
@@ -73,6 +83,11 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         
         self.laProductName.text = self.subCategoryName.uppercased()
+        
+        //for filert selection
+        let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
+        filterView.addGestureRecognizer(tapFilterView)
+        filterView.isUserInteractionEnabled = true
         
         
         
@@ -107,7 +122,36 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let postPicUrl =  URL(string: self.productList[indexPath.row].image!)!
         print(postPicUrl)
         //imagePlaceHolder
+    
         cell.productImage.kf.setImage(with: postPicUrl, placeholder: UIImage(named: "imagePlaceHolder"), options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
+            
+            //device width
+            
+            let bounds = UIScreen.main.bounds
+            let newImageWidth = (bounds.size.width / 2) - 12
+            let urlImageWidth = (image?.size.width)!
+            let urlImageHeigth = (image?.size.height)!
+            
+            
+             let newImageHight = ((urlImageHeigth / urlImageWidth) * newImageWidth)
+          
+            
+            //let size = CGSize(width: newImageWidth , height: newImageHight)
+            
+            
+            print("old width ---> \(urlImageWidth)")
+            print("old height ---> \(urlImageHeigth)")
+            print("new width ---> \(newImageWidth)")
+            print("new height ---> \(newImageHight)")
+            
+            
+            
+            
+            //image.frame = CGRect(x: 0, y: 0, width: 50, height: screenSize.height * 0.2
+            
+           // cell.productImage.frame = CGRect(x: 0, y: 0, width: newImageWidth, height: newImageHight)
+                //self.ResizeImage(image: image!, targetSize: size)
+           
             
         }
         
@@ -149,9 +193,16 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 // round off up to 2 decimal
                 let roundSpecialRate = String(format: "%.1f", specialRate)
                 // result = 3.3
-                
+                if lang.contains("ar"){
+                cell.laSpecialPrice.text =  String( roundSpecialRate) + " " + self.currancy
+               
+                }else{
+                    
                 cell.laSpecialPrice.text = self.currancy + " " + String( roundSpecialRate)
-                
+               
+
+                    
+                }
                 cell.textCutView.isHidden = false
                 print( "Hight-->\(cell.laSpecialPrice.frame.height)")
             }else{
@@ -171,8 +222,12 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         // round off up to 2 decimal
         let roundPriceRate = String(format: "%.1f", priceRate)
         
-        
-        cell.laprice.text = self.currancy + " " + String(roundPriceRate)
+        if lang.contains("ar"){
+              cell.laprice.text =  String(roundPriceRate)  + " " + self.currancy
+        }else{
+             cell.laprice.text = self.currancy + " " + String(roundPriceRate)
+        }
+      
         
         
         //==================================================================
@@ -205,7 +260,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         // let cellHight = cellWidth * 1.75
     
        
-          let  discription = 17 + 17
+        let  discription = 17 + 17
         
         
         
@@ -279,6 +334,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 self.productList = self.productList +  (self.productRespone.data?.product_listing)!
                 
                 self.isLoading = false
+                UIViewController.removeSpinner(spinner: self.indecator!)
                 self.collectionView.reloadData()
                 
                 
@@ -357,6 +413,30 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
     }
     //=================================================================================
+    
+    @objc func tapFilterView(sender: UITapGestureRecognizer) {
+      
+        //start ignoring intrection
+        
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.view.endEditing(true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FiltersViewController") as! FiltersViewController
+       
+        //end ignoring intrection
+        
+        UIApplication.shared.endIgnoringInteractionEvents()
+        self.navigationController?.pushViewController(vc,animated: true)
+       
+        
+        
+        
+    }
+    
+    
+    
+    //=======================================================================================
+   
 }
 
 

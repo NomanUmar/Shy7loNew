@@ -67,3 +67,63 @@
 "ViewAllSubCategoryvc" = "View All";
 
 
+// filter view controller
+
+"FilterFVC" = "FILTER";
+"Category" =  "CATEGORY";
+"Collection" = "COLLECTION";
+"Brand" = "BRAND";
+"Color" = "COLOR";
+"Size" = "SIZE";
+"ClearFilter" = "Clear all filters";
+"Filter" = "Filter";
+"Newest" = "Newest...";
+"ApplyFilter" = "APPLY FILTER";
+
+
+//Category View COntroler
+"CategoryCVC" = "CATEGORY";
+"NewCollection" =  "NEW COLLECTION";
+"Sport" = "SPORT";
+"WinterCollection" = "WINTER COLLECTION";
+"PlusSize" = "PLUS SIZE";
+"Tall" = "TALL";
+
+
+//Color View COntroler
+"Pink" = "Pink";
+"Blue" =  "Blue";
+"Black" = "Black";
+"White" = "White";
+"Green" = "Green";
+"Red" = "Red";
+"Yellow" = "Yellow";
+"Purple" = "Purple";
+"Orange" = "Orange";
+"Grey" = "Grey";
+
+//Size View COntroler
+"XS" = "XS";
+"S" =  "S";
+"M" = "M";
+"L" = "L";
+"XL" = "XL";
+"XXL" = "XXL";
+"XXXL" = "XXXL";
+"UK2" = "UK2";
+"UK4" = "UK4";
+
+
+//["NishatLinen","Khaadi","Shamrafs","Bareeze","ChenOne"]
+//brand view controler
+
+
+
+"NishatLinen" =  "NishatLinen";
+"Khaadi" = "Khaadi";
+"Shamrafs" = "Shamrafs";
+"Bareeze" = "Bareeze" ;
+"ChenOne" = "ChenOne";
+
+
+

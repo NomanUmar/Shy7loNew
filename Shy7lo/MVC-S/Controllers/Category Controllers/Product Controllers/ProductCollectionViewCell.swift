@@ -19,10 +19,16 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
    // for font size of label
     override func  layoutSubviews() {
+        
         super.layoutSubviews()
+        
         self.laDiscription.font = self.laDiscription.font.withSize(12)
         self.laSpecialPrice.font = self.laSpecialPrice.font.withSize(14)
         self.laprice.font = self.laprice.font.withSize(14)
+        self.productImage.contentMode = .scaleToFill
+        self.productImage.clipsToBounds = true
+        self.productImage.layer.masksToBounds = true
+        
         
     }
     

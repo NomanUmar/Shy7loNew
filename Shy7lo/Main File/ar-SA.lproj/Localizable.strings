@@ -60,4 +60,59 @@
 
 "ViewAllSubCategoryvc" = "عرض الكل";
 
+// filter view controller
 
+"FilterFVC" = "منقي";
+"Category" =  "الفئة";
+"Collection" = "مجموعة";
+"Brand" = "علامة تجارية";
+"Color" = "اللون";
+"Size" = "بحجم";
+"ClearFilter" = "مسح جميع المرشحات";
+"Filter" = "منقي";
+"Newest" = "أحدث ...";
+"ApplyFilter" = "تطبيق مرشح";
+
+//CategoryViewCOntroler
+"CategoryCVC" = "الفئة";
+"NewCollection" =  "مجموعة جديدة";
+"Sport" = "رياضة";
+"WinterCollection" = "مجموعة الشتاء";
+"PlusSize" = "حجم اضافي";
+"Tall" = "طويل";
+
+//ColorViewCOntroler
+"Pink" = "زهري";
+"Blue" =  "أزرق";
+"Black" = "أسود";
+"White" = "أبيض";
+"Green" = "أخضر";
+"Red" = "أحمر";
+"Yellow" = "الأصفر";
+"Purple" = "أرجواني";
+"Orange" = "البرتقالي";
+"Grey" = "اللون الرمادي";
+
+
+//Size View COntroler
+"XS" = "XS";
+"S" =  "S";
+"M" = "M";
+"L" = "L";
+"XL" = "XL";
+"XXL" = "XXL";
+"XXXL" = "XXXL";
+"UK2" = "UK2";
+"UK4" = "UK4";
+
+
+
+//brand view controler
+
+
+
+"NishatLinen" =  "NishatLinen";
+"Khaadi" = "Khaadi";
+"Shamrafs" = "Shamrafs";
+"Bareeze" = "Bareeze" ;
+"ChenOne" = "ChenOne";
