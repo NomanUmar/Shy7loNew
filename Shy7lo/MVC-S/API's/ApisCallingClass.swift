@@ -120,7 +120,7 @@ class ApisCallingClass: NSObject {
             if success {
                 do {
                     print(JSON(data))
-                    let jsonDecoder = JSONDecoder() 
+                    let jsonDecoder = JSONDecoder()
                     let res = try jsonDecoder.decode(BrandsResponse.self, from: data) as BrandsResponse
                     print(res)
                     

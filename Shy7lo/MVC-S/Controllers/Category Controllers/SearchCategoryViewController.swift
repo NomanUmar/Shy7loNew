@@ -60,9 +60,13 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         //collection view delegate
         collectionview.delegate = self
         collectionview.dataSource = self
-        
+
+        self.banner = [banner_response]()
+        self.categoriesAll = [child_data_response]()
+        self.tableView.reloadData()
         //function call for load data
         self.indecator = UIViewController.displaySpinner(onView: self.view)
+        
         self.apiCategoryData(id: self.cat_id)
         
         //table view delegates
@@ -284,11 +288,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                 } //  if condition
                 
             } // foor loop
-            
-            
-            
-            
-            
+
         }
         // api init response
         
