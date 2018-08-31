@@ -24,8 +24,18 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     var categoryName = [String]()
     var categoryToScrtoll:Int!
     override func viewDidLoad() {
-        //load image
         
+        // tab in collection view every time show 3 cell
+        let numberOfCellsPerRow: CGFloat = 3
+        
+        
+        if let flowLayout = collectionview?.collectionViewLayout as? UICollectionViewFlowLayout {
+            let horizontalSpacing = flowLayout.scrollDirection == .horizontal ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+            let cellWidth = (view.frame.width - max(0, numberOfCellsPerRow - 1)*horizontalSpacing)/numberOfCellsPerRow
+            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        }
+        
+        //load image
         self.loadImage()
         super.viewDidLoad()
 
@@ -133,6 +143,7 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MianCategoryCollectionViewCell", for: indexPath) as! MianCategoryCollectionViewCell
         
        
@@ -145,12 +156,12 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+ /*   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let yourWidth = self.collectionview.bounds.width/3.0
         let yourHeight = yourWidth
         
         return CGSize(width: yourWidth, height: yourHeight)
-    }
+    }*/
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -177,7 +188,13 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         self.loadUrl(url: url)
         let categoryId = self.catagoryArray[indexPath.row].category_id
         UserInfoDefault.saveCategoryID(categoryID: categoryId)
-        //UserInfoDefault.saveCategoryIndex(CategoryIndex: indexPath.row)
+        
+        //  function call to auto scroll category tab
+        self.scroll(indexPath: indexPath.row)
+        
+        
+        
+            //UserInfoDefault.saveCategoryIndex(CategoryIndex: indexPath.row)
 
          //let cell = collectionView.cellForItem(at: indexPath) as? MianCategoryCollectionViewCell
         //cell?.laCategoryName.textColor = .black
@@ -275,5 +292,38 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     let indexPathForFirstRow = IndexPath(row: (self.selected), section: 0)
     self.collectionview.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
     collectionView(self.collectionview, didSelectItemAt: indexPathForFirstRow)
+      
+        
+    }
+    // to auto scroll category tab
+    
+    func scroll (indexPath:Int){
+        self.categoryToScrtoll =  indexPath
+        let index = self.catagoryArray.count
+        
+        if indexPath < index/2{
+            if indexPath   != 0 &&  indexPath > 0 {
+                let indexPath = IndexPath(item: self.categoryToScrtoll - 1, section: 0)
+                self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+            }
+            
+        }else{
+            
+            if self.categoryToScrtoll + 1 < self.catagoryArray.count {
+                let indexPath = IndexPath(item: self.categoryToScrtoll + 1, section: 0)
+                self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+            }
+            
+        }
+        
+        if indexPath + 1 == self.catagoryArray.count {
+            let indexPath = IndexPath(item: indexPath , section: 0)
+            self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+        }
+        
+        if indexPath  == 0 {
+            let indexPath = IndexPath(item: indexPath , section: 0)
+            self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+        }
     }
 }

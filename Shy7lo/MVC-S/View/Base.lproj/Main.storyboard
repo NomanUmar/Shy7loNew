@@ -1102,10 +1102,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="183" height="325"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LP-Fk-8tf">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LP-Fk-8tf">
                                                             <rect key="frame" x="0.0" y="8" width="181" height="309"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceHolder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="har-lv-VU8">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceHolder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="har-lv-VU8">
                                                                     <rect key="frame" x="0.0" y="0.0" width="181" height="239"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="har-lv-VU8" secondAttribute="height" multiplier="181:239" id="S86-Jl-CiJ"/>
@@ -1733,7 +1733,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl8-Ks-y1Z">
-                                                <rect key="frame" x="138" y="7.5" width="100" height="26"/>
+                                                <rect key="frame" x="139" y="7.5" width="97.5" height="26"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

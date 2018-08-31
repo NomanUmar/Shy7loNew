@@ -25,10 +25,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         self.laDiscription.font = self.laDiscription.font.withSize(12)
         self.laSpecialPrice.font = self.laSpecialPrice.font.withSize(14)
         self.laprice.font = self.laprice.font.withSize(14)
-        self.productImage.contentMode = .scaleToFill
-        self.productImage.clipsToBounds = true
-        self.productImage.layer.masksToBounds = true
-        
+        //self.productImage.contentMode = .redraw
+        // self.productImage.clipsToBounds = true
+        //self.productImage.layer.masksToBounds = true
         
     }
     

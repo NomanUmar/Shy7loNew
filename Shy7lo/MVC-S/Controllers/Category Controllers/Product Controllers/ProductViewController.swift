@@ -125,6 +125,10 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     
         cell.productImage.kf.setImage(with: postPicUrl, placeholder: UIImage(named: "imagePlaceHolder"), options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
             
+            
+            
+            
+            
             //device width
             
             let bounds = UIScreen.main.bounds
@@ -147,10 +151,50 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
             
             
             
-            //image.frame = CGRect(x: 0, y: 0, width: 50, height: screenSize.height * 0.2
+            //image.frame = CGRect(x: 0, y: 0, width: 50, height: screenSize.height * 0.2)
             
-           // cell.productImage.frame = CGRect(x: 0, y: 0, width: newImageWidth, height: newImageHight)
+           
+            
+            
+            DispatchQueue.main.async {
+                
+                // cell.productImage.frame.size.width =  newImageWidth
+                
+                if Int((image?.size.width)!) > Int((image?.size.height)!) {
+                    cell.productImage.contentMode = .scaleAspectFit
+                    
+                    //since the width > height we may fit it and we'll have bands on top/bottom
+                } else {
+                    
+                    
+                    cell.productImage.contentMode =  .redraw
+                    
+                    cell.productImage.layer.masksToBounds = true
+                    
+                    //width < height we fill it until width is taken up and clipped on top/bottom
+                }
+                 
+                
+            }
                 //self.ResizeImage(image: image!, targetSize: size)
+            
+        
+        
+            
+         /*   if Int((image?.size.width)!) > Int((image?.size.height)!) {
+                cell.productImage.contentMode = .scaleAspectFit
+            
+                //since the width > height we may fit it and we'll have bands on top/bottom
+            } else {
+                
+              
+                cell.productImage.contentMode =  .scaleAspectFill
+                
+                cell.productImage.layer.masksToBounds = true
+                
+                //width < height we fill it until width is taken up and clipped on top/bottom
+            }*/
+            
            
             
         }
@@ -436,8 +480,66 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     
     
     //=======================================================================================
+    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+        
+        let cgimage = image.cgImage!
+        let contextImage: UIImage = UIImage(cgImage: cgimage)
+        let contextSize: CGSize = contextImage.size
+        var posX: CGFloat = 0.0
+        var posY: CGFloat = 0.0
+        var cgwidth: CGFloat = CGFloat(width)
+        var cgheight: CGFloat = CGFloat(height)
+        
+        // See what size is longer and create the center off of that
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            cgwidth = contextSize.height
+            cgheight = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            cgwidth = contextSize.width
+            cgheight = contextSize.width
+        }
+        
+        let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
+        
+        // Create bitmap image from context using the rect
+        let imageRef: CGImage = cgimage.cropping(to: rect)!
+        
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+        
+        return image
+    }
+    
+    
+    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+        let oldWidth = sourceImage.size.width
+        let scaleFactor = scaledToWidth / oldWidth
+        
+        let newHeight = sourceImage.size.height * scaleFactor
+        let newWidth = oldWidth * scaleFactor
+        
+        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
+        sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+}
+//===========
+
+extension UIImage {
+    func cropped(boundingBox: CGRect) -> UIImage? {
+        guard let cgImage = self.cgImage?.cropping(to: boundingBox) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cgImage)
+    }
    
 }
-
 
 
