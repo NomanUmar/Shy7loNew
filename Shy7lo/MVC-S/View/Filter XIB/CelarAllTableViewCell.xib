@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear all filters" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOc-Am-iWX">
-                                <rect key="frame" x="139.5" y="20.5" width="97" height="19.5"/>
+                                <rect key="frame" x="139.5" y="27.5" width="97" height="19.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
                                 <color key="textColor" red="0.51759380102157593" green="0.51768434047698975" blue="0.51758182048797607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -44,7 +44,7 @@
                         <constraints>
                             <constraint firstItem="SOc-Am-iWX" firstAttribute="centerX" secondItem="CuX-Zb-rvo" secondAttribute="centerX" id="1uR-YJ-OcH"/>
                             <constraint firstAttribute="trailing" secondItem="aCZ-il-IdM" secondAttribute="trailing" constant="17" id="Ctk-TY-2wq"/>
-                            <constraint firstItem="SOc-Am-iWX" firstAttribute="centerY" secondItem="CuX-Zb-rvo" secondAttribute="centerY" id="Itm-eJ-DA8"/>
+                            <constraint firstItem="SOc-Am-iWX" firstAttribute="centerY" secondItem="CuX-Zb-rvo" secondAttribute="centerY" constant="7" id="Itm-eJ-DA8"/>
                             <constraint firstAttribute="bottom" secondItem="aCZ-il-IdM" secondAttribute="bottom" id="RDi-uX-ceQ"/>
                             <constraint firstItem="aCZ-il-IdM" firstAttribute="leading" secondItem="CuX-Zb-rvo" secondAttribute="leading" constant="17" id="WU9-In-dnw"/>
                             <constraint firstAttribute="height" constant="60.5" id="ZaK-Jf-rql"/>

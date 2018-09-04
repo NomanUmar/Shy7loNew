@@ -25,22 +25,10 @@ struct categoryDataObj: Codable {
     var position : Int?
     var level : Int?
     var product_count : Int?
-    var children_data : [children_data_Obj]?
+    var children_data : [categoryDataObj]?
     
     
 }
 
-struct children_data_Obj : Codable {
-    
-    var id:Int?
-    var parent_id:Int?
-    var name : String?
-    var is_active:Bool?
-    var position : Int?
-    var level : Int?
-    var product_count : Int?
-    var children_data : [children_data_Obj]?
-    
-    
-}
+
 

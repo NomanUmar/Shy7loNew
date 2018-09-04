@@ -10,6 +10,7 @@ import UIKit
 
 class CollectionFilterViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var buttonBack: UIButton!
@@ -50,6 +51,11 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         tableView.register(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoryTableViewCell")
         tableView.register(UINib(nibName: "CelarAllTableViewCell", bundle: nil), forCellReuseIdentifier: "CelarAllTableViewCell")
         
+        //for clear filert selection
+        let tapClearFilter = UITapGestureRecognizer(target: self, action: #selector(tapClearFilter(sender:)))
+        self.clearAllFilter.addGestureRecognizer(tapClearFilter)
+        self.clearAllFilter.isUserInteractionEnabled = true
+        
         
         super.viewDidLoad()
 
@@ -63,32 +69,22 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.filterLabel.count + 1
+        return self.filterLabel.count
         
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CelarAllTableViewCell", for:indexPath) as! CelarAllTableViewCell
-            
-            cell.laClearFilters.text = "ClearFilter".localizableString(loc: self.lang)
-            //for filert selection
-            let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
-            cell.tapView.addGestureRecognizer(tapFilterView)
-            cell.tapView.isUserInteractionEnabled = true
-            
-            return cell
-        }else{
+     
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
-        cell.laFilterName.text = self.filterLabel[indexPath.row - 1]
+        cell.laFilterName.text = self.filterLabel[indexPath.row]
         
         
         cell.tapView.tag = indexPath.row
             
-            if selectedIndex.contains((self.filterName?.options![indexPath.row - 1].id)!) {
+            if selectedIndex.contains((self.filterName?.options![indexPath.row].id)!) {
                 cell.selecteedImage.isHidden = false
             }else{
                 cell.selecteedImage.isHidden = true
@@ -101,7 +97,7 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         cell.tapView.isUserInteractionEnabled = true
         
         return cell
-        }
+        
         
         
     }
@@ -117,32 +113,19 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         let index  = (cellTag?.tag)!
         print(index as Any)
     
-        
-        
-        
-        if index == 0
-        {
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.selectedIndex.removeAll()
-            self.tableView.reloadData()
             
-        }
-        else {
-           
-            
-            
-            if self.selectedIndex.contains((self.filterName?.options![index - 1].id)!){
-                if let index = self.selectedIndex.index(of: (self.filterName?.options![index - 1].id)!) {
+            if self.selectedIndex.contains((self.filterName?.options![index].id)!){
+                if let index = self.selectedIndex.index(of: (self.filterName?.options![index].id)!) {
                     self.selectedIndex.remove(at: index)
                 }
             }else{
-                self.selectedIndex.append((self.filterName?.options![index - 1].id)!)
+                self.selectedIndex.append((self.filterName?.options![index].id)!)
             }
             print(self.selectedIndex)
             self.tableView.reloadData()
             
             
-        }
+        
 //        let cellIndex = IndexPath(row: index , section: 0)
 //        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
 //
@@ -167,12 +150,9 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     
     @IBAction func buApplyFilter(_ sender: Any) {
         
-       
-        
+       print(self.selectedIndex)
     
-        
     }
-    
     
     func filerLableCall(){
         
@@ -181,5 +161,10 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
             self.filterLabel.append(((self.filterName?.options![i])?.label)!)
         }
     }
-    
+    //============================================================
+    @objc func tapClearFilter(sender: UITapGestureRecognizer) {
+        self.selectedIndex.removeAll()
+        self.tableView.reloadData()
+        
+    }
 }

@@ -64,12 +64,14 @@ class NewestViewController: UIViewController,UITableViewDelegate,UITableViewData
         let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
         cell.tapView.addGestureRecognizer(tapFilterView)
         cell.tapView.isUserInteractionEnabled = true
+        let newest = UserInfoDefault.getNewest()
         
-        
-//        var frame = self.tableView.frame
-//        frame.size.height = self.tableView.contentSize.height
-//        self.tableView.frame = frame
-        
+        if newest == self.filterName[indexPath.row]{
+            
+            cell.selecteedImage.isHidden = false
+        }else{
+            cell.selecteedImage.isHidden = true
+        }
         
         return cell
         
@@ -94,10 +96,10 @@ class NewestViewController: UIViewController,UITableViewDelegate,UITableViewData
         let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
         
       
-            cell.selecteedImage.isHidden = false
+             cell.selecteedImage.isHidden = false
         
-    
-        self.dismiss(animated: true, completion: nil)
+             UserInfoDefault.saveNewest(newest: self.filterName[index])
+             self.dismiss(animated: true, completion: nil)
         
         
         

@@ -12,6 +12,7 @@ import RangeSeekSlider
 class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,RangeSeekSliderDelegate {
     
     
+    @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var buttonBack: UIButton!
@@ -60,6 +61,10 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         tableView.register(UINib(nibName: "CelarAllTableViewCell", bundle: nil), forCellReuseIdentifier: "CelarAllTableViewCell")
         //priceRangeTableViewCell
         tableView.register(UINib(nibName: "priceRangeTableViewCell", bundle: nil), forCellReuseIdentifier: "priceRangeTableViewCell")
+        //for clear filert selection
+        let tapClearFilter = UITapGestureRecognizer(target: self, action: #selector(tapClearFilter(sender:)))
+        self.clearAllFilter.addGestureRecognizer(tapClearFilter)
+        self.clearAllFilter.isUserInteractionEnabled = true
         
         super.viewDidLoad()
 
@@ -77,7 +82,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if self.filterName.isEmpty{
             return 0
         }else{
-        return self.filterName.count + 2
+        return self.filterName.count + 1
         }
         
     }
@@ -85,17 +90,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
     
-        if indexPath.row == 0{
-             let cell = tableView.dequeueReusableCell(withIdentifier: "CelarAllTableViewCell", for:indexPath) as! CelarAllTableViewCell
-            
-            cell.laClearFilters.text = "ClearFilter".localizableString(loc: self.lang)
-            //for filert selection
-            let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
-            cell.tapView.addGestureRecognizer(tapFilterView)
-            cell.tapView.isUserInteractionEnabled = true
-            
-            return cell
-        }else if indexPath.row == filterName.count + 1{
+      if indexPath.row == filterName.count{
             
             
              let cell = tableView.dequeueReusableCell(withIdentifier: "priceRangeTableViewCell", for:indexPath) as! priceRangeTableViewCell
@@ -111,7 +106,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableViewCell", for:indexPath) as! FilterTableViewCell
         
-        cell.laFilterName.text = self.filterName[indexPath.row - 1]
+        cell.laFilterName.text = self.filterName[indexPath.row]
         let flippedImage = UIImage(named: "next_icon")?.imageFlippedForRightToLeftLayoutDirection()
         cell.buttonNext.setImage(flippedImage, for: .normal)
         
@@ -142,13 +137,12 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.view.endEditing(true)
-        if index == 0
-        {
-            UIApplication.shared.endIgnoringInteractionEvents()
-        }
-        else if index == 1{
+        if index == 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "CategoryFilterViewController") as! CategoryFilterViewController
+            
+            
+            
             
             //end ignoring intrection
             
@@ -163,7 +157,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
            //let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
             for i in 0..<(self.filterRespose?.data?.layeredData?.count)!{
                 
-                if self.filterName[index - 1] == (self.filterRespose?.data?.layeredData![i].label)!{
+                if self.filterName[index] == (self.filterRespose?.data?.layeredData![i].label)!{
                     
                  code = (self.filterRespose?.data?.layeredData![i].code)!
                     
@@ -172,6 +166,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: "BrandFilterViewController") as! BrandFilterViewController
                         vc.filterName = (self.filterRespose?.data?.layeredData![i])!
+                        vc.brandName = (self.filterRespose?.data?.layeredData![i].label)!
                         print((self.filterRespose?.data?.layeredData![i])!)
                         //end ignoring intrection
                        
@@ -206,7 +201,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         print("min \(minValue)   max \(maxValue)")
         
-        let index  = filterName.count + 1
+        let index  = filterName.count
         print(index as Any)
         
         let cellIndex = IndexPath(row: index , section: 0)
@@ -255,5 +250,11 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tableView.reloadData()
         }
     }
+    //============================================================
+    @objc func tapClearFilter(sender: UITapGestureRecognizer) {
+        
+     
+    }
+    
 
 }

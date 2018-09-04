@@ -10,6 +10,7 @@ import UIKit
 
 class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var buttonBack: UIButton!
@@ -18,12 +19,13 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     var lang:String!
     var filterName = [String]()
     var categoryResponse:categoryResponse?
-    var childData:[children_data_Obj]?
+    var childData = [categoryDataObj]()
+
     
     
     override func viewDidLoad() {
         
-        
+        print(self.childData)
         self.tabBarController?.tabBar.isHidden = true
         
         self.callCategory()
@@ -51,6 +53,11 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         tableView.register(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoryTableViewCell")
         tableView.register(UINib(nibName: "CelarAllTableViewCell", bundle: nil), forCellReuseIdentifier: "CelarAllTableViewCell")
         
+        
+        //for clear filert selection
+        let tapClearFilter = UITapGestureRecognizer(target: self, action: #selector(tapClearFilter(sender:)))
+        self.clearAllFilter.addGestureRecognizer(tapClearFilter)
+        self.clearAllFilter.isUserInteractionEnabled = true
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -64,31 +71,21 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.filterName.count
+        return self.childData.count
         
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CelarAllTableViewCell", for:indexPath) as! CelarAllTableViewCell
-            
-            cell.laClearFilters.text = "ClearFilter".localizableString(loc: self.lang)
-            //for filert selection
-            let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
-            cell.tapView.addGestureRecognizer(tapFilterView)
-            cell.tapView.isUserInteractionEnabled = true
-            
-            return cell
-        }else{
+       
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
             
-        cell.laFilterName.text = self.filterName[indexPath.row - 1]
+            cell.laFilterName.text = self.childData[indexPath.row].name
             let flippedImage = UIImage(named: "next_icon")?.imageFlippedForRightToLeftLayoutDirection()
             cell.buttonNext.setImage(flippedImage, for: .normal)
             
-            if (self.categoryResponse?.data?.children_data![indexPath.row].children_data?.isEmpty)!{
+            if (self.childData[indexPath.row].children_data?.isEmpty)!{
                 cell.buttonNext.isHidden = true
                 cell.buttonNext.isUserInteractionEnabled = false
              
@@ -108,7 +105,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         cell.tapView.isUserInteractionEnabled = true
             
             return cell
-        }
+        
         
     }
     
@@ -125,13 +122,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         
         let cellIndex = IndexPath(row: index , section: 0)
         
-        if index == 0
-        {
-            UIApplication.shared.endIgnoringInteractionEvents()
-        }
-        else {
-            
-        }
+       
         
 //        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
 //
@@ -155,10 +146,8 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         ApisCallingClass.getCategoryFilter { (data) in
             let res : categoryResponse = data!
             self.categoryResponse = res
-            self.childData = res.data?.children_data
-            for i in 0..<(res.data?.children_data?.count)!{
-                self.filterName.append((res.data?.children_data![i].name)!)
-            }
+            self.childData = (res.data?.children_data)!
+            print(self.childData.count)
             
             self.tableView.reloadData()
         }
@@ -172,10 +161,25 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         let buttonIndex = button.tag
         print(buttonIndex)
         
+   
+        self.childData =  self.childData[buttonIndex].children_data!
+        
+          self.tableView.reloadData()
+        
+     
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "CategoryFilterViewController") as! CategoryFilterViewController
+//        vc.childData = self.childData
+//        self.navigationController?.pushViewController(vc,animated: true)
         
         
-    
-      
     }
+    
+    //============================================================
+    @objc func tapClearFilter(sender: UITapGestureRecognizer) {
+        
+        
+    }
+    
 
 }

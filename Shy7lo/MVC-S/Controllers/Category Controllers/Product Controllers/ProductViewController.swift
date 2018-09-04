@@ -385,7 +385,9 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         self.isLoading = true
         
-        ApisCallingClass.getProductdID(id: id, sort_by: "created_at", direction: "DESC", page: page) { (data) in
+        
+        
+        ApisCallingClass.getProductdID(id: id, sort_by: "saving", direction: "DESC", page: page) { (data) in
             
             if data != nil {
                 UIViewController.removeSpinner(spinner: self.indecator!)

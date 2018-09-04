@@ -10,12 +10,14 @@ import UIKit
 
 class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate{
     
+    @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var searchTF: UITextField!
     @IBOutlet var TFView: DesignView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var buttonBack: UIButton!
     @IBOutlet var laBrandFilter: UILabel!
+    
     
     
     
@@ -26,6 +28,9 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     var brandsDictionary = [String: [String]]()
     var brandsSectionTitles = [String]()
     var selectedIndex = [IndexPath]()
+    var code = [String]()
+    var brandName:String!
+    
     
     override func viewDidLoad() {
         
@@ -51,7 +56,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         
-        self.laBrandFilter.text = "Brand".localizableString(loc: lang)
+        self.laBrandFilter.text = self.brandName.uppercased()
         
         //function call
         self.BrandCall()
@@ -72,12 +77,18 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         //awake XIB
         
         tableView.register(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoryTableViewCell")
+        tableView.register(UINib(nibName: "CelarAllTableViewCell", bundle: nil), forCellReuseIdentifier: "CelarAllTableViewCell")
+        
+        //for clear filert selection
+        let tapClearFilter = UITapGestureRecognizer(target: self, action: #selector(tapClearFilter(sender:)))
+        self.clearAllFilter.addGestureRecognizer(tapClearFilter)
+        self.clearAllFilter.isUserInteractionEnabled = true
         
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -95,7 +106,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         // 2
         let brandKey = self.brandsSectionTitles[section]
         if let brandValues = self.brandsDictionary[brandKey] {
-            return brandValues.count
+            return brandValues.count 
         }
         
         return 0
@@ -109,7 +120,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
         
-
+   
         // Configure the cell...
         let brandKey = self.brandsSectionTitles[indexPath.section]
         if let brandValues = self.brandsDictionary[brandKey] {
@@ -155,7 +166,6 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
       print("ind \(index)   sec \(section) ")
         
         let cellIndex = IndexPath(row: index , section: section)
-        
         
         if self.selectedIndex.contains(cellIndex){
             if let index = self.selectedIndex.index(of: cellIndex) {
@@ -280,7 +290,36 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         
     }
-    
+    @IBAction func buApplyFilter(_ sender: Any) {
+        
+        self.code.removeAll()
+        for i in 0..<self.selectedIndex.count{
+            let cellIndex = selectedIndex[i]
+            
+            print(cellIndex)
+            let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+            let name = cell.laFilterName.text
+            for j in 0..<(self.filterName?.options?.count)!{
+                
+                if name == self.filterName?.options![j].label{
+                    
+                    self.code.append((self.filterName?.options![j].id)!)
+                }
+                
+            }
+            
+            print(self.code)
+        }
+
+    }
+    //============================================================
+    @objc func tapClearFilter(sender: UITapGestureRecognizer) {
+       self.code.removeAll()
+        self.selectedIndex.removeAll()
+        self.tableView.reloadData()
+        
+        
+    }
     
 
 }

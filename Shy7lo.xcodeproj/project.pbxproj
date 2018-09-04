@@ -355,8 +355,8 @@
 				165272622122B29400E2BDA3 /* SearchCategoryViewController.swift */,
 				165272632122B29400E2BDA3 /* SubCategoryViewController.swift */,
 				16027881212BD7090042CB89 /* Filters */,
-				165272602122B29400E2BDA3 /* Search CategoryTab */,
 				163C9787213D56A5002B6BD3 /* newest */,
+				165272602122B29400E2BDA3 /* Search CategoryTab */,
 				166562B72122BC5F00EEBBF4 /* Product Controllers */,
 			);
 			path = "Category Controllers";

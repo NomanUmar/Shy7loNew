@@ -72,6 +72,12 @@ import UIKit
         UserDefaults.standard.synchronize()
     }
     
+    
+    static func saveNewest(newest: String) {
+        UserDefaults.standard.set(newest, forKey: "newest")
+        UserDefaults.standard.synchronize()
+    }
+    
    
     
 
@@ -122,6 +128,11 @@ import UIKit
     
     static func getCountryName() -> String {
         guard let userValue =  UserDefaults.standard.value(forKey: "countryName") as? String else {return ""}
+        return userValue
+    }
+    
+    static func getNewest() -> String {
+        guard let userValue =  UserDefaults.standard.value(forKey: "newest") as? String else {return ""}
         return userValue
     }
     
