@@ -30,4 +30,13 @@ struct  URLs {
     //brands
     
     static let BrandsUrl = baseUrl +  "/api/catalog/brand"
+    
+    //category
+    
+    static let CategoryUrl = baseUrl +  "/api/catalog/categories"
+    
+    //get filters
+    //https://api2.shylabs.com/api/catalog/products/filters?category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289
+    
+    static let FilterUrl = baseUrl +  "/api/catalog/products/filters?"
 }

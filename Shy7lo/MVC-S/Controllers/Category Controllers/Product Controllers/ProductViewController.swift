@@ -13,6 +13,7 @@ import Kingfisher
 class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     
+    @IBOutlet var brandView: UIView!
     @IBOutlet var TFNewest: UITextField!
     @IBOutlet var laFilter: UILabel!
     @IBOutlet var filterView: UIView!
@@ -77,7 +78,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.ProductById(id: subCategoryId , page : 1)
-        
+        print(subCategoryId)
        
         self.currencyCall()
         
@@ -88,6 +89,11 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
         filterView.addGestureRecognizer(tapFilterView)
         filterView.isUserInteractionEnabled = true
+        
+        //for brand selection
+        let tapBrandView = UITapGestureRecognizer(target: self, action: #selector(tapBrandView(sender:)))
+        brandView.addGestureRecognizer(tapBrandView)
+        brandView.isUserInteractionEnabled = true
         
         
         
@@ -156,7 +162,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
            
             
             
-            DispatchQueue.main.async {
+          /*  DispatchQueue.main.async {
                 
                 // cell.productImage.frame.size.width =  newImageWidth
                 
@@ -175,7 +181,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 }
                  
                 
-            }
+            }*/
                 //self.ResizeImage(image: image!, targetSize: size)
             
         
@@ -195,11 +201,10 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 //width < height we fill it until width is taken up and clipped on top/bottom
             }*/
             
-           
             
+         
+          
         }
-        
-        
         
        
         //=========================================================================
@@ -278,11 +283,22 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         // marge the brand and name and also change color of brand
         
         
-        let str1 = self.productList[indexPath.row].brand
-        let str2 = self.productList[indexPath.row].name
+        var str1 = self.productList[indexPath.row].brand
+        var str2 = self.productList[indexPath.row].name
+        
+        if str1 == nil{
+            
+            str1 = ""
+        }
+        
+        if str2 == nil{
+            
+            str2 = ""
+        }
+      
         
         let finalStr = str1! + " " + str2!
-        
+    
         let color = UIColor(red:0.52, green:0.52, blue:0.52, alpha:1.0)
         let string: NSMutableAttributedString = NSMutableAttributedString(string: finalStr)
         string.setColorForText(textToFind: str1!, withColor: UIColor.black)
@@ -372,23 +388,17 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         ApisCallingClass.getProductdID(id: id, sort_by: "created_at", direction: "DESC", page: page) { (data) in
             
             if data != nil {
-                
+                UIViewController.removeSpinner(spinner: self.indecator!)
                 self.productRespone = data
                 print(data!)
                 self.productList = self.productList +  (self.productRespone.data?.product_listing)!
                 
                 self.isLoading = false
-                UIViewController.removeSpinner(spinner: self.indecator!)
+                
                 self.collectionView.reloadData()
                 
                 
-              /*  let when = DispatchTime.now()  // change 2 to desired number of seconds
-                DispatchQueue.main.asyncAfter(deadline: when) {
-                    
-                    self.collectionView.reloadData()
-                    
-                    
-                }*/
+              
             }
             
         }
@@ -466,6 +476,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         self.view.endEditing(true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "FiltersViewController") as! FiltersViewController
+        vc.categoryId = self.subCategoryId
+        print(vc.categoryId)
        
         //end ignoring intrection
         
@@ -473,6 +485,15 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         self.navigationController?.pushViewController(vc,animated: true)
        
         
+        
+        
+    }
+    
+    @objc func tapBrandView(sender: UITapGestureRecognizer) {
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+      let vc = storyboard.instantiateViewController(withIdentifier: "NewestViewController") as! NewestViewController
+        self.present(vc, animated: true, completion: nil)
         
         
     }
@@ -527,19 +548,18 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage!
+        
     }
 }
 //===========
-
-extension UIImage {
-    func cropped(boundingBox: CGRect) -> UIImage? {
-        guard let cgImage = self.cgImage?.cropping(to: boundingBox) else {
-            return nil
-        }
+extension UIImage{
+    
+    func getRatio()->CGFloat{
+        let widthRatio =  CGFloat(self.size.width/self.size.height)
+        return widthRatio
         
-        return UIImage(cgImage: cgImage)
     }
-   
 }
+
 
 

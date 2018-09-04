@@ -12,6 +12,8 @@ class CategoryTableViewCell: UITableViewCell {
 
     
     
+    @IBOutlet var moveButton: NSLayoutConstraint!
+    @IBOutlet var buttonNext: UIButton!
     @IBOutlet var selecteedImage: UIImageView!
     @IBOutlet var laFilterName: UILabel!
     @IBOutlet var tapView: UIView!

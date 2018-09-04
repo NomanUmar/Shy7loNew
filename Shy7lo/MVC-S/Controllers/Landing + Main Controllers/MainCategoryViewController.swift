@@ -57,15 +57,19 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         //function call for category id
         self.getUrl_and_Load(cat_id: cat_id!)
         
-        
+        if lang.contains("ar"){
+            self.collectionview.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
+        }
         //cllection view delegates
         collectionview.delegate = self
         collectionview.dataSource = self
+        
+        self.defaultTabSelection()
         //text field delegate
         
         searchTF.delegate = self
         
-        self.defaultTabSelection()
+        
         
     }
     override func didReceiveMemoryWarning() {
@@ -106,11 +110,12 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
                 print(j)
                 if lang.contains("ar"){
                     categoryName.append(res.landing_screens.base_screens[j].title_ar)
+                
                 }else{
                     categoryName.append(res.landing_screens.base_screens[j].title_en)
                 }
             }
-            
+            print(self.categoryName)
            self.collectionview.reloadData()
             self.catagoryArray =  res.landing_screens.base_screens
             for i in 0..<self.catagoryArray.count {
@@ -145,23 +150,16 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MianCategoryCollectionViewCell", for: indexPath) as! MianCategoryCollectionViewCell
-        
-       
-       
+    
         
         cell.laCategoryName.text = self.categoryName[indexPath.row].uppercased()
         
-        
+     
         
         return cell
     }
     
- /*   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let yourWidth = self.collectionview.bounds.width/3.0
-        let yourHeight = yourWidth
-        
-        return CGSize(width: yourWidth, height: yourHeight)
-    }*/
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -177,6 +175,8 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
         
+        //  function call to auto scroll category tab
+        self.scroll(indexPath: indexPath.row)
         
         self.landingWebView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
         var url:String!
@@ -188,23 +188,10 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         self.loadUrl(url: url)
         let categoryId = self.catagoryArray[indexPath.row].category_id
         UserInfoDefault.saveCategoryID(categoryID: categoryId)
-        
-        //  function call to auto scroll category tab
-        self.scroll(indexPath: indexPath.row)
-        
-        
-        
-            //UserInfoDefault.saveCategoryIndex(CategoryIndex: indexPath.row)
 
-         //let cell = collectionView.cellForItem(at: indexPath) as? MianCategoryCollectionViewCell
-        //cell?.laCategoryName.textColor = .black
 
     }
-  /*  override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let indexPath = IndexPath(item: self.categoryToScrtoll, section: 0)
-        self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
-    }*/
+
     
     //======================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -289,11 +276,10 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     
     func defaultTabSelection(){
     //default selected category
-    let indexPathForFirstRow = IndexPath(row: (self.selected), section: 0)
-    self.collectionview.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
-    collectionView(self.collectionview, didSelectItemAt: indexPathForFirstRow)
+    let indexPathFirstRow = IndexPath(row: (self.selected), section: 0)
+    self.collectionview.selectItem(at: indexPathFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
+    collectionView(self.collectionview, didSelectItemAt: indexPathFirstRow)
       
-        
     }
     // to auto scroll category tab
     
@@ -315,12 +301,12 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
             }
             
         }
-        
-        if indexPath + 1 == self.catagoryArray.count {
+        print(indexPath)
+        print(self.catagoryArray.count)
+        if indexPath + 1 == self.catagoryArray.count  {
             let indexPath = IndexPath(item: indexPath , section: 0)
-            self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+            self.collectionview.scrollToItem(at: indexPath , at: [.centeredHorizontally], animated: true)
         }
-        
         if indexPath  == 0 {
             let indexPath = IndexPath(item: indexPath , section: 0)
             self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)

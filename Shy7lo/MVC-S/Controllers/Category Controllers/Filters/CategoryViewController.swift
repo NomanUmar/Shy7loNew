@@ -16,7 +16,9 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet var laFilter: UILabel!
     
     var lang:String!
-    var filterName = ["NewCollection","Sport","WinterCollection","PlusSize","Tall"]
+    var filterName = [String]()
+    var categoryResponse:categoryResponse?
+    var childData:[children_data_Obj]?
     
     
     override func viewDidLoad() {
@@ -24,6 +26,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         
         self.tabBarController?.tabBar.isHidden = true
         
+        self.callCategory()
         
         //get language from user defaults
         
@@ -46,6 +49,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         //awake XIB
         
         tableView.register(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoryTableViewCell")
+        tableView.register(UINib(nibName: "CelarAllTableViewCell", bundle: nil), forCellReuseIdentifier: "CelarAllTableViewCell")
         
         super.viewDidLoad()
 
@@ -67,12 +71,34 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        
+        if indexPath.row == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CelarAllTableViewCell", for:indexPath) as! CelarAllTableViewCell
+            
+            cell.laClearFilters.text = "ClearFilter".localizableString(loc: self.lang)
+            //for filert selection
+            let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
+            cell.tapView.addGestureRecognizer(tapFilterView)
+            cell.tapView.isUserInteractionEnabled = true
+            
+            return cell
+        }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
             
-        cell.laFilterName.text = self.filterName[indexPath.row].localizableString(loc: self.lang)
-        
-        
+        cell.laFilterName.text = self.filterName[indexPath.row - 1]
+            let flippedImage = UIImage(named: "next_icon")?.imageFlippedForRightToLeftLayoutDirection()
+            cell.buttonNext.setImage(flippedImage, for: .normal)
+            
+            if (self.categoryResponse?.data?.children_data![indexPath.row].children_data?.isEmpty)!{
+                cell.buttonNext.isHidden = true
+                cell.buttonNext.isUserInteractionEnabled = false
+             
+                
+            }else{
+                cell.buttonNext.isHidden = false
+            }
+            
+            cell.buttonNext.tag = indexPath.row
+            cell.buttonNext.addTarget(self, action: #selector(CategoryFilterViewController.buttonNextTapped(_:)), for: .touchUpInside)
         cell.tapView.tag = indexPath.row
         
         
@@ -82,7 +108,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         cell.tapView.isUserInteractionEnabled = true
             
             return cell
-        
+        }
         
     }
     
@@ -99,18 +125,23 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         
         let cellIndex = IndexPath(row: index , section: 0)
         
-        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+        if index == 0
+        {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        else {
+            
+        }
         
-        if cell.selecteedImage.isHidden{
-            cell.selecteedImage.isHidden = false
-        }
-        else{
-            cell.selecteedImage.isHidden = true
-        }
+//        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+//
+//        if cell.selecteedImage.isHidden{
+//            cell.selecteedImage.isHidden = false
+//        }
+//        else{
+//            cell.selecteedImage.isHidden = true
+//        }
        
-        
-        
-        
     }
     //======================================================================================
     
@@ -119,5 +150,32 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         self.navigationController?.popViewController(animated: true)
     }
 
+    func callCategory(){
+        
+        ApisCallingClass.getCategoryFilter { (data) in
+            let res : categoryResponse = data!
+            self.categoryResponse = res
+            self.childData = res.data?.children_data
+            for i in 0..<(res.data?.children_data?.count)!{
+                self.filterName.append((res.data?.children_data![i].name)!)
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    //========================================================================================
+    @objc func buttonNextTapped(_ sender: AnyObject?) {
+        
+        
+        let button = sender as! UIButton
+        let buttonIndex = button.tag
+        print(buttonIndex)
+        
+        
+        
+    
+      
+    }
 
 }

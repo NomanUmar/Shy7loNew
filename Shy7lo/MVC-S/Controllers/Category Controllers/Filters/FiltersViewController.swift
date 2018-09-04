@@ -17,11 +17,15 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet var buttonBack: UIButton!
     @IBOutlet var laFilter: UILabel!
     
+    
+    var filterRespose:FilterResponse?
     var currancy : String!
     var lang:String!
-    var filterName = ["Category","Collection","Brand","Color","Size"]
+    var filterName = [String]()
+    var categoryId:String!
 
     override func viewDidLoad() {
+        
          self.tabBarController?.tabBar.isHidden = true
        
         
@@ -44,6 +48,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         self.laFilter.text = "FilterFVC".localizableString(loc: lang)
         
+        self.getFilter(id: self.categoryId)
         
         //table view delegates
         tableView.delegate = self
@@ -69,8 +74,11 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
 
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      
+        if self.filterName.isEmpty{
+            return 0
+        }else{
         return self.filterName.count + 2
+        }
         
     }
     
@@ -103,7 +111,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableViewCell", for:indexPath) as! FilterTableViewCell
         
-        cell.laFilterName.text = self.filterName[indexPath.row - 1].localizableString(loc: self.lang)
+        cell.laFilterName.text = self.filterName[indexPath.row - 1]
         let flippedImage = UIImage(named: "next_icon")?.imageFlippedForRightToLeftLayoutDirection()
         cell.buttonNext.setImage(flippedImage, for: .normal)
         
@@ -148,49 +156,45 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.navigationController?.pushViewController(vc,animated: true)
             
             
-        }else if index == 2 {
-            
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "CollectionFilterViewController") as! CollectionFilterViewController
-            
-            //end ignoring intrection
-            
+        }else {
+            var code:String!
             UIApplication.shared.endIgnoringInteractionEvents()
-            self.navigationController?.pushViewController(vc,animated: true)
+            //let cellIndex = IndexPath(row: index , section: 0)
+           //let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+            for i in 0..<(self.filterRespose?.data?.layeredData?.count)!{
+                
+                if self.filterName[index - 1] == (self.filterRespose?.data?.layeredData![i].label)!{
+                    
+                 code = (self.filterRespose?.data?.layeredData![i].code)!
+                    
+                    if code == "brand"{
+                        
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: "BrandFilterViewController") as! BrandFilterViewController
+                        vc.filterName = (self.filterRespose?.data?.layeredData![i])!
+                        print((self.filterRespose?.data?.layeredData![i])!)
+                        //end ignoring intrection
+                       
+                        self.navigationController?.pushViewController(vc,animated: true)
+                        
+                    }else{
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: "CollectionFilterViewController") as! CollectionFilterViewController
+                        vc.filterName = (self.filterRespose?.data?.layeredData![i])!
+                        vc.filterLableName = (self.filterRespose?.data?.layeredData![i].label)!
+                        //end ignoring intrection
+                        
+                        self.navigationController?.pushViewController(vc,animated: true)
+                    }
+                    
+                }
+                
+            }
             
             
-        }else if index == 3{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "BrandFilterViewController") as! BrandFilterViewController
-            
-            //end ignoring intrection
-            
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.navigationController?.pushViewController(vc,animated: true)
-            
-        }else if index == 4{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ColorViewController") as! ColorViewController
-            
-            //end ignoring intrection
-            
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.navigationController?.pushViewController(vc,animated: true)
+    
             
         }
-        else if index == 5 {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "SizeViewController") as! SizeViewController
-            
-            //end ignoring intrection
-            
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.navigationController?.pushViewController(vc,animated: true)
-            
-            
-        }
-        
     }
     
     
@@ -232,6 +236,24 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //back button
     @IBAction func buBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func getFilter(id:String ){
+        ApisCallingClass.getFilter(id: id, sort_by: "created_at", direction: "DESC", filter: "") { (data) in
+            let res:FilterResponse = data!
+            self.filterRespose = res
+            
+            for i in 0..<(res.data?.layeredData?.count)!{
+                
+                let name = res.data?.layeredData![i].label
+                let code = res.data?.layeredData![i].code
+                if  code  != "price" {
+                self.filterName.append(name!)
+                }
+                
+            }
+            self.tableView.reloadData()
+        }
     }
 
 }

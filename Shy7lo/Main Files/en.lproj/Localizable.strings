@@ -126,4 +126,10 @@
 "ChenOne" = "ChenOne";
 
 
+//Newest view controller
 
+"most_viewed" = "POPULARITY";
+"created_at" = "NEW";
+"price with direction - DESC" = "PRICE:HIGH TO LOW";
+"price with direction - ASC" = "PRICE:LOW TO HIGH" ;
+"saving" = "DISCOUNT";

@@ -139,6 +139,68 @@ class ApisCallingClass: NSObject {
         }
     }
     
+    //get Sub Categories by IDs
+    
+    class func  getCategoryFilter(onCompletion :@escaping (categoryResponse?)-> Void){
+        //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
+        
+        let url =  URLs.CategoryUrl
+        print(url)
+        ApiManager.get(Url: url) { (data,success:Bool) in
+            if success {
+                do {
+                    print(JSON(data))
+                    let jsonDecoder = JSONDecoder()
+                    let res = try jsonDecoder.decode(categoryResponse.self, from: data) as categoryResponse
+                    print(res)
+                    
+                    onCompletion(res)
+                    
+                }    catch let error {
+                    print(" error --->  \(error)")
+                }
+            }
+            else {
+                let message = JSON(data)
+                let msg = message["message"].stringValue
+                print(msg)
+                onCompletion(nil)
+            }
+        }
+    }
+    
+    //get all filters
+    
+    class func  getFilter(id: String,sort_by:String,direction:String,filter:String,onCompletion :@escaping (FilterResponse?)-> Void){
+        //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
+        let category_id = "category_id=" + id
+        let sort = "&sort_by=" + sort_by
+        let direction = "&direction=" + direction
+        let filterStr = filter
+        let url = URLs.FilterUrl +  category_id + sort + direction + filterStr
+        print(url)
+        ApiManager.get(Url: url) { (data,success:Bool) in
+            if success {
+                do {
+                    print(JSON(data))
+                    let jsonDecoder = JSONDecoder()
+                    let res = try jsonDecoder.decode(FilterResponse.self, from: data) as FilterResponse
+                    print(res)
+                    
+                    onCompletion(res)
+                    
+                }    catch let error {
+                    print(" error --->  \(error)")
+                }
+            }
+            else {
+                let message = JSON(data)
+                let msg = message["message"].stringValue
+                print(msg)
+                onCompletion(nil)
+            }
+        }
+    }
     
     
 }

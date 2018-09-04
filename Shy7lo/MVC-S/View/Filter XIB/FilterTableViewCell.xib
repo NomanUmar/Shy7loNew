@@ -5,16 +5,12 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SF-Pro-Display-Medium.ttf">
             <string>SFProDisplay-Medium</string>
-        </array>
-        <array key="SF-Pro-Display-Regular.ttf">
-            <string>SFProDisplay-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -31,11 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsH-bo-mqc">
-                                <rect key="frame" x="17" y="21" width="164" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="164" id="PCs-zK-5fx"/>
-                                    <constraint firstAttribute="width" secondItem="ZsH-bo-mqc" secondAttribute="height" multiplier="164:19" id="dD3-ED-5sA"/>
-                                </constraints>
+                                <rect key="frame" x="17" y="21" width="21.5" height="19.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -55,27 +47,14 @@
                                 </constraints>
                                 <state key="normal" image="next_icon"/>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Asl-ct-6tp">
-                                <rect key="frame" x="189" y="21" width="176" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Asl-ct-6tp" secondAttribute="height" multiplier="44:5" id="0Lz-pk-qjC"/>
-                                    <constraint firstAttribute="width" constant="176" id="WMT-m8-wiQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Asl-ct-6tp" firstAttribute="leading" secondItem="ZsH-bo-mqc" secondAttribute="trailing" constant="8" id="3Ef-dN-9D9"/>
                             <constraint firstAttribute="height" constant="60.5" id="8l6-mt-EPO"/>
-                            <constraint firstAttribute="trailing" secondItem="Asl-ct-6tp" secondAttribute="trailing" constant="10" id="JJP-3Q-KbF"/>
                             <constraint firstAttribute="trailing" secondItem="qHt-NN-nd2" secondAttribute="trailing" constant="10" id="Uu0-d8-eEJ"/>
                             <constraint firstAttribute="trailing" secondItem="dFR-v3-s5v" secondAttribute="trailing" constant="17" id="XEZ-Fy-Nhp"/>
                             <constraint firstAttribute="bottom" secondItem="dFR-v3-s5v" secondAttribute="bottom" id="cLi-yt-4i6"/>
                             <constraint firstItem="ZsH-bo-mqc" firstAttribute="leading" secondItem="Vtl-lO-pjp" secondAttribute="leading" constant="17" id="eYh-aR-pqM"/>
-                            <constraint firstItem="Asl-ct-6tp" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="eaj-oE-oec"/>
                             <constraint firstItem="qHt-NN-nd2" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="jNv-1F-X0I"/>
                             <constraint firstItem="ZsH-bo-mqc" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="k88-DX-DEX"/>
                             <constraint firstItem="dFR-v3-s5v" firstAttribute="leading" secondItem="Vtl-lO-pjp" secondAttribute="leading" constant="17" id="rcL-pL-vUQ"/>

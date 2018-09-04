@@ -47,6 +47,8 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
 
         // Do any additional setup after loading the view.
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
    // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
         
@@ -69,24 +71,28 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         //search text field delegate
         searchTF.delegate = self
         
+       
+        
         //collection view delegate
         collectionview.delegate = self
         collectionview.dataSource = self
+        
+        if lang.contains("ar"){
+            self.collectionview.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
+        }
+        self.defaultTabSelection()
 
         self.banner = [banner_response]()
         self.categoriesAll = [child_data_response]()
         self.tableView.reloadData()
-        //function call for load data
-        self.indecator = UIViewController.displaySpinner(onView: self.view)
         
-        self.apiCategoryData(id: self.cat_id)
         
         //table view delegates
         tableView.delegate = self
         tableView.dataSource = self
         
         
-        self.defaultTabSelection()
+        
         
         
     }
@@ -114,21 +120,18 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as! SearchCollectionViewCell
         print(indexPath.row)
         cell.laCategoryName.text = self.categoryName[indexPath.row].uppercased()
         
-        
+    
         
         return cell
     }
     
-   /* func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let yourWidth = self.collectionview.bounds.width/3.0
-        let yourHeight = yourWidth
-        
-        return CGSize(width: yourWidth, height: yourHeight)
-    }*/
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -143,24 +146,22 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
-        let categoryId = self.catagoryArray[indexPath.row].category_id
-        UserInfoDefault.saveCategoryID(categoryID: categoryId)
-        self.apiCategoryData(id: categoryId)
-        
         //  function call to auto scroll category tab
         self.scroll(indexPath: indexPath.row)
-        //UserInfoDefault.saveCategoryIndex(CategoryIndex: indexPath.row)
         
-        //let cell = collectionView.cellForItem(at: indexPath) as? MianCategoryCollectionViewCell
-        //cell?.laCategoryName.textColor = .black
+        let categoryId = self.catagoryArray[indexPath.row].category_id
+        UserInfoDefault.saveCategoryID(categoryID: categoryId)
+        self.banner = [banner_response]()
+        self.categoriesAll = [child_data_response]()
+        self.tableView.reloadData()
+        
+        //function call for load data
+        self.indecator = UIViewController.displaySpinner(onView: self.view)
+        self.apiCategoryData(id: categoryId)
         
     }
     
- /*   override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let indexPath = IndexPath(item: self.categoryToScrtoll + 1, section: 0)
-        self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
-    }*/
+
     //=================================================================
     
     
@@ -291,6 +292,8 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             }
             
             self.collectionview.reloadData()
+            
+            
             self.catagoryArray =  res.landing_screens.base_screens
             for i in 0..<self.catagoryArray.count {
                 let obj = self.catagoryArray[i]
@@ -301,6 +304,8 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                     
                     
                 } //  if condition
+                
+                
                 
             } // foor loop
 
@@ -313,9 +318,9 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     //===============================================================
     func defaultTabSelection(){
         //default selected category
-        let indexPathForFirstRow = IndexPath(row: (self.selected), section: 0)
-        self.collectionview.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
-        collectionView(self.collectionview, didSelectItemAt: indexPathForFirstRow)
+        let indexPathFirstRow = IndexPath(row: (self.selected), section: 0)
+        self.collectionview.selectItem(at: indexPathFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
+        collectionView(self.collectionview, didSelectItemAt: indexPathFirstRow)
     }
  //get data of  sub category
     
@@ -323,12 +328,13 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         
         ApisCallingClass.getSubCategoriesID(id: id ) { (data) in
             if(data != nil){
+                UIViewController.removeSpinner(spinner: self.indecator)
                 self.SubCategoryResponse = data
                 self.categoriesAll = (self.SubCategoryResponse.data?.category?.child_data!)!
                 self.banner = (self.SubCategoryResponse.data?.category?.banner!)!
-                UIViewController.removeSpinner(spinner: self.indecator)
+                
                 self.tableView.reloadData()
-               
+                
             }
         }
     }

@@ -21,7 +21,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     
     var imageView : UIImageView!
     var lang:String!
-    var filterName = [brands_response]()
+    var filterName:layeredDataObj?
     var brands = [String]()
     var brandsDictionary = [String: [String]]()
     var brandsSectionTitles = [String]()
@@ -29,7 +29,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         
-        
+        print(self.filterName ?? "Khali")
         //load image
         self.loadImage()
       
@@ -253,15 +253,11 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     
     func BrandCall() {
         
-        ApisCallingClass.getBrands { (data) in
-            self.filterName = (data?.data)!
-            for i in 0..<self.filterName.count{
-                
-                self.brands.append(self.filterName[i].label!)
-                print("Brands\(self.brands)")
-                
-            }
-            
+                    for i in 0..<(self.filterName?.options?.count)!{
+                        self.brands.append((self.filterName?.options![i].label)!)
+                   print("Brands\(self.brands)")
+
+          }
             
             // 1
             for brand in self.brands {
@@ -280,7 +276,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
             
             self.tableView.reloadData()
             
-        }
+        
         
         
     }
