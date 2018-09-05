@@ -1133,7 +1133,7 @@
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LP-Fk-8tf">
                                                             <rect key="frame" x="0.0" y="8" width="181" height="309"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceHolder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="har-lv-VU8">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" image="imagePlaceHolder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="har-lv-VU8">
                                                                     <rect key="frame" x="0.0" y="0.0" width="181" height="239"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="har-lv-VU8" secondAttribute="height" multiplier="181:239" id="S86-Jl-CiJ"/>
@@ -1258,6 +1258,7 @@
                         <outlet property="laFilter" destination="XWt-he-rVc" id="fuG-NJ-Zbj"/>
                         <outlet property="laProductName" destination="AjX-UL-JdE" id="nyb-Z7-0is"/>
                         <segue destination="rNW-XG-IFh" kind="push" id="o3E-Ci-GaX"/>
+                        <segue destination="toL-Q0-vFj" kind="push" id="052-Sk-Q30"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIb-dO-0Qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1273,10 +1274,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fej-bR-jnR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wIg-fO-YoL">
-                                        <rect key="frame" x="0.0" y="364" width="375" height="303"/>
+                                        <rect key="frame" x="0.0" y="315" width="375" height="303"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="303" id="Mc3-OE-cWx"/>
@@ -1300,6 +1301,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zHd-Im-hgU"/>
                     </view>
+                    <navigationItem key="navigationItem" id="EmA-Lj-20s"/>
                     <connections>
                         <outlet property="tableView" destination="wIg-fO-YoL" id="pyV-nU-Zfk"/>
                     </connections>
@@ -1498,13 +1500,6 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VVO-TO-5Qb">
                                         <rect key="frame" x="0.0" y="90.5" width="375" height="447.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear all filters" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DEN-W9-yqc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="19.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="16"/>
-                                            <color key="textColor" red="0.51759380099999996" green="0.51768434050000001" blue="0.51758182050000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="728-eV-dy2">
                                         <rect key="frame" x="0.0" y="40" width="375" height="50.5"/>
@@ -1632,6 +1627,9 @@
                                         <state key="normal" title="APPLY FILTER">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buApplyFilter:" destination="hQv-BT-eAc" eventType="touchUpInside" id="NT7-SR-tdq"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjE-uz-cp4">
                                         <rect key="frame" x="0.0" y="40" width="375" height="50.5"/>

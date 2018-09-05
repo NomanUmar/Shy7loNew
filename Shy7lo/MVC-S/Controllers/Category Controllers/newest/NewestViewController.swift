@@ -9,15 +9,15 @@
 import UIKit
 
 class NewestViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    
     @IBOutlet var tableView: UITableView!
     var lang:String!
-    var filterName =  ["most_viewed","created_at","price with direction - DESC","price with direction - ASC","saving"]
+    var filterName =  ["most_viewed","created_at","DESC","ASC","saving"]
     
     
     override func viewDidLoad() {
         
-         self.lang = UserInfoDefault.getLanguage()
+        self.lang = UserInfoDefault.getLanguage()
         
         self.tabBarController?.tabBar.isHidden = true
         
@@ -32,11 +32,11 @@ class NewestViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-     
-
+        
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -95,14 +95,16 @@ class NewestViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
         
-      
-             cell.selecteedImage.isHidden = false
         
-             UserInfoDefault.saveNewest(newest: self.filterName[index])
-             self.dismiss(animated: true, completion: nil)
+        cell.selecteedImage.isHidden = false
+        print(self.filterName[index])
+        UserInfoDefault.saveNewest(newest: self.filterName[index])
+        //Notification call for brand data
+        NotificationCenter.default.post(name: Notification.Name("forNewest"), object: nil)
+        self.dismiss(animated: false,completion: nil)
         
         
         
     }
-
+    
 }

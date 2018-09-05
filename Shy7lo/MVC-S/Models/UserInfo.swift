@@ -96,13 +96,13 @@ struct CurrencieObj : Codable{
     var default_display_currency_symbol :String
     var available_currency_codes : [String]
     var exchange_rates : [ExchangeRateObj]
-
+    
 }
 
 struct ExchangeRateObj : Codable{
     var currency_to : String
     var rate: Float
-   
+    
     
 }
 

@@ -10,11 +10,11 @@ import UIKit
 
 class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
     
- 
+    
     @IBOutlet var buttonSkip: UIButton!
     
     var appInitResponse:AppInitResponse?
-
+    
     var countriesData : [CountriesObj]!
     var countriesName = [String]()
     var lang:String!
@@ -31,9 +31,9 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     @IBOutlet var buttonNext: UIButton!
     @IBOutlet var laChooseCountry: UILabel!
     
-   
-
-
+    
+    
+    
     override func viewDidLoad() {
         
         
@@ -44,7 +44,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         
         
-       
+        
         
         
         self.view.addGestureRecognizer(swipeLeft)
@@ -61,8 +61,8 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         let height = bounds.size.height
         
         if height < 569{
-             laTitle.font =  laTitle.font.withSize(19)
-             laTitle.text = "TagLineCVC".localizableString(loc: lang)
+            laTitle.font =  laTitle.font.withSize(19)
+            laTitle.text = "TagLineCVC".localizableString(loc: lang)
         }else{
             
             laTitle.text = "TagLineCVC".localizableString(loc: lang)
@@ -75,17 +75,17 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         let buSkip = "BuSkipCVC".localizableString(loc: lang)
         buttonSkip.setTitle(buSkip, for: .normal)
         
-       //picker delegate
+        //picker delegate
         selectCountry.dataSource = self
         selectCountry.delegate = self
-
-       // countryImage.image = UIImage(named: countryListEn[2])
+        
+        // countryImage.image = UIImage(named: countryListEn[2])
         pageControl.currentPage = 0
         
         //function call
         self.getCountriesAppInit()
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -93,7 +93,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         // Dispose of any resources that can be recreated.
     }
     
-//==================================================================
+    //==================================================================
     //button Actions
     @IBAction func buSkip(_ sender: Any) {
         
@@ -111,7 +111,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         UserDefaults.standard.set(true, forKey: "newInstallation")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "CategoriesViewController") as! CategoriesViewController
-          vc.categoryData =  self.appInitResponse?.landing_screens.base_screens
+        vc.categoryData =  self.appInitResponse?.landing_screens.base_screens
         
         self.navigationController?.pushViewController(vc,animated: false)
     }
@@ -141,13 +141,13 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         countryId = self.forLoadImage(countryName: selectedCountry)
         print(countryId!)
         self.countryImage.image = UIImage(named: countryId!)
-         UserInfoDefault.saveCountryName(countryName: self.countriesName[row])
+        UserInfoDefault.saveCountryName(countryName: self.countriesName[row])
         self.countryId = self.forLoadImage(countryName: self.selectedCountry)
         UserInfoDefault.saveCountyCode(countyCode: self.countryId)
     }
     
     
- //===========================================================================
+    //===========================================================================
     
     func getCountriesAppInit(){
         //get data from userDefault
@@ -155,13 +155,13 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         let data = UserDefaults.standard.value(forKey:"AppInit") as? Data
         let jsonDecoder = JSONDecoder()
         if let res = try? jsonDecoder.decode ( AppInitResponse.self , from: data!  ) as   AppInitResponse {
-          
+            
             self.appInitResponse = res
             self.countriesData = res.countries
             var country = [String]()
-           
-        //=========================================================================
-        //get countries from response
+            
+            //=========================================================================
+            //get countries from response
             for i in 0..<self.countriesData.count {
                 print("country------>\(self.countriesData[i])  \n \n \n \n")
                 
@@ -175,7 +175,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                 }
                 
             }
-           
+            
             //==============================================================================
             //array sort and save in countiesName
             self.countriesName = country.sorted()
@@ -192,7 +192,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                         //country in arabic because use at setting time
                         
                         UserInfoDefault.saveCountryName(countryName: self.selectedCountry)
-                       
+                        
                         
                         //both language in arabic or english because use at setting time
                         let currancyArabic = self.countriesData[j].currency_ar
@@ -200,11 +200,11 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                         let currancyEnglish = self.countriesData[j].currency_en
                         UserInfoDefault.saveCurrancyEnglish(currancyEnglish: currancyEnglish)
                         
-                    
+                        
                     }else{
                         self.selectedCountry = self.countriesData[j].full_name_english
                         self.defaultCountry = self.selectedCountry
-              
+                        
                         
                         //country in english because use at setting time
                         
@@ -233,7 +233,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                         UserInfoDefault.saveCurrancyArabic(currancyArabic: "ر.س")
                         UserInfoDefault.saveCurrancyEnglish(currancyEnglish: "SAR")
                         
-        
+                        
                     }else{
                         self.selectedCountry = "Saudi Arabia"
                         self.defaultCountry = self.selectedCountry
@@ -242,7 +242,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                         //country in english because use at setting time
                         
                         UserInfoDefault.saveCountryName(countryName: "Saudi Arabia")
-                    
+                        
                         
                         //both language in arabic or english because use at setting time
                         
@@ -250,7 +250,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
                         UserInfoDefault.saveCurrancyEnglish(currancyEnglish: "SAR")
                         UserInfoDefault.saveCurrancyArabic(currancyArabic: "ر.س")
                     }
-                   
+                    
                 }
                 //function call
                 self.countryId = self.forLoadImage(countryName: self.selectedCountry)
@@ -275,7 +275,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     func forLoadImage(countryName:String) -> String{
         var code:String!
         for i in 0..<self.countriesData.count{
-
+            
             if lang.contains("ar"){
                 if selectedCountry == self.countriesData[i].full_name_locale{
                     
@@ -299,7 +299,7 @@ class CountryViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     
     //==========================================================================
-   // for swipe
+    // for swipe
     @objc func repondToGesture(gesture : UISwipeGestureRecognizer) {
         switch gesture.direction{
         case UISwipeGestureRecognizerDirection.left:

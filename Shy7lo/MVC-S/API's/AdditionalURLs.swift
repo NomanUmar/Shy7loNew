@@ -13,9 +13,4 @@ struct  AdditionalURLs {
     // base url of server
     static let LandingScreen = "https://portal.shylabs.com/mobile/new/main/"
     
-    
-    
-    
-    
-    
 }

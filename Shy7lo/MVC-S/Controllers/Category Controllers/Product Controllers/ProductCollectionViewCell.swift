@@ -17,7 +17,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet var laprice: UILabel!
     @IBOutlet var productImage: UIImageView!
     
-   // for font size of label
+    // for font size of label
     override func  layoutSubviews() {
         
         super.layoutSubviews()
@@ -25,12 +25,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         self.laDiscription.font = self.laDiscription.font.withSize(12)
         self.laSpecialPrice.font = self.laSpecialPrice.font.withSize(14)
         self.laprice.font = self.laprice.font.withSize(14)
-       // self.productImage.contentMode = .scaleAspectFill
-       //  self.productImage.clipsToBounds = true
+        // self.productImage.contentMode = .scaleAspectFill
+        //  self.productImage.clipsToBounds = true
         //self.productImage.layer.masksToBounds = true
         
     }
-    
-    
-    
 }

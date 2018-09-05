@@ -13,7 +13,7 @@ struct SubCategoriesResponse: Codable {
     var success:Int?
     var message:String?
     var data : data_response?
-
+    
 }
 
 struct data_response: Codable {
@@ -52,7 +52,7 @@ struct banner_response: Codable {
     
     var image : String?
     var url :String?
-   
+    
     
 }
 

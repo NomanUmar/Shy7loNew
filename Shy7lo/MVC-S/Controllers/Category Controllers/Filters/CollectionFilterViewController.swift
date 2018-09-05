@@ -22,7 +22,7 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     var filterLabel = [String]()
     var ids = [String]()
     var filterLableName:String!
-
+    
     override func viewDidLoad() {
         
         self.tabBarController?.tabBar.isHidden = true
@@ -58,10 +58,10 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         
         
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,19 +76,19 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-     
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
         cell.laFilterName.text = self.filterLabel[indexPath.row]
         
         
         cell.tapView.tag = indexPath.row
-            
-            if selectedIndex.contains((self.filterName?.options![indexPath.row].id)!) {
-                cell.selecteedImage.isHidden = false
-            }else{
-                cell.selecteedImage.isHidden = true
-            }
+        
+        if selectedIndex.contains((self.filterName?.options![indexPath.row].id)!) {
+            cell.selecteedImage.isHidden = false
+        }else{
+            cell.selecteedImage.isHidden = true
+        }
         
         
         //for filert selection
@@ -112,46 +112,62 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         
         let index  = (cellTag?.tag)!
         print(index as Any)
-    
-            
-            if self.selectedIndex.contains((self.filterName?.options![index].id)!){
-                if let index = self.selectedIndex.index(of: (self.filterName?.options![index].id)!) {
-                    self.selectedIndex.remove(at: index)
-                }
-            }else{
-                self.selectedIndex.append((self.filterName?.options![index].id)!)
-            }
-            print(self.selectedIndex)
-            self.tableView.reloadData()
-            
-            
         
-//        let cellIndex = IndexPath(row: index , section: 0)
-//        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
-//
-//        if cell.selecteedImage.isHidden{
-//            cell.selecteedImage.isHidden = false
-//        }
-//        else{
-//            cell.selecteedImage.isHidden = true
-//        }
+        
+        if self.selectedIndex.contains((self.filterName?.options![index].id)!){
+            if let index = self.selectedIndex.index(of: (self.filterName?.options![index].id)!) {
+                self.selectedIndex.remove(at: index)
+            }
+        }else{
+            self.selectedIndex.append((self.filterName?.options![index].id)!)
+        }
+        print(self.selectedIndex)
+        
+        self.tableView.reloadData()
+        
+        
+        
+        //        let cellIndex = IndexPath(row: index , section: 0)
+        //        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+        //
+        //        if cell.selecteedImage.isHidden{
+        //            cell.selecteedImage.isHidden = false
+        //        }
+        //        else{
+        //            cell.selecteedImage.isHidden = true
+        //        }
         
         
         
     }
     //======================================================================================
     
-
+    
     @IBAction func buBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+   
+    @IBAction func tableBack(_ sender: Any) {
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     
     //======================================================================================
     
     @IBAction func buApplyFilter(_ sender: Any) {
         
-       print(self.selectedIndex)
-    
+        print(self.selectedIndex)
+        
     }
     
     func filerLableCall(){

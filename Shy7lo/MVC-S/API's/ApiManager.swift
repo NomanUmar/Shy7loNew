@@ -50,7 +50,7 @@ class ApiManager: NSObject {
         }
     }
     
-  
+    
     
     
     class func post(Url:String, user:Data , onCompletion :@escaping (Data, _ success:Bool)-> Void)
@@ -70,32 +70,32 @@ class ApiManager: NSObject {
             
             request.addValue("ar", forHTTPHeaderField: "X-Lang")
         }else{
-             request.addValue("en", forHTTPHeaderField: "X-Lang")
+            request.addValue("en", forHTTPHeaderField: "X-Lang")
         }
         
         request.httpBody = user
         
         
         
-    Alamofire.request(request)
-         .validate(statusCode: 200..<300)
-         .responseJSON { response in
-         
-         switch response.result {
-         
-         case .failure(let error):
-         
-         let data : Data = response.data!
-         print("print DaTA-->\(JSON(data))")
-         print("ERROR--->\(error)")
-         onCompletion(data , false)
-         
-         case .success:
-         
-         let data:Data = response.data!
-         onCompletion(data , true)
-         }
-         }
+        Alamofire.request(request)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                
+                switch response.result {
+                    
+                case .failure(let error):
+                    
+                    let data : Data = response.data!
+                    print("print DaTA-->\(JSON(data))")
+                    print("ERROR--->\(error)")
+                    onCompletion(data , false)
+                    
+                case .success:
+                    
+                    let data:Data = response.data!
+                    onCompletion(data , true)
+                }
+        }
     }
     
     

@@ -20,7 +20,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     var banner = [banner_response]()
     var SubCategoryResponse:SubCategoriesResponse!
     var SubCategoryName:String!
-
+    
     override func viewDidLoad() {
         
         
@@ -29,7 +29,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -60,14 +60,14 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //=================================================================
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.categoriesAll.count != 0 || banner.count != 0{
-        let countBanner = self.banner.count
-        let countCategory = self.categoriesAll.count
+            let countBanner = self.banner.count
+            let countCategory = self.categoriesAll.count
             return countCategory + countBanner + 1
             
         }else{
@@ -100,7 +100,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             viewAllCell.ViewAllView.addGestureRecognizer(tapViewAll)
             viewAllCell.ViewAllView.isUserInteractionEnabled = true
             
-           
+            
             return viewAllCell
             
         }
@@ -118,10 +118,10 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             //end for cell selection
             cell.laSubCategoryName.text = self.categoriesAll[(indexPath.row - 1 ) - banner.count].name
             let postPicUrl =  URL(string: self.categoriesAll[(indexPath.row - 1) - banner.count].thumb!)!
-          
-                cell.subCategoryImage.kf.indicatorType = .activity
-                cell.subCategoryImage.kf.setImage(with: postPicUrl)
-
+            
+            cell.subCategoryImage.kf.indicatorType = .activity
+            cell.subCategoryImage.kf.setImage(with: postPicUrl)
+            
             
             cell.subCategoryImage.maskCircle()
             return cell
@@ -162,8 +162,8 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as!  ProductViewController
-           vc.subCategoryId =  self.categoriesAll[index - self.banner.count - 1].id
-           vc.subCategoryName = self.categoriesAll[index - self.banner.count - 1].name
+        vc.subCategoryId =  self.categoriesAll[index - self.banner.count - 1].id
+        vc.subCategoryName = self.categoriesAll[index - self.banner.count - 1].name
         
         
         
@@ -172,7 +172,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         UIApplication.shared.endIgnoringInteractionEvents()
         
         self.navigationController?.pushViewController(vc,animated: true)
-    
+        
     }
     
     @objc func tapViewAllCell(sender: UITapGestureRecognizer) {
@@ -193,7 +193,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
         print(self.SubCategoryId)
         print(self.SubCategoryName)
         
-       
+        
         //end ignoring intrection
         UIApplication.shared.endIgnoringInteractionEvents()
         self.navigationController?.pushViewController(vc,animated: true)
@@ -203,6 +203,6 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
     
     @IBAction func buBack(_ sender: Any) {
         
-         self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

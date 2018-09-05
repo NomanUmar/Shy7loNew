@@ -9,7 +9,7 @@
 import UIKit
 
 class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
-
+    
     
     
     var categoryData: [BaseScreenObj]!
@@ -38,12 +38,12 @@ class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPicker
         
         self.view.addGestureRecognizer(swipeRight)
         
-      print(categoryData)
+        print(categoryData)
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         self.lang = UserInfoDefault.getLanguage()
         self.loadCategories()
@@ -73,8 +73,8 @@ class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPicker
         // Dispose of any resources that can be recreated.
     }
     
-
-
+    
+    
     
     //Functions for picker view
     //================================================================
@@ -85,28 +85,28 @@ class CategoriesViewController: UIViewController,UIPickerViewDataSource,UIPicker
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-            return self.categoryList.count
-            
+        return self.categoryList.count
+        
         
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         return self.categoryList[row]
-       
+        
         
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-            self.genderImage.image = UIImage(named: "Gender")
-            print(self.categoryList[row])
-            self.categoryId = self.forCatagory(category: categoryList[row])
-            print(categoryId!)
-            UserInfoDefault.saveCategoryID(categoryID: categoryId)
+        self.genderImage.image = UIImage(named: "Gender")
+        print(self.categoryList[row])
+        self.categoryId = self.forCatagory(category: categoryList[row])
+        print(categoryId!)
+        UserInfoDefault.saveCategoryID(categoryID: categoryId)
         
     }
-   //=====================================================================================
+    //=====================================================================================
     
     @IBAction func buSkip(_ sender: Any) {
         UserDefaults.standard.set(true, forKey: "newInstallation")

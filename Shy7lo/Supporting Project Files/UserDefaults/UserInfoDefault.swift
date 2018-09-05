@@ -9,7 +9,7 @@
 import UIKit
 
 @objc class UserInfoDefault: NSObject {
-
+    
     //---- save data in user Default----
     
     
@@ -78,9 +78,9 @@ import UIKit
         UserDefaults.standard.synchronize()
     }
     
-   
     
-
+    
+    
     
     //------- get data in user Default ------
     
@@ -116,10 +116,10 @@ import UIKit
         return userValue
     }
     
-     static func getCurrancyEnglish() -> String {
-    guard let userValue =  UserDefaults.standard.value(forKey: "currancyEnglish") as? String else {return ""}
-    return userValue
-}
+    static func getCurrancyEnglish() -> String {
+        guard let userValue =  UserDefaults.standard.value(forKey: "currancyEnglish") as? String else {return ""}
+        return userValue
+    }
     static func getCurrancyArabic() -> String {
         guard let userValue =  UserDefaults.standard.value(forKey: "currancyArabic") as? String else {return ""}
         return userValue
@@ -137,7 +137,7 @@ import UIKit
     }
     
     
-   
+    
     //=============================================================================================
     
     
@@ -147,29 +147,29 @@ import UIKit
     static func removeAllUserDefault()
     {
         /*UserDefaults.standard.removeObject(forKey: "user_id")
-        UserDefaults.standard.removeObject(forKey: "token")
-        UserDefaults.standard.removeObject(forKey: "user_email")
-        UserDefaults.standard.removeObject(forKey: "confirmed")
-        UserDefaults.standard.removeObject(forKey: "user_fullName")
-        UserDefaults.standard.removeObject(forKey: "user_about")
-        UserDefaults.standard.removeObject(forKey: "user_phoneNo")
-        UserDefaults.standard.removeObject(forKey: "user_gender")
-        UserDefaults.standard.removeObject(forKey: "user_dateOfBirth")
-        UserDefaults.standard.removeObject(forKey: "user_stauts")
-        UserDefaults.standard.removeObject(forKey: "user_adminAccess")
-        UserDefaults.standard.removeObject(forKey: "user_level")
-        UserDefaults.standard.removeObject(forKey: "user_currentHp")
-        UserDefaults.standard.removeObject(forKey: "user_maxHp")
-        UserDefaults.standard.removeObject(forKey: "user_currentExp")
-        UserDefaults.standard.removeObject(forKey: "user_requiredExp")
-        UserDefaults.standard.removeObject(forKey: "user_gold")
-        UserDefaults.standard.removeObject(forKey: "user_gems")
-        UserDefaults.standard.removeObject(forKey: "user_score")
-        UserDefaults.standard.removeObject(forKey: "user_badgeCount")
-        UserDefaults.standard.removeObject(forKey: "user_followersCount")
-        UserDefaults.standard.removeObject(forKey: "user_choosedCategories")
-        UserDefaults.standard.removeObject(forKey: "user_activeDp")
-        UserDefaults.standard.removeObject(forKey: "user_profileImages")*/
+         UserDefaults.standard.removeObject(forKey: "token")
+         UserDefaults.standard.removeObject(forKey: "user_email")
+         UserDefaults.standard.removeObject(forKey: "confirmed")
+         UserDefaults.standard.removeObject(forKey: "user_fullName")
+         UserDefaults.standard.removeObject(forKey: "user_about")
+         UserDefaults.standard.removeObject(forKey: "user_phoneNo")
+         UserDefaults.standard.removeObject(forKey: "user_gender")
+         UserDefaults.standard.removeObject(forKey: "user_dateOfBirth")
+         UserDefaults.standard.removeObject(forKey: "user_stauts")
+         UserDefaults.standard.removeObject(forKey: "user_adminAccess")
+         UserDefaults.standard.removeObject(forKey: "user_level")
+         UserDefaults.standard.removeObject(forKey: "user_currentHp")
+         UserDefaults.standard.removeObject(forKey: "user_maxHp")
+         UserDefaults.standard.removeObject(forKey: "user_currentExp")
+         UserDefaults.standard.removeObject(forKey: "user_requiredExp")
+         UserDefaults.standard.removeObject(forKey: "user_gold")
+         UserDefaults.standard.removeObject(forKey: "user_gems")
+         UserDefaults.standard.removeObject(forKey: "user_score")
+         UserDefaults.standard.removeObject(forKey: "user_badgeCount")
+         UserDefaults.standard.removeObject(forKey: "user_followersCount")
+         UserDefaults.standard.removeObject(forKey: "user_choosedCategories")
+         UserDefaults.standard.removeObject(forKey: "user_activeDp")
+         UserDefaults.standard.removeObject(forKey: "user_profileImages")*/
         
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()

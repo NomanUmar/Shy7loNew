@@ -123,6 +123,6 @@
 
 "most_viewed" = "شعبية";
 "created_at" = "الجديد";
-"price with direction - DESC" = "السعر: الاعلى الى الادنى";
-"price with direction - ASC" = "السعر: من الارخص للاعلى" ;
+"DESC" = "السعر: الاعلى الى الادنى";
+"ASC" = "السعر: من الارخص للاعلى" ;
 "saving" = "خصم";

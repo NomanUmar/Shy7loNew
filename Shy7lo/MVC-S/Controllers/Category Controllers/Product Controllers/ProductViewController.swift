@@ -33,6 +33,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     var ExchangeRate = [ExchangeRateObj]()
     var currancy:String!
     var currencyChangeRate : Float!
+    var newest:String!
     override func viewDidLoad() {
         
         
@@ -54,6 +55,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         self.tabBarController?.tabBar.isHidden = false
         //dropDownTF.delegate = self
+        
+        self.addObserver()
         
         //get language from user defaults
         
@@ -79,7 +82,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.ProductById(id: subCategoryId , page : 1)
         print(subCategoryId)
-       
+        
         self.currencyCall()
         
         
@@ -128,85 +131,14 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let postPicUrl =  URL(string: self.productList[indexPath.row].image!)!
         print(postPicUrl)
         //imagePlaceHolder
-    
+        
         cell.productImage.kf.setImage(with: postPicUrl, placeholder: UIImage(named: "imagePlaceHolder"), options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
             
             
             
-            
-            
-            //device width
-            
-            let bounds = UIScreen.main.bounds
-            let newImageWidth = (bounds.size.width / 2) - 12
-            let urlImageWidth = (image?.size.width)!
-            let urlImageHeigth = (image?.size.height)!
-            
-            
-             let newImageHight = ((urlImageHeigth / urlImageWidth) * newImageWidth)
-          
-            
-            //let size = CGSize(width: newImageWidth , height: newImageHight)
-            
-            
-            print("old width ---> \(urlImageWidth)")
-            print("old height ---> \(urlImageHeigth)")
-            print("new width ---> \(newImageWidth)")
-            print("new height ---> \(newImageHight)")
-            
-            
-            
-            
-            //image.frame = CGRect(x: 0, y: 0, width: 50, height: screenSize.height * 0.2)
-            
-           
-            
-            
-          /*  DispatchQueue.main.async {
-                
-                // cell.productImage.frame.size.width =  newImageWidth
-                
-                if Int((image?.size.width)!) > Int((image?.size.height)!) {
-                    cell.productImage.contentMode = .scaleAspectFit
-                    
-                    //since the width > height we may fit it and we'll have bands on top/bottom
-                } else {
-                    
-                    
-                    cell.productImage.contentMode =  .redraw
-                    
-                    cell.productImage.layer.masksToBounds = true
-                    
-                    //width < height we fill it until width is taken up and clipped on top/bottom
-                }
-                 
-                
-            }*/
-                //self.ResizeImage(image: image!, targetSize: size)
-            
-        
-        
-            
-         /*   if Int((image?.size.width)!) > Int((image?.size.height)!) {
-                cell.productImage.contentMode = .scaleAspectFit
-            
-                //since the width > height we may fit it and we'll have bands on top/bottom
-            } else {
-                
-              
-                cell.productImage.contentMode =  .scaleAspectFill
-                
-                cell.productImage.layer.masksToBounds = true
-                
-                //width < height we fill it until width is taken up and clipped on top/bottom
-            }*/
-            
-            
-         
-          
         }
         
-       
+        
         //=========================================================================
         
         let specialFromDate =  self.productList[indexPath.row].special_from_date
@@ -243,13 +175,13 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 let roundSpecialRate = String(format: "%.1f", specialRate)
                 // result = 3.3
                 if lang.contains("ar"){
-                cell.laSpecialPrice.text =  String( roundSpecialRate) + " " + self.currancy
-               
+                    cell.laSpecialPrice.text =  String( roundSpecialRate) + " " + self.currancy
+                    
                 }else{
                     
-                cell.laSpecialPrice.text = self.currancy + " " + String( roundSpecialRate)
-               
-
+                    cell.laSpecialPrice.text = self.currancy + " " + String( roundSpecialRate)
+                    
+                    
                     
                 }
                 cell.textCutView.isHidden = false
@@ -272,11 +204,11 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let roundPriceRate = String(format: "%.1f", priceRate)
         
         if lang.contains("ar"){
-              cell.laprice.text =  String(roundPriceRate)  + " " + self.currancy
+            cell.laprice.text =  String(roundPriceRate)  + " " + self.currancy
         }else{
-             cell.laprice.text = self.currancy + " " + String(roundPriceRate)
+            cell.laprice.text = self.currancy + " " + String(roundPriceRate)
         }
-      
+        
         
         
         //==================================================================
@@ -295,10 +227,10 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
             
             str2 = ""
         }
-      
+        
         
         let finalStr = str1! + " " + str2!
-    
+        
         let color = UIColor(red:0.52, green:0.52, blue:0.52, alpha:1.0)
         let string: NSMutableAttributedString = NSMutableAttributedString(string: finalStr)
         string.setColorForText(textToFind: str1!, withColor: UIColor.black)
@@ -318,8 +250,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = self.collectionView.bounds.width/2.0
         // let cellHight = cellWidth * 1.75
-    
-       
+        
+        
         let  discription = 17 + 17
         
         
@@ -364,6 +296,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 
                 if   self.isLoading == false
                 {
+                    self.indecator = UIViewController.displaySpinner(onView: self.view)
                     self.ProductById(id: self.subCategoryId, page: page! + 1)
                     
                 }else{
@@ -383,11 +316,26 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
         
         
+        var sortBy:String!
+        var direction:String!
+        
+        let newest = UserInfoDefault.getNewest()
+        
+        if newest == "DESC" || newest == "ASC"{
+            sortBy = "price"
+            direction = newest
+        }else{
+            sortBy = newest
+            direction = "DESC"
+        }
+        
+        print(sortBy)
+        print(direction)
         self.isLoading = true
         
         
         
-        ApisCallingClass.getProductdID(id: id, sort_by: "saving", direction: "DESC", page: page) { (data) in
+        ApisCallingClass.getProductdID(id: id, sort_by: sortBy , direction: direction, page: page) { (data) in
             
             if data != nil {
                 UIViewController.removeSpinner(spinner: self.indecator!)
@@ -400,7 +348,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 self.collectionView.reloadData()
                 
                 
-              
+                
             }
             
         }
@@ -471,7 +419,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     //=================================================================================
     
     @objc func tapFilterView(sender: UITapGestureRecognizer) {
-      
+        
         //start ignoring intrection
         
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -480,12 +428,12 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         let vc = storyboard.instantiateViewController(withIdentifier: "FiltersViewController") as! FiltersViewController
         vc.categoryId = self.subCategoryId
         print(vc.categoryId)
-       
+        
         //end ignoring intrection
         
         UIApplication.shared.endIgnoringInteractionEvents()
         self.navigationController?.pushViewController(vc,animated: true)
-       
+        
         
         
         
@@ -494,14 +442,30 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     @objc func tapBrandView(sender: UITapGestureRecognizer) {
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-      let vc = storyboard.instantiateViewController(withIdentifier: "NewestViewController") as! NewestViewController
-        self.present(vc, animated: true, completion: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "NewestViewController") as! NewestViewController
+        
+        self.present(vc, animated: false, completion: nil)
         
         
     }
     
     
+    //=======================================================================================
+    func addObserver(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(forNewest), name: Notification.Name("forNewest"), object: nil)
+    }
     
+    @objc func forNewest(notification: NSNotification){
+        
+        self.productList = [product_listing]()
+        self.indecator = UIViewController.displaySpinner(onView: self.view)
+        self.ProductById(id: self.subCategoryId, page: 1)
+        //collectionView.setContentOffset(CGPoint.zero, animated: true
+        //self.collectionView.setContentOffset(CGPoint.zero, animated: true)
+        
+        
+    }
     //=======================================================================================
     func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
         

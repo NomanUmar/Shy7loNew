@@ -24,20 +24,20 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
     @IBOutlet var laSetting: UILabel!
     
     @IBOutlet var buttonBack: UIButton!
-
+    
     override func viewDidLoad() {
         
         self.lang = UserInfoDefault.getLanguage()
         //set image in same direction with language
         self.countryCode =  UserInfoDefault.getCountryCode()
         print(self.countryCode)
-       
+        
         let flippedImage = UIImage(named: "back_icon")?.imageFlippedForRightToLeftLayoutDirection()
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         self.laSetting.text = "countryChangeVC".localizableString(loc: lang!)
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -54,7 +54,7 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func buBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -94,7 +94,7 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
             self.appInitResponse = res
             self.countriesData = res.countries
             var country = [String]()
-           
+            
             //=========================================================================
             //get countries from response
             for i in 0..<self.countriesData.count {
@@ -110,7 +110,7 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
                 }
                 
             }
-          
+            
             
             //==============================================================================
             //array sort and save in countiesName
@@ -187,7 +187,7 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
             
             if lang.contains("ar"){
                 if selectedCountry == self.countriesData[i].full_name_locale{
-                //save currancy
+                    //save currancy
                     UserInfoDefault.saveCurrancyArabic(currancyArabic: self.countriesData[i].currency_ar)
                     UserInfoDefault.saveCurrancyEnglish(currancyEnglish: self.countriesData[i].currency_en)
                     code = self.countriesData[i].id
@@ -207,8 +207,4 @@ class CountryChangeViewController: UIViewController,UIPickerViewDelegate,UIPicke
         print(code!)
         return code!
     }
-    
-    
-    
-
 }

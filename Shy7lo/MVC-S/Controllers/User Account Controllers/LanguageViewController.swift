@@ -26,10 +26,10 @@ class LanguageViewController: UIViewController {
         
         
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,21 +43,21 @@ class LanguageViewController: UIViewController {
         UserInfoDefault.saveLanguage(language: "en")
         self.changeViewControllers(isArabic: false)
         
-      
+        
     }
     
     @IBAction func buArabic(_ sender: Any) {
         UserInfoDefault.saveLanguage(language: "ar-SA")
         self.changeViewControllers(isArabic: true)
         
-       
+        
     }
     
     
     //change transition from Left to right or right to left
     func changeViewControllers(isArabic arabic : Bool){
         
-         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
         if arabic {
@@ -66,7 +66,7 @@ class LanguageViewController: UIViewController {
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
             UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
             UITextField.appearance().semanticContentAttribute = .forceRightToLeft
-           
+            
         }
         else{
             
@@ -76,7 +76,7 @@ class LanguageViewController: UIViewController {
             //SFProDisplay
             UILabel.appearance().substituteFontName = "SFProDisplay"
             UITextField.appearance().substituteFontName = "SFProDisplay"
-           
+            
             
             for family in UIFont.familyNames {
                 print("\(family)")
@@ -87,7 +87,7 @@ class LanguageViewController: UIViewController {
             }
             
             
-           
+            
         }
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
         appDelegate?.window?.rootViewController = homeViewController

@@ -33,12 +33,12 @@ struct product_request_params: Codable {
     var storeId:String?
     var sort_by : String?
     var direction : String?
-   // var filter : filter_obj?
+    // var filter : filter_obj?
     
 }
 
 struct filter_obj: Codable {
-
+    
     var brand: String?
     
 }

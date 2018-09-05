@@ -9,7 +9,7 @@
 import UIKit
 
 class AccountSignInOrJoinViewController: UIViewController {
-
+    
     @IBOutlet var laComeOnIn: UILabel!
     @IBOutlet var laAccount: UILabel!
     @IBOutlet var joinButton: UIButton!
@@ -27,12 +27,12 @@ class AccountSignInOrJoinViewController: UIViewController {
         
         //add spacing to the text of lable account or come on in
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
     
-   
+    
     
     
     override func didReceiveMemoryWarning() {
@@ -88,5 +88,5 @@ class AccountSignInOrJoinViewController: UIViewController {
     @IBAction func buSignIn(_ sender: Any) {
     }
     
-
+    
 }

@@ -38,11 +38,11 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         //load image
         self.loadImage()
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-       // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
+        // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
         
         let  transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         self.Activity.transform = transform
@@ -82,7 +82,7 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         {
             print("Clicked")
             print(request.url!)
-    
+            
             
         }
         return true
@@ -96,7 +96,7 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     
     //=====================================================================
     
-
+    
     
     //=======================================================================================
     
@@ -110,21 +110,21 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
                 print(j)
                 if lang.contains("ar"){
                     categoryName.append(res.landing_screens.base_screens[j].title_ar)
-                
+                    
                 }else{
                     categoryName.append(res.landing_screens.base_screens[j].title_en)
                 }
             }
             print(self.categoryName)
-           self.collectionview.reloadData()
+            self.collectionview.reloadData()
             self.catagoryArray =  res.landing_screens.base_screens
             for i in 0..<self.catagoryArray.count {
                 let obj = self.catagoryArray[i]
                 
                 if obj.category_id == cat_id {
                     
-                self.selected = i
-                self.loadUrl(url:obj.url)
+                    self.selected = i
+                    self.loadUrl(url:obj.url)
                     
                     
                 } //  if condition
@@ -150,16 +150,16 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MianCategoryCollectionViewCell", for: indexPath) as! MianCategoryCollectionViewCell
-    
+        
         
         cell.laCategoryName.text = self.categoryName[indexPath.row].uppercased()
         
-     
+        
         
         return cell
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -181,21 +181,21 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         self.landingWebView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
         var url:String!
         if lang.contains("ar"){
-        url = self.catagoryArray[indexPath.row].url_ar
+            url = self.catagoryArray[indexPath.row].url_ar
         }else{
             url = self.catagoryArray[indexPath.row].url
         }
         self.loadUrl(url: url)
         let categoryId = self.catagoryArray[indexPath.row].category_id
         UserInfoDefault.saveCategoryID(categoryID: categoryId)
-
-
+        
+        
     }
-
+    
     
     //======================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-       
+        
         self.imageAnimate()
         
         return true
@@ -229,14 +229,14 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
         self.Activity.isHidden = false
     }
     func webViewDidFinishLoad(_ webView: UIWebView) {
-      self.Activity.isHidden = true
+        self.Activity.isHidden = true
     }
     
     
     //=================================================================
     //functions for image in text field
     func loadImage(){
- 
+        
         self.imageView  = UIImageView(frame: CGRect(x: 0 , y: 7, width: 20 , height: 20))
         self.imageView.center.x = self.view.center.x
         
@@ -260,7 +260,7 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
             }
             
         })
-     
+        
     }
     
     func returnImageAnimate(){
@@ -275,11 +275,11 @@ class MainCategoryViewController: UIViewController,UIWebViewDelegate,UICollectio
     }
     
     func defaultTabSelection(){
-    //default selected category
-    let indexPathFirstRow = IndexPath(row: (self.selected), section: 0)
-    self.collectionview.selectItem(at: indexPathFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
-    collectionView(self.collectionview, didSelectItemAt: indexPathFirstRow)
-      
+        //default selected category
+        let indexPathFirstRow = IndexPath(row: (self.selected), section: 0)
+        self.collectionview.selectItem(at: indexPathFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
+        collectionView(self.collectionview, didSelectItemAt: indexPathFirstRow)
+        
     }
     // to auto scroll category tab
     

@@ -19,7 +19,7 @@ struct filterDataObj: Codable {
     
     var layeredData:[layeredDataObj]?
     var sortingData:[sortingDataObj]?
-
+    
     
 }
 

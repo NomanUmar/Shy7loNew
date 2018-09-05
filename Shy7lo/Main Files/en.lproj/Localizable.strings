@@ -130,6 +130,6 @@
 
 "most_viewed" = "POPULARITY";
 "created_at" = "NEW";
-"price with direction - DESC" = "PRICE:HIGH TO LOW";
-"price with direction - ASC" = "PRICE:LOW TO HIGH" ;
+"DESC" = "PRICE:HIGH TO LOW";
+"ASC" = "PRICE:LOW TO HIGH" ;
 "saving" = "DISCOUNT";

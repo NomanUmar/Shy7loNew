@@ -27,7 +27,7 @@ class ApisCallingClass: NSObject {
                     let jsonDecoder = JSONDecoder()
                     let res = try jsonDecoder.decode(AppInitResponse.self, from: data  ) as  AppInitResponse
                     
-    
+                    
                     onCompletion(res)
                     
                 }    catch let error {
@@ -113,7 +113,7 @@ class ApisCallingClass: NSObject {
     
     class func  getBrands(onCompletion :@escaping (BrandsResponse?)-> Void){
         //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
-       
+        
         let url =  URLs.BrandsUrl
         print(url)
         ApiManager.get(Url: url) { (data,success:Bool) in
@@ -201,6 +201,4 @@ class ApisCallingClass: NSObject {
             }
         }
     }
-    
-    
 }

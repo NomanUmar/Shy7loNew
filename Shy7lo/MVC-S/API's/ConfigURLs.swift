@@ -17,16 +17,16 @@ struct  URLs {
     
     // POST App Initialization
     static let AppInit = baseUrl + "/api/init"
-
+    
     // GET SubCategory by ID
     static let SubCateoryId = baseUrl + "/api/catalog/sub-category/"
     
     // get products
     static let getProductsId = baseUrl +  "/api/catalog/products?"
     
- 
     
-   //https://api2.shylabs.com/api/catalog/brand
+    
+    //https://api2.shylabs.com/api/catalog/brand
     //brands
     
     static let BrandsUrl = baseUrl +  "/api/catalog/brand"

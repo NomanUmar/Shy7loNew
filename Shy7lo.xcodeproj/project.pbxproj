@@ -23,6 +23,7 @@
 		160591FC211C489900781C54 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160591FB211C489900781C54 /* DesignableView.swift */; };
 		1605920D211C5F9600781C54 /* SubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605920C211C5F9600781C54 /* SubCategories.swift */; };
 		1605921E211DAA0500781C54 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605921D211DAA0500781C54 /* Font.swift */; };
+		1605B5CE213FC384008A083D /* CategoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605B5CD213FC384008A083D /* CategoryPath.swift */; };
 		160CD0D5211998460079FB3E /* TransitionArabic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160CD0D4211998460079FB3E /* TransitionArabic.swift */; };
 		160CD0D72119AA170079FB3E /* ApisCallingClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160CD0D62119AA170079FB3E /* ApisCallingClass.swift */; };
 		160CD0D9211B04040079FB3E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160CD0D8211B04040079FB3E /* ActivityIndicator.swift */; };
@@ -130,6 +131,7 @@
 		160591FB211C489900781C54 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		1605920C211C5F9600781C54 /* SubCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategories.swift; sourceTree = "<group>"; };
 		1605921D211DAA0500781C54 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		1605B5CD213FC384008A083D /* CategoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPath.swift; sourceTree = "<group>"; };
 		160CD0D3211984590079FB3E /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Main.strings"; sourceTree = "<group>"; };
 		160CD0D4211998460079FB3E /* TransitionArabic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionArabic.swift; sourceTree = "<group>"; };
 		160CD0D62119AA170079FB3E /* ApisCallingClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApisCallingClass.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				1602788D212C16350042CB89 /* CategoryViewController.swift */,
 				160278982133B5A20042CB89 /* BrandFilterViewController.swift */,
 				164BF5D9213415F1008B8428 /* CollectionFilterViewController.swift */,
+				1605B5CD213FC384008A083D /* CategoryPath.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				169226E72105B3E000A351B8 /* designLabel.swift in Sources */,
 				169226E42105B3E000A351B8 /* DesignView.swift in Sources */,
 				165272582122B28100E2BDA3 /* searchTableViewCell.swift in Sources */,
+				1605B5CE213FC384008A083D /* CategoryPath.swift in Sources */,
 				165272742122B29400E2BDA3 /* CountryViewController.swift in Sources */,
 				16027883212BD73E0042CB89 /* FiltersViewController.swift in Sources */,
 				165272782122B29400E2BDA3 /* MianCategoryCollectionViewCell.swift in Sources */,

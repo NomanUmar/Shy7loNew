@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class LandingViewController: UIViewController,UIWebViewDelegate {
-
+    
     
     var window: UIWindow?
     var indecator:UIView! = nil
@@ -37,11 +37,11 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
         landingWebView.scrollView.isScrollEnabled = false
         landingWebView.scrollView.bounces =  false
         
-    
+        
         self.loadUrl()
         
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     func webViewDidStartLoad(_ webView: UIWebView) {
@@ -49,7 +49,7 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
     }
     func webViewDidFinishLoad(_ webView: UIWebView) {
         
-         UIViewController.removeSpinner(spinner: indecator)
+        UIViewController.removeSpinner(spinner: indecator)
         
     }
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
@@ -62,13 +62,13 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
             //  let newUrl =  String(describing: url!)
             let cat_id = url?.valueOf("category_id")
             print("\(String(describing: cat_id))")
-             UserInfoDefault.saveCategoryID(categoryID: cat_id!)
+            UserInfoDefault.saveCategoryID(categoryID: cat_id!)
             
-                let mytabbar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
-                let appDelegate = UIApplication.shared.delegate  as! AppDelegate
-                appDelegate.window?.rootViewController = mytabbar
+            let mytabbar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
+            let appDelegate = UIApplication.shared.delegate  as! AppDelegate
+            appDelegate.window?.rootViewController = mytabbar
             
-        
+            
         }
         return true
     }
@@ -80,17 +80,17 @@ class LandingViewController: UIViewController,UIWebViewDelegate {
     
     func loadUrl(){
         
-       
+        
         
         
         var url:URL!
         if lang.contains("ar"){
-         url = URL(string: AdditionalURLs.LandingScreen + "ar")
+            url = URL(string: AdditionalURLs.LandingScreen + "ar")
         }else{
-             url = URL(string: AdditionalURLs.LandingScreen + "en")
+            url = URL(string: AdditionalURLs.LandingScreen + "en")
         }
-         var urlRequest = URLRequest(url: url!)
-         urlRequest.cachePolicy = .returnCacheDataElseLoad
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.cachePolicy = .returnCacheDataElseLoad
         landingWebView.loadRequest(urlRequest)
     }
 }

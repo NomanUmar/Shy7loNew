@@ -9,13 +9,13 @@
 import UIKit
 
 class AccountViewController: UIViewController {
-
+    
     @IBOutlet var laAccount: UILabel!
     var lang:String!
     override func viewDidLoad() {
-    
+        
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +27,7 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func buSetting(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -35,5 +35,5 @@ class AccountViewController: UIViewController {
         self.navigationController?.pushViewController(vc,animated: true)
     }
     
-
+    
 }

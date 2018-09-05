@@ -44,13 +44,13 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         //load image
         self.loadImage()
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-   // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
+        // self.categoryToScrtoll = UserInfoDefault.getCategoryIndex()
         
         tableView.register(UINib(nibName: "searchTableViewCell", bundle: nil), forCellReuseIdentifier: "searchTableViewCell")
         
@@ -71,7 +71,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         //search text field delegate
         searchTF.delegate = self
         
-       
+        
         
         //collection view delegate
         collectionview.delegate = self
@@ -81,7 +81,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             self.collectionview.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
         }
         self.defaultTabSelection()
-
+        
         self.banner = [banner_response]()
         self.categoriesAll = [child_data_response]()
         self.tableView.reloadData()
@@ -98,7 +98,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     }
     
     //=====================================================================
-   // for hide keyboard touch on scereen
+    // for hide keyboard touch on scereen
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -126,12 +126,12 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         print(indexPath.row)
         cell.laCategoryName.text = self.categoryName[indexPath.row].uppercased()
         
-    
+        
         
         return cell
     }
     
- 
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -161,14 +161,14 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         
     }
     
-
+    
     //=================================================================
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           let countBanner = self.banner.count
-           let countCategory = self.categoriesAll.count
-            return countCategory + countBanner
+        let countBanner = self.banner.count
+        let countCategory = self.categoriesAll.count
+        return countCategory + countBanner
         
     }
     
@@ -201,15 +201,15 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             //end for cell selection
             cell.lacategoryName.text = self.categoriesAll[indexPath.row - banner.count].name
             let postPicUrl =  URL(string: self.categoriesAll[indexPath.row - banner.count].thumb!)!
-           
-                
-                cell.categoryImage.kf.indicatorType = .activity
-                cell.categoryImage.kf.setImage(with: postPicUrl)
+            
+            
+            cell.categoryImage.kf.indicatorType = .activity
+            cell.categoryImage.kf.setImage(with: postPicUrl)
             
             return cell
         }
-   
-        }
+        
+    }
     
     //=================================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -233,7 +233,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     
     
     
-
+    
     //=================================================================
     //functions for image in text field
     func loadImage(){
@@ -277,7 +277,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
     
     //==================================================================
     func getUrl_and_Load (cat_id:String)  {
-       
+        
         let data = UserDefaults.standard.value(forKey:"AppInit") as? Data
         let jsonDecoder = JSONDecoder()
         if let res = try? jsonDecoder.decode ( AppInitResponse.self , from: data!  ) as   AppInitResponse {
@@ -308,11 +308,11 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                 
                 
             } // foor loop
-
+            
         }
         // api init response
         
-       
+        
     } //  function
     
     //===============================================================
@@ -322,7 +322,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         self.collectionview.selectItem(at: indexPathFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.init(rawValue: 0))
         collectionView(self.collectionview, didSelectItemAt: indexPathFirstRow)
     }
- //get data of  sub category
+    //get data of  sub category
     
     func apiCategoryData(id:String){
         
@@ -349,22 +349,22 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         
         let categoryCellTag = sender.view
         
-       
+        
         let index  = (categoryCellTag?.tag)!
         print(index as Any)
         // for ignore intrection until response not back
         UIApplication.shared.beginIgnoringInteractionEvents()
-         let selectedCategoryID = self.categoriesAll[index - self.banner.count].id
+        let selectedCategoryID = self.categoriesAll[index - self.banner.count].id
         //check selected category have sub category or not
         ApisCallingClass.getSubCategoriesID(id: selectedCategoryID!) { (data) in
             
             
             let res : SubCategoriesResponse = data!
-           
+            
             if (res.data?.category?.child_data?.isEmpty)!{
                 //end ignoring intrection
                 UIApplication.shared.endIgnoringInteractionEvents()
-            
+                
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as!  ProductViewController
@@ -372,18 +372,18 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
                 vc.subCategoryName = self.categoriesAll[index - self.banner.count].name
                 //end ignoring intrection
                 
-               
+                
                 self.navigationController?.pushViewController(vc,animated: true)
                 
                 
                 
             }else{
-                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SubCategoryViewController") as! SubCategoryViewController
                 vc.SubCategoryId = selectedCategoryID
                 vc.SubCategoryName =  self.categoriesAll[index - self.banner.count].name
                 //end ignoring intrection
-            
+                
                 UIApplication.shared.endIgnoringInteractionEvents()
                 self.navigationController?.pushViewController(vc,animated: true)
             }
@@ -411,8 +411,8 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
             
         }
         if indexPath + 1 == self.catagoryArray.count {
-                let indexPath = IndexPath(item: indexPath , section: 0)
-                self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
+            let indexPath = IndexPath(item: indexPath , section: 0)
+            self.collectionview.scrollToItem(at: indexPath, at: [.centeredHorizontally], animated: true)
         }
         if indexPath  == 0 {
             let indexPath = IndexPath(item: indexPath , section: 0)

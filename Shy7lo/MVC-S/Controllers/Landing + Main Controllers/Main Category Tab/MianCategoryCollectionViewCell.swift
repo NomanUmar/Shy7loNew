@@ -10,7 +10,7 @@ import UIKit
 
 class MianCategoryCollectionViewCell: UICollectionViewCell {
     
-//color for selected and un selected color
+    //color for selected and un selected color
     override var isSelected: Bool{
         didSet{
             if self.isSelected

@@ -9,8 +9,8 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
-
-   
+    
+    
     @IBOutlet var buttonLogin: UIButton!
     @IBOutlet var lahaveAccount: UILabel!
     @IBOutlet var laTagLine: UILabel!
@@ -31,23 +31,23 @@ class WelcomeViewController: UIViewController {
         
         
         
-       
+        
         buttonLogin.setAttributedTitle(myString, for: .normal)
         lahaveAccount.text = "HaveAccountWVC".localizableString(loc: lang)
         laTagLine.text = "YourPremierWVC".localizableString(loc: lang)
         laWelcom.text = "WelcomeWVC".localizableString(loc: lang)
         
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func buEnglish(_ sender: Any) {
         
         UserInfoDefault.saveLanguage(language: "en")
@@ -58,9 +58,9 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func buArabic(_ sender: Any) {
         UserInfoDefault.saveLanguage(language: "ar-SA")
-         TransitionArabic.switchViewControllers(isArabic: true)
-         UILabel.appearance().substituteFontName = "System"
-         UITextField.appearance().substituteFontName = "System"
+        TransitionArabic.switchViewControllers(isArabic: true)
+        UILabel.appearance().substituteFontName = "System"
+        UITextField.appearance().substituteFontName = "System"
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "CountryViewController") as! CountryViewController
         self.navigationController?.pushViewController(vc,animated: false)

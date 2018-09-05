@@ -66,8 +66,8 @@ class LaunchViewController: UIViewController {
         }
     }
     
-   //=====================================================================================
-   //check first lounch or not  and go to next controller
+    //=====================================================================================
+    //check first lounch or not  and go to next controller
     func nextController(){
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -83,7 +83,7 @@ class LaunchViewController: UIViewController {
                 TransitionArabic.switchViewControllers(isArabic: true)
                 UILabel.appearance().substituteFontName = "System"
                 UITextField.appearance().substituteFontName = "System"
-            
+                
                 
             }else{
                 TransitionArabic.switchViewControllers(isArabic: false)
@@ -109,7 +109,7 @@ class LaunchViewController: UIViewController {
             let preferredLanguage = NSLocale.preferredLanguages[0]
             
             print(preferredLanguage)
-           
+            
             
             if preferredLanguage.contains("ar"){
                 UserInfoDefault.saveLanguage(language: "ar-SA")
@@ -136,8 +136,8 @@ class LaunchViewController: UIViewController {
         }
         //present((self.window?.rootViewController)!, animated:false, completion:nil)
     }
-  //=================================================================================
-  // call api get app init data and save response in user defaults
+    //=================================================================================
+    // call api get app init data and save response in user defaults
     func callForAppInit(){
         let deviceToken = UserInfoDefault.getDeviceToken()
         let country = UserInfoDefault.getCountryCode()
@@ -166,7 +166,7 @@ class LaunchViewController: UIViewController {
     }
     
     //=====================================================================================
-  
+    
     
     
     //===================================================================================

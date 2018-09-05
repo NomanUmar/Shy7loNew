@@ -37,7 +37,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         print(self.filterName ?? "Khali")
         //load image
         self.loadImage()
-      
+        
         
         self.tabBarController?.tabBar.isHidden = true
         
@@ -63,14 +63,14 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         
         
-     
-       
+        
+        
         
         
         //table view delegates
         tableView.delegate = self
         tableView.dataSource = self
-     
+        
         tableView.sectionIndexColor = UIColor.black
         
         
@@ -85,7 +85,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         self.clearAllFilter.isUserInteractionEnabled = true
         
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -120,7 +120,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
         
-   
+        
         // Configure the cell...
         let brandKey = self.brandsSectionTitles[indexPath.section]
         if let brandValues = self.brandsDictionary[brandKey] {
@@ -150,7 +150,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return self.brandsSectionTitles
     }
-
+    
     
     
     //======================================================================================
@@ -161,9 +161,9 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         let index  = (cellTag?.tag)!  %  10000
         let section  = (cellTag?.tag)! / 10000
-       
-      
-      print("ind \(index)   sec \(section) ")
+        
+        
+        print("ind \(index)   sec \(section) ")
         
         let cellIndex = IndexPath(row: index , section: section)
         
@@ -173,13 +173,13 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
             }
             
         }else{
-           self.selectedIndex.append(cellIndex)
+            self.selectedIndex.append(cellIndex)
         }
         
         self.tableView.reloadData()
         
         
-       
+        
         
     }
     //======================================================================================
@@ -207,7 +207,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         }
         return true
     }
-   //=======================================================================================
+    //=======================================================================================
     
     //=================================================================
     //functions for image in text field
@@ -263,29 +263,29 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     
     func BrandCall() {
         
-                    for i in 0..<(self.filterName?.options?.count)!{
-                        self.brands.append((self.filterName?.options![i].label)!)
-                   print("Brands\(self.brands)")
-
-          }
+        for i in 0..<(self.filterName?.options?.count)!{
+            self.brands.append((self.filterName?.options![i].label)!)
+            print("Brands\(self.brands)")
             
-            // 1
-            for brand in self.brands {
-                let brandKey = String(brand.prefix(1))
-                if var brandValues = self.brandsDictionary[brandKey] {
-                    brandValues.append(brand)
-                    self.brandsDictionary[brandKey] = brandValues
-                } else {
-                    self.brandsDictionary[brandKey] = [brand]
-                }
+        }
+        
+        // 1
+        for brand in self.brands {
+            let brandKey = String(brand.prefix(1))
+            if var brandValues = self.brandsDictionary[brandKey] {
+                brandValues.append(brand)
+                self.brandsDictionary[brandKey] = brandValues
+            } else {
+                self.brandsDictionary[brandKey] = [brand]
             }
-            
-            // 2
-            self.brandsSectionTitles = [String](self.brandsDictionary.keys)
-            self.brandsSectionTitles = self.brandsSectionTitles.sorted(by: { $0 < $1 })
-            
-            self.tableView.reloadData()
-            
+        }
+        
+        // 2
+        self.brandsSectionTitles = [String](self.brandsDictionary.keys)
+        self.brandsSectionTitles = self.brandsSectionTitles.sorted(by: { $0 < $1 })
+        
+        self.tableView.reloadData()
+        
         
         
         
@@ -310,16 +310,16 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
             
             print(self.code)
         }
-
+        
     }
     //============================================================
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
-       self.code.removeAll()
+        self.code.removeAll()
         self.selectedIndex.removeAll()
         self.tableView.reloadData()
         
         
     }
     
-
+    
 }
