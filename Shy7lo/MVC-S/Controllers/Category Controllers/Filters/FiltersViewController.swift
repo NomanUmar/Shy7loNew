@@ -11,7 +11,7 @@ import RangeSeekSlider
 
 class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,RangeSeekSliderDelegate {
     
-    
+    @IBOutlet var laclearAllFilter: UILabel!
     @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -49,6 +49,7 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.buttonBack.setImage(flippedImage, for: .normal)
         
         self.laFilter.text = "FilterFVC".localizableString(loc: lang)
+        self.laclearAllFilter.text = "ClearAllFilter".localizableString(loc: lang)
         
         self.getFilter(id: self.categoryId)
         
@@ -101,28 +102,34 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if self.filterName.isEmpty{
             return 0
         }else{
-            return self.filterName.count + 1
+            return (self.filterRespose?.data?.layeredData?.count)!
         }
         
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let currentObj =  self.filterRespose?.data?.layeredData![indexPath.row]
         
-        if indexPath.row == filterName.count{
+        if indexPath.row == filterName.count {
             
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "priceRangeTableViewCell", for:indexPath) as! priceRangeTableViewCell
             
             cell.priceRangeView.delegate = self
             cell.minPrice.text =   "0.00"
-            cell.maxPrice.text =   "1000"
+            cell.maxPrice.text =   "10000"
             cell.currencyMin.text = self.currancy + " "
             cell.currencyMax.text = self.currancy + " "
             
             
             return cell
-        }else{
+        }
+        else {
+            
+            
+            
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableViewCell", for:indexPath) as! FilterTableViewCell
             
             cell.laFilterName.text = self.filterName[indexPath.row]
@@ -138,6 +145,32 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
             cell.tapView.addGestureRecognizer(tapFilterView)
             cell.tapView.isUserInteractionEnabled = true
             
+            
+        
+            
+            
+            if currentObj?.code == "cat"{
+            
+                
+                var text  = ""
+                for (name, patentArray) in categoryGlobeldata.mySelectedCategoryDic_Path {
+                    
+                            if text == ""{
+                                text = name
+                            }else{
+                                text = text + "," + name
+                            } 
+                } // for loop
+                cell.selected_Category_lable.text = text
+                
+                
+                
+                
+                
+                
+                
+            }else{
+            
             if let array = categoryGlobeldata.mySelectedItemValues[ (self.filterRespose?.data?.layeredData![indexPath.row].code)!] {
     
                 var text  = ""
@@ -149,16 +182,15 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     }
                 }
                 cell.selected_Category_lable.text = text
-
-            
             
             }else{
                 cell.selected_Category_lable.text = ""
             }
             
-            
-            
-            
+        }// if code == cat
+                
+                
+                
             return cell
         }
         
@@ -175,7 +207,9 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.view.endEditing(true)
-        if index == 0{
+        let currentObj =  self.filterRespose?.data?.layeredData![index]
+        
+        if currentObj?.code == "cat"{
             
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

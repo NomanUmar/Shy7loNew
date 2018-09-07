@@ -38,12 +38,32 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         
         UserDefaults.standard.removeObject(forKey: "useCustomFilters")
+        UserInfoDefault.saveNewest(newest: "created_at")
+
+         categoryGlobeldata.mySelectedCategoryDic_refByParent.removeAll()
+        // contains id of as a whole selected category
+       categoryGlobeldata.mySelectedCategorryArray.removeAll()
+       categoryGlobeldata.mySelectedCategoryDic_Path.removeAll()
+        
+        //----------------------------------------------------------------
+        
+    
+        
+        //----------------------------------------------------------------
+         categoryGlobeldata.mySelectedItemsIds.removeAll()
+         categoryGlobeldata.mySelectedItemValues.removeAll()
+        //----------------------------------------------------------------
+        
+        
+        
+        
+        
+        
         
         //set image in same direction with language
         let flippedImage = UIImage(named: "back_icon")?.imageFlippedForRightToLeftLayoutDirection()
         
         self.buttonBack.setImage(flippedImage, for: .normal)
-        
         self.addObserver()
         super.viewDidLoad()
         
@@ -531,10 +551,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        UserDefaults.standard.removeObject(forKey: "useCustomFilters")
-
-    }
+   
     
 }
 

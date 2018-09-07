@@ -64,6 +64,9 @@ class NewestViewController: UIViewController,UITableViewDelegate,UITableViewData
         let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
         cell.tapView.addGestureRecognizer(tapFilterView)
         cell.tapView.isUserInteractionEnabled = true
+        cell.selected_Category_lable.text = ""
+        
+        
         let newest = UserInfoDefault.getNewest()
         
         if newest == self.filterName[indexPath.row]{

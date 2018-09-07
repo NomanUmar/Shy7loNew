@@ -10,6 +10,9 @@ import UIKit
 
 class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate{
     
+    
+    @IBOutlet var buDoneOutlet: UIButton!
+    @IBOutlet var laclearAllFilter: UILabel!
     @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var searchTF: UITextField!
     @IBOutlet var TFView: DesignView!
@@ -62,7 +65,11 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         
+        let buDone = "Done".localizableString(loc: lang)
+        buDoneOutlet.setTitle(buDone, for: .normal)
+        
         self.laBrandFilter.text = self.brandName.uppercased()
+        self.laclearAllFilter.text = "ClearAllFilter".localizableString(loc: lang)
         
         //function call
         self.BrandCall()
@@ -125,7 +132,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
-        
+        cell.selected_Category_lable.text = ""
         
         // Configure the cell...
         let brandKey = self.brandsSectionTitles[indexPath.section]
@@ -379,6 +386,19 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
         self.code.removeAll()
         self.selected_array_id.removeAll()
+       
+        if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+            // self.selectedIndex = array
+            categoryGlobeldata.mySelectedItemsIds.removeValue(forKey: (filterName?.code)!)
+        }
+        
+        
+        if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+            // self.selectedIndex = array
+            categoryGlobeldata.mySelectedItemValues.removeValue(forKey: (filterName?.code)!)
+        }
+        
+        
         self.tableView.reloadData()
         
         
@@ -417,6 +437,20 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         
         
     }
+    
+    
+    
+    
+    
+    @IBAction func buDoneAction(_ sender: Any) {
+        
+        self.saveData()
+        self.navigationController?.popViewController(animated: true)
+
+        
+    }
+    
+    
     
     
     

@@ -9,7 +9,9 @@
 import UIKit
 
 class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
+    @IBOutlet var buDoneOutlet: UIButton!
+
+    @IBOutlet var laclearAllFilter: UILabel!
     @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -21,9 +23,15 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     var categoryResponse:categoryResponse?
     var childData = [categoryDataObj]()
     var haveChild = [String]()
-    var selectedIndex = [Int]()
     
     
+    
+    
+    var selected_array_id = [Int]()
+   
+    
+    var Clild_selected_array_names = [String]()
+
     
     
     override func viewDidLoad() {
@@ -45,6 +53,10 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         self.buttonBack.setImage(flippedImage, for: .normal)
         
         self.laFilter.text = "CategoryCVC".localizableString(loc: lang)
+        self.laclearAllFilter.text = "ClearAllFilter".localizableString(loc: lang)
+        
+        let buDone = "Done".localizableString(loc: lang)
+        buDoneOutlet.setTitle(buDone, for: .normal)
         
         
         //table view delegates
@@ -73,8 +85,14 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.childData.count)
+        //print(self.childData.count)
+       
+       
+        
         return self.childData.count
+        
+        
+        
         
     }
     
@@ -101,13 +119,15 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
             cell.buttonNext.isUserInteractionEnabled = false
       
             
-            if self.selectedIndex.contains(self.childData[indexPath.row].id!){
+            if self.selected_array_id.contains(self.childData[indexPath.row].id!){
                 
                 cell.selecteedImage.isHidden = false
             }else{
                 cell.selecteedImage.isHidden = true
             }
             
+            cell.selected_Category_lable.text = ""
+
             
             
         
@@ -120,6 +140,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
             cell.buttonNext.isUserInteractionEnabled = true
       
         
+            //  check for id array from global data class
             if categoryGlobeldata.mySelectedCategorryArray.contains(self.childData[indexPath.row].id!){
                 cell.selecteedImage.isHidden = false
                 cell.buttonNext.isHidden = true
@@ -130,24 +151,62 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
 
             }
             
+            
+//            if let child_nameArray = categoryGlobeldata.mySelectedCategoryNamesDic_refByParent[self.childData[indexPath.row].id!] {
+//
+//                var text  = ""
+//                for (i, name) in child_nameArray.enumerated() {
+//                    if i == 0{
+//                        text = name
+//                    }else{
+//                        text = text + "," + name
+//                    }
+//                }
+//                cell.selected_Category_lable.text = text
+//
+//            }else{
+//                cell.selected_Category_lable.text = ""
+//            }
+            
+     //----------------------------------------------
+//            var text  = ""
+//            for (i, obj) in categoryGlobeldata.mySelected_category_ObjectsArray.enumerated() {
+//
+//
+//                if obj.parent_id == self.childData[indexPath.row].id{
+//                    if i == 0{
+//                        text = obj.name!
+//                    }else{
+//                        text = text + "," + obj.name!
+//                    }
+//                }
+//
+//            }
+//            cell.selected_Category_lable.text = text
+//
         
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-    
-        
-        
-        
-        
-        
+            
+            var text  = ""
+            for (name, patentArray) in categoryGlobeldata.mySelectedCategoryDic_Path {
+                for parent in patentArray {
+                    if parent.id == self.childData[indexPath.row].id {
+                        if text == ""{
+                            text = name
+                        }else{
+                        text = text + "," + name
+                        }
+                    }
+                } // iner for
+            } // for loop
+            cell.selected_Category_lable.text = text
+            
+            
+            
+            
+            
+        } // child data is empty
+            
+
         
         
         cell.buttonNext.tag = indexPath.row
@@ -170,28 +229,25 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     //======================================================================================
     @objc func tapFilterView(sender: UITapGestureRecognizer) {
         
+       // this is table view cell click event
+        
         let cellTag = sender.view
-        
-        
         let index  = (cellTag?.tag)!
         print(index as Any)
         _ = IndexPath(row: index , section: 0)
 
-
         let currentObject =  self.childData[index]
         if currentObject.children_data?.count == 0{
         
-        
-        if self.selectedIndex.contains((self.childData[index].id)!){
-            if let index = self.selectedIndex.index(of: ((self.childData[index].id)!)) {
-                self.selectedIndex.remove(at: index)
+        if self.selected_array_id.contains((self.childData[index].id)!){
+            if let index = self.selected_array_id.index(of: ((self.childData[index].id)!)) {
+                self.selected_array_id.remove(at: index)
+                
             }
         }else{
+            self.selected_array_id.append((self.childData[index].id)!)
             
-            self.selectedIndex.append((self.childData[index].id)!)
-        }
-        print(self.selectedIndex)
-        
+           }
         
        
         }else{
@@ -199,18 +255,49 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
             
             // id have childs but selected as a whole
             if categoryGlobeldata.mySelectedCategorryArray.contains(currentObject.id!){
-                
                 if let itemToRemoveIndex = categoryGlobeldata.mySelectedCategorryArray.index(of: currentObject.id!) {
                     categoryGlobeldata.mySelectedCategorryArray.remove(at: itemToRemoveIndex)
                 }
-
-                    
             }else{
                 categoryGlobeldata.mySelectedCategorryArray.append(currentObject.id!)
             }
-            
+        
+    }
+        
+        
+        
+        
+        
+//        var found = false
+//        for (i, obj) in categoryGlobeldata.mySelected_category_ObjectsArray.enumerated() {
+//            if obj.id == currentObject.id{
+//                found = true
+//                categoryGlobeldata.mySelected_category_ObjectsArray.remove(at: i)
+//                print("--?found true remove")
+//            }
+//        }
+//        if found == false {
+//            categoryGlobeldata.mySelected_category_ObjectsArray.append(self.childData[index])
+//            print("--?found false add")
+//        }
+//
+        
+        
+        
+        
+        if let array = categoryGlobeldata.mySelectedCategoryDic_Path[currentObject.name!] {
+            print("--?found true remove")
+
+           categoryGlobeldata.mySelectedCategoryDic_Path.removeValue(forKey: currentObject.name!)
+        }else{
+            categoryGlobeldata.mySelectedCategoryDic_Path[currentObject.name!] =  categoryGlobeldata.myArray
+            print("--?found false add")
+
         }
         
+        
+        
+   
         
         self.tableView.reloadData()
 
@@ -241,12 +328,15 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         if count > 0 {
         
         let a = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
-      
             self.childData = a.children_data!
+           
             if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[a.id!] {
-                self.selectedIndex = array
+                self.selected_array_id = array
             }
         
+            
+            
+            
             self.tableView.reloadData()
         }else{
         self.navigationController?.popViewController(animated: true)
@@ -258,9 +348,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     
     
     @IBAction func tableBack(_ sender: Any) {
-        
-       
-        
+
         
     }
     //========================================================================================
@@ -271,26 +359,24 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         let buttonIndex = button.tag
         print(buttonIndex)
         
-        
-      //  categoryGlobeldata.path.append(self.childData[buttonIndex].id!)
-        
        
         
         self.saveData()
         
         
         
-        
-        
-        self.selectedIndex.removeAll()
-        
+        self.selected_array_id.removeAll()
+     
+
         
         categoryGlobeldata.myArray.append(self.childData[buttonIndex])
         let next = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
         self.childData = next.children_data!
+       
         if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[next.id!] {
-            self.selectedIndex = array
+            self.selected_array_id = array
         }
+        
         
         
         self.tableView.reloadData()
@@ -303,6 +389,52 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     
     //============================================================
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
+ 
+        
+        let current = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
+
+        categoryGlobeldata.mySelectedCategoryDic_refByParent.removeValue(forKey: current.id!)
+
+        self.selected_array_id.removeAll()
+        
+        
+    //    self.childData[indexPath.row]
+        
+        
+        for childData in self.childData {
+        
+            if categoryGlobeldata.mySelectedCategorryArray.contains(childData.id!){
+                
+                //  print("--?\(categoryGlobeldata.mySelectedCategorryArray)")
+                if let itemToRemoveIndex = categoryGlobeldata.mySelectedCategorryArray.index(of: childData.id!) {
+                    categoryGlobeldata.mySelectedCategorryArray.remove(at: itemToRemoveIndex)
+              
+                    if let array = categoryGlobeldata.mySelectedCategoryDic_Path[childData.name!] {
+                        print("--?found true remove")
+                        
+                        categoryGlobeldata.mySelectedCategoryDic_Path.removeValue(forKey: childData.name!)
+                        
+                    }
+                
+                }
+            }
+            
+        
+        
+        }
+        
+        
+        
+        
+        
+        
+        saveData()
+    
+        
+        
+        self.tableView.reloadData()
+        
+    
     }
     
     
@@ -324,10 +456,10 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
             
             if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[a.id!] {
             
-                self.selectedIndex = array
+                self.selected_array_id = array
             }
             
-            
+          
             
             
             
@@ -350,19 +482,32 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
 
     }
     
+    
+    
     func saveData() {
         
         let current = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
 
-        if self.selectedIndex.count > 0{
-            categoryGlobeldata.mySelectedCategoryDic_refByParent[current.id!] =  self.selectedIndex
+        if self.selected_array_id.count > 0{
+            categoryGlobeldata.mySelectedCategoryDic_refByParent[current.id!] =  self.selected_array_id
         }else{
             categoryGlobeldata.mySelectedCategoryDic_refByParent.removeValue(forKey: current.id!)
         }
+    
+        
+        
+        
+        
+    }  // save Data function
+    
+    
+    @IBAction func buDoneAction(_ sender: Any) {
+        
+        self.saveData()
+        self.navigationController?.popViewController(animated: true)
+
         
     }
-    
-    
     
     
     

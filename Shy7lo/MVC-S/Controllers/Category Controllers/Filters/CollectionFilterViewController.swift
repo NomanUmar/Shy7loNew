@@ -10,6 +10,10 @@ import UIKit
 
 class CollectionFilterViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    
+    @IBOutlet var laclearAllFilter: UILabel!
+    @IBOutlet var buDoneOutlet: UIButton!
+    
     @IBOutlet var clearAllFilter: UIView!
     @IBOutlet var buttonApplyFilter: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -43,7 +47,11 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         
+        let buDone = "Done".localizableString(loc: lang)
+        buDoneOutlet.setTitle(buDone, for: .normal)
+        
         self.laCollectionFilter.text = self.filterLableName.uppercased()
+        self.laclearAllFilter.text = "ClearAllFilter".localizableString(loc: lang)
         
         self.filerLableCall()
         //table view delegates
@@ -84,7 +92,8 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for:indexPath) as! CategoryTableViewCell
         
         cell.laFilterName.text = self.filterLabel[indexPath.row]
-        
+        cell.selected_Category_lable.text = ""
+
         
         cell.tapView.tag = indexPath.row
         
@@ -204,6 +213,18 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     //============================================================
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
         self.selected_array_id.removeAll()
+        if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+            // self.selectedIndex = array
+            categoryGlobeldata.mySelectedItemsIds.removeValue(forKey: (filterName?.code)!)
+        }
+        
+        
+        if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+            // self.selectedIndex = array
+            categoryGlobeldata.mySelectedItemValues.removeValue(forKey: (filterName?.code)!)
+        }
+        
+        
         self.tableView.reloadData()
         
     }
@@ -233,6 +254,18 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         }
         
     }
+    
+    
+    
+    @IBAction func buDoneAction(_ sender: Any) {
+        
+        self.saveData()
+        self.navigationController?.popViewController(animated: true)
+
+        
+    }
+    
+    
     
     
 }

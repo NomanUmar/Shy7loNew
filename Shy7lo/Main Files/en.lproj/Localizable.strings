@@ -133,3 +133,14 @@
 "DESC" = "PRICE:HIGH TO LOW";
 "ASC" = "PRICE:LOW TO HIGH" ;
 "saving" = "DISCOUNT";
+
+
+
+//for done button
+
+"Done" = "Done";
+
+// clear all filter
+
+
+"ClearAllFilter" = "Clear all filter";

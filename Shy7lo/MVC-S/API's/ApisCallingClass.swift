@@ -97,9 +97,9 @@ class ApisCallingClass: NSObject {
         
         
         let check = UserDefaults.standard.bool(forKey: "useCustomFilters")
-        if check
+        if check &&  categoryGlobeldata.categoryString != ""
         {
-            
+           
             
             catA = "category_id=" + categoryGlobeldata.categoryString
             sortA = "&sort_by=" + sort_by

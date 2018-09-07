@@ -18,24 +18,23 @@ class categoryGlobeldata : NSObject {
    //---------------------------------------------------------------
     static var myArray = [categoryDataObj]()
     // it contains child selected category array with respect to parent , that will while navigating on screens
+  
     static var mySelectedCategoryDic_refByParent = [Int: [Int]] ()
-    
     // contains id of as a whole selected category
     static var mySelectedCategorryArray = [Int]()
-    
+    static var mySelectedCategoryDic_Path = [String: [categoryDataObj]] ()
+
    //----------------------------------------------------------------
     
-    
-    
-    static var categoryString = ""
-    static var filterUrlString = ""
-
+   
     //----------------------------------------------------------------
     static var mySelectedItemsIds  = [String: [String]] ()
     static var mySelectedItemValues  = [String: [String]] ()
     //----------------------------------------------------------------
     
-    
+    static var categoryString = ""
+    static var filterUrlString = ""
+
     
    static func applyFilterApi(){
         

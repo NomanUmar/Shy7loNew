@@ -1137,6 +1137,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="181" height="239"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="2xq-zl-5CU" secondAttribute="height" multiplier="181:239" id="9HT-WL-rOy"/>
                                                                         <constraint firstAttribute="width" constant="181" id="Cdg-A4-H1C"/>
                                                                         <constraint firstAttribute="height" constant="239" id="lad-ot-bTG"/>
                                                                     </constraints>
@@ -1435,6 +1436,7 @@
                         <outlet property="buttonBack" destination="EE2-YD-0Te" id="qTM-6t-Ihp"/>
                         <outlet property="clearAllFilter" destination="tvg-mn-OhY" id="OIO-Ui-nFq"/>
                         <outlet property="laFilter" destination="w1M-dy-U9R" id="tK3-3z-wi9"/>
+                        <outlet property="laclearAllFilter" destination="VKM-97-wMp" id="Twi-4E-7hq"/>
                         <outlet property="tableView" destination="95M-ch-7dr" id="6pJ-Ox-ZBm"/>
                         <segue destination="hQv-BT-eAc" kind="push" id="udZ-Jm-r4K"/>
                         <segue destination="Afv-m5-826" kind="push" id="Kcs-5K-Qp7"/>
@@ -1476,6 +1478,20 @@
                                                     <action selector="buBack:" destination="5Uj-Jh-aNE" eventType="touchUpInside" id="sfO-IU-asl"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vR-WO-O7A">
+                                                <rect key="frame" x="321" y="5" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="EE3-IE-fRQ"/>
+                                                    <constraint firstAttribute="width" constant="46" id="bF0-2m-OWy"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <state key="normal" title="Done">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buDoneAction:" destination="5Uj-Jh-aNE" eventType="touchUpInside" id="T82-hq-CRF"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1486,6 +1502,8 @@
                                             <constraint firstItem="p06-su-2k7" firstAttribute="centerX" secondItem="RA1-qr-bVF" secondAttribute="centerX" id="PeY-hB-rgD"/>
                                             <constraint firstItem="Jdx-He-hxL" firstAttribute="top" secondItem="RA1-qr-bVF" secondAttribute="top" constant="9" id="Q0x-eM-Nsv"/>
                                             <constraint firstItem="Jdx-He-hxL" firstAttribute="centerY" secondItem="RA1-qr-bVF" secondAttribute="centerY" id="ZOy-AY-9jN"/>
+                                            <constraint firstAttribute="trailing" secondItem="1vR-WO-O7A" secondAttribute="trailing" constant="8" id="z42-kf-YlD"/>
+                                            <constraint firstItem="1vR-WO-O7A" firstAttribute="centerY" secondItem="RA1-qr-bVF" secondAttribute="centerY" id="zg1-eN-ghW"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vW-TJ-Ry7">
@@ -1564,10 +1582,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="bHS-Mi-pl9"/>
                     <connections>
+                        <outlet property="buDoneOutlet" destination="1vR-WO-O7A" id="Mkn-z0-ZsK"/>
                         <outlet property="buttonApplyFilter" destination="2vW-TJ-Ry7" id="zjG-iq-Vjf"/>
                         <outlet property="buttonBack" destination="Jdx-He-hxL" id="pN7-yj-gF0"/>
                         <outlet property="clearAllFilter" destination="728-eV-dy2" id="WE7-0V-5Hs"/>
                         <outlet property="laCollectionFilter" destination="p06-su-2k7" id="kcK-f5-Zbp"/>
+                        <outlet property="laclearAllFilter" destination="Qe4-re-jk3" id="Nxv-wD-sbv"/>
                         <outlet property="tableView" destination="VVO-TO-5Qb" id="e0a-a6-kcW"/>
                     </connections>
                 </viewController>
@@ -1606,6 +1626,20 @@
                                                     <action selector="buBack:" destination="hQv-BT-eAc" eventType="touchUpInside" id="wY1-pu-Jv2"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrj-3x-5gJ">
+                                                <rect key="frame" x="321" y="5" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="FZV-ph-vr6"/>
+                                                    <constraint firstAttribute="width" constant="46" id="bgt-iX-35g"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <state key="normal" title="Done">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buDoneAction:" destination="hQv-BT-eAc" eventType="touchUpInside" id="bOc-jI-xMt"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1613,7 +1647,9 @@
                                             <constraint firstAttribute="bottom" secondItem="YVp-Lf-f9v" secondAttribute="bottom" constant="9" id="66o-Ij-K0D"/>
                                             <constraint firstItem="YVp-Lf-f9v" firstAttribute="leading" secondItem="udj-6Q-nTu" secondAttribute="leading" id="8nU-4g-m7f"/>
                                             <constraint firstItem="a4W-em-ooG" firstAttribute="centerX" secondItem="udj-6Q-nTu" secondAttribute="centerX" id="LnK-FR-Lcy"/>
+                                            <constraint firstItem="Qrj-3x-5gJ" firstAttribute="centerY" secondItem="udj-6Q-nTu" secondAttribute="centerY" id="Q6I-ck-Vgc"/>
                                             <constraint firstAttribute="height" constant="40" id="ef3-nz-EOR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qrj-3x-5gJ" secondAttribute="trailing" constant="8" id="q8y-U1-egJ"/>
                                             <constraint firstItem="YVp-Lf-f9v" firstAttribute="centerY" secondItem="udj-6Q-nTu" secondAttribute="centerY" id="rD3-FO-EhN"/>
                                             <constraint firstItem="YVp-Lf-f9v" firstAttribute="top" secondItem="udj-6Q-nTu" secondAttribute="top" constant="9" id="taI-nx-aSc"/>
                                         </constraints>
@@ -1694,10 +1730,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="MF4-4s-B7N"/>
                     <connections>
+                        <outlet property="buDoneOutlet" destination="Qrj-3x-5gJ" id="RCW-c4-70M"/>
                         <outlet property="buttonApplyFilter" destination="dsw-S2-E6v" id="B2G-rp-QWk"/>
                         <outlet property="buttonBack" destination="YVp-Lf-f9v" id="Fw8-QY-9op"/>
                         <outlet property="clearAllFilter" destination="WjE-uz-cp4" id="Qi8-Nj-f1v"/>
                         <outlet property="laFilter" destination="a4W-em-ooG" id="58u-Lk-cYv"/>
+                        <outlet property="laclearAllFilter" destination="fq1-KM-cyq" id="D0o-Z4-8CU"/>
                         <outlet property="tableView" destination="J90-ep-4UM" id="y9W-iv-oOf"/>
                     </connections>
                 </viewController>
@@ -1736,14 +1774,30 @@
                                                     <action selector="buBack:" destination="Afv-m5-826" eventType="touchUpInside" id="5Ry-N1-197"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C5I-vC-Ghe">
+                                                <rect key="frame" x="321" y="3" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="RfF-N3-0MV"/>
+                                                    <constraint firstAttribute="height" constant="30" id="zkn-Yi-Jqe"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                <state key="normal" title="Done">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buDoneAction:" destination="Afv-m5-826" eventType="touchUpInside" id="Zna-8m-Sac"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="C5I-vC-Ghe" firstAttribute="centerY" secondItem="eaC-rl-lOV" secondAttribute="centerY" id="0CY-ax-vNL"/>
                                             <constraint firstItem="Sl8-Ks-y1Z" firstAttribute="centerX" secondItem="eaC-rl-lOV" secondAttribute="centerX" id="3oh-Pr-hg3"/>
                                             <constraint firstItem="Dh2-cV-Wv7" firstAttribute="leading" secondItem="eaC-rl-lOV" secondAttribute="leading" id="5VQ-ts-W3V"/>
                                             <constraint firstItem="Dh2-cV-Wv7" firstAttribute="centerY" secondItem="eaC-rl-lOV" secondAttribute="centerY" id="F4i-cl-gDs"/>
                                             <constraint firstAttribute="bottom" secondItem="Dh2-cV-Wv7" secondAttribute="bottom" constant="9" id="QK4-7v-bJ9"/>
                                             <constraint firstItem="Sl8-Ks-y1Z" firstAttribute="centerY" secondItem="eaC-rl-lOV" secondAttribute="centerY" id="WuJ-xh-0TJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="C5I-vC-Ghe" secondAttribute="trailing" constant="8" id="aJV-M3-ghU"/>
                                             <constraint firstItem="Dh2-cV-Wv7" firstAttribute="top" secondItem="eaC-rl-lOV" secondAttribute="top" constant="9" id="kSW-xd-lqc"/>
                                             <constraint firstAttribute="height" constant="40" id="xRc-EZ-LTR"/>
                                         </constraints>
@@ -1854,10 +1908,12 @@
                     <navigationItem key="navigationItem" id="Pkn-Ek-SMf"/>
                     <connections>
                         <outlet property="TFView" destination="BCv-db-ZrB" id="yMS-P0-uZv"/>
+                        <outlet property="buDoneOutlet" destination="C5I-vC-Ghe" id="p7j-QL-GYj"/>
                         <outlet property="buttonApplyFilter" destination="HHe-JR-wke" id="nhf-FR-svO"/>
                         <outlet property="buttonBack" destination="Dh2-cV-Wv7" id="wsY-UQ-GIY"/>
                         <outlet property="clearAllFilter" destination="ffF-r9-CZ9" id="XVE-Sq-pjo"/>
                         <outlet property="laBrandFilter" destination="Sl8-Ks-y1Z" id="hMe-t5-yUF"/>
+                        <outlet property="laclearAllFilter" destination="KYV-t0-z5V" id="doM-6v-kOO"/>
                         <outlet property="searchTF" destination="Pc5-C4-Kbb" id="UjB-jE-lBl"/>
                         <outlet property="tableView" destination="iSv-u4-wMf" id="Icq-ew-T4W"/>
                     </connections>

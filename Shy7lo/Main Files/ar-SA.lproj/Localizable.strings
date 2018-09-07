@@ -126,3 +126,14 @@
 "DESC" = "السعر: الاعلى الى الادنى";
 "ASC" = "السعر: من الارخص للاعلى" ;
 "saving" = "خصم";
+
+
+//for done button
+
+"Done" = "فعله";
+
+// clear all filter
+
+
+"ClearAllFilter" = "مسح كل مرشح";
+
