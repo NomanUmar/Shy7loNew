@@ -47,9 +47,20 @@
                                 </constraints>
                                 <state key="normal" image="next_icon"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Duo-Yw-Isr">
+                                <rect key="frame" x="199" y="22.5" width="128" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="SsP-RX-XjE"/>
+                                    <constraint firstAttribute="width" constant="128" id="pOm-4V-8bE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="qHt-NN-nd2" firstAttribute="leading" secondItem="Duo-Yw-Isr" secondAttribute="trailing" constant="8" id="4Q9-Vx-clc"/>
                             <constraint firstAttribute="height" constant="60.5" id="8l6-mt-EPO"/>
                             <constraint firstAttribute="trailing" secondItem="qHt-NN-nd2" secondAttribute="trailing" constant="10" id="Uu0-d8-eEJ"/>
                             <constraint firstAttribute="trailing" secondItem="dFR-v3-s5v" secondAttribute="trailing" constant="17" id="XEZ-Fy-Nhp"/>
@@ -58,6 +69,7 @@
                             <constraint firstItem="qHt-NN-nd2" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="jNv-1F-X0I"/>
                             <constraint firstItem="ZsH-bo-mqc" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="k88-DX-DEX"/>
                             <constraint firstItem="dFR-v3-s5v" firstAttribute="leading" secondItem="Vtl-lO-pjp" secondAttribute="leading" constant="17" id="rcL-pL-vUQ"/>
+                            <constraint firstItem="Duo-Yw-Isr" firstAttribute="centerY" secondItem="Vtl-lO-pjp" secondAttribute="centerY" id="uPM-BA-Wag"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -72,6 +84,7 @@
             <connections>
                 <outlet property="buttonNext" destination="qHt-NN-nd2" id="xGm-8r-x6h"/>
                 <outlet property="laFilterName" destination="ZsH-bo-mqc" id="p4g-9U-0Yf"/>
+                <outlet property="selected_Category_lable" destination="Duo-Yw-Isr" id="uWq-mK-LSi"/>
                 <outlet property="tapView" destination="Vtl-lO-pjp" id="Abj-iA-749"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="106.5"/>

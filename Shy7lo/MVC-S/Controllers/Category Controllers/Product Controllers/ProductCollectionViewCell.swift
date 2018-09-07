@@ -15,7 +15,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet var laDiscription: UILabel!
     @IBOutlet var laSpecialPrice: UILabel!
     @IBOutlet var laprice: UILabel!
-    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productImageContainer: UIView!
     
     // for font size of label
     override func  layoutSubviews() {

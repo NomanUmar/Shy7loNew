@@ -10,6 +10,7 @@ import UIKit
 
 class FilterTableViewCell: UITableViewCell {
 
+    @IBOutlet var selected_Category_lable: UILabel!
     @IBOutlet var tapView: UIView!
     @IBOutlet var buttonNext: UIButton!
     @IBOutlet var laFilterName: UILabel!

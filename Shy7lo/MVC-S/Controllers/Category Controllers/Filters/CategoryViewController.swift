@@ -90,22 +90,65 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         print(indexPath.row)
         
         
+        
         if (self.childData[indexPath.row].children_data?.isEmpty)!{
+            //   no child data
+
+         //   cell.selectedImageRightMargen.constant = 17
+
+            
             cell.buttonNext.isHidden = true
             cell.buttonNext.isUserInteractionEnabled = false
-        }else{
-        
       
+            
+            if self.selectedIndex.contains(self.childData[indexPath.row].id!){
+                
+                cell.selecteedImage.isHidden = false
+            }else{
+                cell.selecteedImage.isHidden = true
+            }
+            
+            
+            
+        
+        }else{
+            
+            //   if have child data
+       //     cell.selectedImageRightMargen.constant = 35
+
             cell.buttonNext.isHidden = false
             cell.buttonNext.isUserInteractionEnabled = true
+      
+        
+            if categoryGlobeldata.mySelectedCategorryArray.contains(self.childData[indexPath.row].id!){
+                cell.selecteedImage.isHidden = false
+                cell.buttonNext.isHidden = true
+                
+            }else{
+                cell.selecteedImage.isHidden = true
+                cell.buttonNext.isHidden = false
+
+            }
+            
+        
         }
         
-        if self.selectedIndex.contains(self.childData[indexPath.row].id!){
-            
-            cell.selecteedImage.isHidden = false
-        }else{
-            cell.selecteedImage.isHidden = true
-        }
+        
+        
+        
+        
+        
+        
+        
+       
+        
+    
+        
+        
+        
+        
+        
+        
         
         cell.buttonNext.tag = indexPath.row
         cell.buttonNext.addTarget(self, action: #selector(CategoryFilterViewController.buttonNextTapped(_:)), for: .touchUpInside)
@@ -149,10 +192,28 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         }
         print(self.selectedIndex)
         
-        self.tableView.reloadData()
+        
        
+        }else{
+           
+            
+            // id have childs but selected as a whole
+            if categoryGlobeldata.mySelectedCategorryArray.contains(currentObject.id!){
+                
+                if let itemToRemoveIndex = categoryGlobeldata.mySelectedCategorryArray.index(of: currentObject.id!) {
+                    categoryGlobeldata.mySelectedCategorryArray.remove(at: itemToRemoveIndex)
+                }
+
+                    
+            }else{
+                categoryGlobeldata.mySelectedCategorryArray.append(currentObject.id!)
+            }
+            
         }
         
+        
+        self.tableView.reloadData()
+
         
         
         //        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
@@ -170,21 +231,9 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     //back button
     @IBAction func buBack(_ sender: Any) {
     
-    
-        
-//         let current = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
-//
-//         if self.selectedIndex.count > 0{
-//
-//            categoryGlobeldata.myDictionary[current.id!] =  self.selectedIndex
-//
-//         }else{
-//
-//            categoryGlobeldata.myDictionary.removeValue(forKey: current.id!)
-//        }
         
         
-        
+        self.saveData()
         
         categoryGlobeldata.myArray.removeLast()
         
@@ -194,7 +243,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         let a = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
       
             self.childData = a.children_data!
-            if let array = categoryGlobeldata.myDictionary[a.id!] {
+            if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[a.id!] {
                 self.selectedIndex = array
             }
         
@@ -226,18 +275,8 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
       //  categoryGlobeldata.path.append(self.childData[buttonIndex].id!)
         
        
-        let current = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
         
-        
-        if self.selectedIndex.count > 0{
-            
-            
-            categoryGlobeldata.myDictionary[current.id!] =  self.selectedIndex
-            
-        }else{
-            
-            categoryGlobeldata.myDictionary.removeValue(forKey: current.id!)
-        }
+        self.saveData()
         
         
         
@@ -249,7 +288,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
         categoryGlobeldata.myArray.append(self.childData[buttonIndex])
         let next = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
         self.childData = next.children_data!
-        if let array = categoryGlobeldata.myDictionary[next.id!] {
+        if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[next.id!] {
             self.selectedIndex = array
         }
         
@@ -283,7 +322,7 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
             
             
             
-            if let array = categoryGlobeldata.myDictionary[a.id!] {
+            if let array = categoryGlobeldata.mySelectedCategoryDic_refByParent[a.id!] {
             
                 self.selectedIndex = array
             }
@@ -300,29 +339,32 @@ class CategoryFilterViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func buApplyFilter(_ sender: Any) {
         
-        // if no selection
+        self.saveData()
+        categoryGlobeldata.applyFilterApi()
         
         
-        let count =  categoryGlobeldata.myArray.count
-        if count > 0 {
-            let a = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
-         
-            
-            if self.selectedIndex.count > 0{
-                
-                categoryGlobeldata.myDictionary[a.id!] =  self.selectedIndex
+        
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast(2) // views to pop
+        navigationController?.setViewControllers(viewControllers!, animated: true)
 
-            }
-            
-            
+    }
+    
+    func saveData() {
+        
+        let current = categoryGlobeldata.myArray[categoryGlobeldata.myArray.count - 1]
+
+        if self.selectedIndex.count > 0{
+            categoryGlobeldata.mySelectedCategoryDic_refByParent[current.id!] =  self.selectedIndex
+        }else{
+            categoryGlobeldata.mySelectedCategoryDic_refByParent.removeValue(forKey: current.id!)
         }
         
-        
-        
-        
-        
-
-        
     }
+    
+    
+    
+    
+    
     
 }

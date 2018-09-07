@@ -80,12 +80,53 @@ class ApisCallingClass: NSObject {
     
     class func  getProductdID(id: String,sort_by:String,direction:String,page:Int,onCompletion :@escaping (ProductResponse?)-> Void){
         //category_id=143&sort_by=created_at&direction=DESC&filter[brand]=289&page=1
-        let category_id = "category_id=" + id
-        let sort = "&sort_by=" + sort_by
-        let direction = "&direction=" + direction
-        let page = "&page=" + String(page)
-        let url = URLs.getProductsId +  category_id + sort + direction + page
-        print(url)
+        
+        var url:String!
+        var catA:String!
+        var sortA:String!
+        var directionA :String!
+        var pageA:String!
+        
+      
+
+//        let cat = "category_id=" + id
+//        let sort = "&sort_by=" + sort_by
+//        let direction = "&direction=" + direction
+//        let page = "&page=" + String(page)
+//        let url = URLs.getProductsId +  cat + sort + direction + page
+        
+        
+        let check = UserDefaults.standard.bool(forKey: "useCustomFilters")
+        if check
+        {
+            
+            
+            catA = "category_id=" + categoryGlobeldata.categoryString
+            sortA = "&sort_by=" + sort_by
+            directionA = "&direction=" + direction
+            pageA = "&page=" + String(page)
+            let filter = "&" + categoryGlobeldata.filterUrlString
+            pageA = "&page=" + String(page)
+            
+            
+            url = URLs.getProductsId +  catA! + sortA + directionA +  filter + pageA
+
+        }else{
+//            cat = "category_id=" + id
+        
+                     catA = "category_id=" + id
+                     sortA = "&sort_by=" + sort_by
+                     directionA = "&direction=" + direction
+                     pageA = "&page=" + String(page)
+            
+            
+                     url = URLs.getProductsId +  catA + sortA + directionA + pageA
+
+        }
+        
+        
+        
+        print("URL-->\(url) \n \n")
         ApiManager.get(Url: url) { (data,success:Bool) in
             if success {
                 do {
@@ -93,9 +134,9 @@ class ApisCallingClass: NSObject {
                     let jsonDecoder = JSONDecoder()
                     let res = try jsonDecoder.decode(ProductResponse.self, from: data) as ProductResponse
                     print(res)
-                    
+
                     onCompletion(res)
-                    
+
                 }    catch let error {
                     print(" error --->  \(error)")
                 }
@@ -106,7 +147,7 @@ class ApisCallingClass: NSObject {
                 print(msg)
                 onCompletion(nil)
             }
-        }
+      }
     }
     
     //get Sub Categories by IDs

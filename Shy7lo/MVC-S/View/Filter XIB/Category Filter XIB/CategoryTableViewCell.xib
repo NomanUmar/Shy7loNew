@@ -83,6 +83,7 @@
                 <outlet property="buttonNext" destination="GR5-pt-CjN" id="omf-hT-SIF"/>
                 <outlet property="laFilterName" destination="TEh-1U-k2D" id="N5Y-xc-zeE"/>
                 <outlet property="moveButton" destination="Lpn-hT-6qd" id="PPc-pd-Y53"/>
+                <outlet property="selectedImageRightMargen" destination="Gs3-8D-Znx" id="pau-Ca-oF2"/>
                 <outlet property="selecteedImage" destination="oCc-l2-jXv" id="Xy4-45-fZG"/>
                 <outlet property="tapView" destination="9gi-Bi-WBb" id="4n9-BX-48V"/>
             </connections>

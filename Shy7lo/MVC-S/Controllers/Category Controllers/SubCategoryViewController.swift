@@ -107,7 +107,7 @@ class SubCategoryViewController: UIViewController,UITableViewDelegate,UITableVie
             
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubCategoryTableViewCell", for:indexPath) as! SubCategoryTableViewCell
-            print("Row---->")
+           // print("Row---->")
             print(indexPath.row)
             
             cell.subCategoryView.tag = indexPath.row

@@ -37,14 +37,14 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     override func viewDidLoad() {
         
         
-        
+        UserDefaults.standard.removeObject(forKey: "useCustomFilters")
         
         //set image in same direction with language
         let flippedImage = UIImage(named: "back_icon")?.imageFlippedForRightToLeftLayoutDirection()
         
         self.buttonBack.setImage(flippedImage, for: .normal)
         
-        
+        self.addObserver()
         super.viewDidLoad()
         
         
@@ -55,8 +55,10 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         self.tabBarController?.tabBar.isHidden = false
         //dropDownTF.delegate = self
+        self.productList.removeAll()
+        self.collectionView.reloadData()
         
-        self.addObserver()
+        
         
         //get language from user defaults
         
@@ -80,9 +82,12 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         collectionView.dataSource = self
         
         self.indecator = UIViewController.displaySpinner(onView: self.view)
-        self.ProductById(id: subCategoryId , page : 1)
-        print(subCategoryId)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.ProductById(id: self.subCategoryId , page : 1)
+
+        })
+        print(subCategoryId)
         self.currencyCall()
         
         
@@ -132,11 +137,66 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         print(postPicUrl)
         //imagePlaceHolder
         
-        cell.productImage.kf.setImage(with: postPicUrl, placeholder: UIImage(named: "imagePlaceHolder"), options: nil, progressBlock: nil) { (image, error, cacheType, postPicUrl ) in
-            
-            
-            
+      
+        
+        for view in cell.productImageContainer.subviews{
+            view.removeFromSuperview()
         }
+        
+        let imageView = UIImageView()
+        imageView.frame =  CGRect(x: 0 , y: 0 , width: cell.productImageContainer.bounds.width  , height: cell.productImageContainer.bounds.height )
+        cell.productImageContainer.addSubview(imageView)
+        
+        imageView.image = UIImage(named: "imagePlaceHolder")
+        
+        
+        KingfisherManager.shared.retrieveImage(with: postPicUrl, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
+            
+            
+            // Do stuff with your image
+            
+            let oldimg = image
+//
+//            print("old width ---> \((oldimg?.size.width)!)")
+//            print("old height ---> \((oldimg?.size.height)!)")
+//
+            
+            let urlImageWidth = (oldimg?.size.width)!
+            let urlImageHeigth = (oldimg?.size.height)!
+            
+            let newImageWidth = cell.productImageContainer.bounds.width
+            let newImageHight = ((urlImageHeigth / urlImageWidth) * newImageWidth)
+            
+            
+            // cell.productImage.backgroundColor = UIColor.brown
+            
+            if (newImageHight) > cell.productImageContainer.bounds.height {
+                imageView.frame   = CGRect(x: 0 , y: 0 , width: cell.productImageContainer.bounds.width  , height: cell.productImageContainer.bounds.height )
+                
+                imageView.image = oldimg
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                imageView.center = cell.productImageContainer.center
+                imageView.clipsToBounds = true
+                
+                
+                
+            }else{
+                
+                imageView.frame =  CGRect(x: 0 , y: 0 , width: cell.productImageContainer.bounds.width  , height: newImageHight )
+                
+                imageView.image = oldimg
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                
+                imageView.center = cell.productImageContainer.center
+                imageView.clipsToBounds = true
+                
+            }
+            
+            
+            
+            
+            
+        })
         
         
         //=========================================================================
@@ -185,7 +245,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                 }
                 cell.textCutView.isHidden = false
-                print( "Hight-->\(cell.laSpecialPrice.frame.height)")
+              //  print( "Hight-->\(cell.laSpecialPrice.frame.height)")
             }else{
                 cell.laSpecialPrice.text = ""
                 cell.textCutView.isHidden = true
@@ -239,7 +299,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         cell.laDiscription.attributedText = string
         
         
-        print( "Hight-->\(cell.laDiscription.frame.height)")
+      //  print( "Hight-->\(cell.laDiscription.frame.height)")
         
         
         //====================================================================
@@ -258,8 +318,8 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         let value = 10 + 6 + 15
         let newHight = ((239 / 181) * cellWidth) + CGFloat(value + discription)
-        print("new Hight-->\(newHight)")
-        print("cell width-->\(cellWidth)")
+//        print("new Hight-->\(newHight)")
+//        print("cell width-->\(cellWidth)")
         return CGSize(width: cellWidth - 12, height: newHight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -336,9 +396,9 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
         
         
         ApisCallingClass.getProductdID(id: id, sort_by: sortBy , direction: direction, page: page) { (data) in
-            
+            UIViewController.removeSpinner(spinner: self.indecator!)
             if data != nil {
-                UIViewController.removeSpinner(spinner: self.indecator!)
+                
                 self.productRespone = data
                 print(data!)
                 self.productList = self.productList +  (self.productRespone.data?.product_listing)!
@@ -350,6 +410,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
                 
                 
             }
+            
             
         }
         
@@ -459,73 +520,24 @@ class ProductViewController: UIViewController,UITextFieldDelegate,UICollectionVi
     @objc func forNewest(notification: NSNotification){
         
         self.productList = [product_listing]()
+        self.collectionView.reloadData()
         self.indecator = UIViewController.displaySpinner(onView: self.view)
         self.ProductById(id: self.subCategoryId, page: 1)
         //collectionView.setContentOffset(CGPoint.zero, animated: true
         //self.collectionView.setContentOffset(CGPoint.zero, animated: true)
         
         
-    }
-    //=======================================================================================
-    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
         
-        let cgimage = image.cgImage!
-        let contextImage: UIImage = UIImage(cgImage: cgimage)
-        let contextSize: CGSize = contextImage.size
-        var posX: CGFloat = 0.0
-        var posY: CGFloat = 0.0
-        var cgwidth: CGFloat = CGFloat(width)
-        var cgheight: CGFloat = CGFloat(height)
-        
-        // See what size is longer and create the center off of that
-        if contextSize.width > contextSize.height {
-            posX = ((contextSize.width - contextSize.height) / 2)
-            posY = 0
-            cgwidth = contextSize.height
-            cgheight = contextSize.height
-        } else {
-            posX = 0
-            posY = ((contextSize.height - contextSize.width) / 2)
-            cgwidth = contextSize.width
-            cgheight = contextSize.width
-        }
-        
-        let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-        
-        // Create bitmap image from context using the rect
-        let imageRef: CGImage = cgimage.cropping(to: rect)!
-        
-        // Create a new image based on the imageRef and rotate back to the original orientation
-        let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
-        
-        return image
     }
     
     
-    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
-        let oldWidth = sourceImage.size.width
-        let scaleFactor = scaledToWidth / oldWidth
-        
-        let newHeight = sourceImage.size.height * scaleFactor
-        let newWidth = oldWidth * scaleFactor
-        
-        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-        sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.removeObject(forKey: "useCustomFilters")
+
     }
+    
 }
-//===========
-extension UIImage{
-    
-    func getRatio()->CGFloat{
-        let widthRatio =  CGFloat(self.size.width/self.size.height)
-        return widthRatio
-        
-    }
-}
+
 
 
 

@@ -190,7 +190,7 @@ class SearchCategoryViewController: UIViewController,UITextFieldDelegate,UIColle
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell", for:indexPath) as! searchTableViewCell
-            print("Row---->")
+        //    print("Row---->")
             print(indexPath.row)
             
             cell.categoryView.tag = indexPath.row

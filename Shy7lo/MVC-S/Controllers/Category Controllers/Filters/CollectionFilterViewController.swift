@@ -16,7 +16,11 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     @IBOutlet var buttonBack: UIButton!
     @IBOutlet var laCollectionFilter: UILabel!
     
-    var selectedIndex = [String]()
+    var selected_array_id = [String]()
+    var selected_array_names = [String]()
+
+    
+    
     var filterName:layeredDataObj?
     var lang:String!
     var filterLabel = [String]()
@@ -84,7 +88,7 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         
         cell.tapView.tag = indexPath.row
         
-        if selectedIndex.contains((self.filterName?.options![indexPath.row].id)!) {
+        if selected_array_id.contains((self.filterName?.options![indexPath.row].id)!) {
             cell.selecteedImage.isHidden = false
         }else{
             cell.selecteedImage.isHidden = true
@@ -111,31 +115,33 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
         
         
         let index  = (cellTag?.tag)!
+        
         print(index as Any)
         
         
-        if self.selectedIndex.contains((self.filterName?.options![index].id)!){
-            if let index = self.selectedIndex.index(of: (self.filterName?.options![index].id)!) {
-                self.selectedIndex.remove(at: index)
+        if self.selected_array_id.contains((self.filterName?.options![index].id)!){
+            if let index = self.selected_array_id.index(of: (self.filterName?.options![index].id)!) {
+                self.selected_array_id.remove(at: index)
             }
         }else{
-            self.selectedIndex.append((self.filterName?.options![index].id)!)
+            self.selected_array_id.append((self.filterName?.options![index].id)!)
         }
-        print(self.selectedIndex)
+        
+        
+        
+        
+        if self.selected_array_names.contains((self.filterName?.options![index].label)!){
+            if let index = self.selected_array_names.index(of: (self.filterName?.options![index].label)!) {
+                self.selected_array_names.remove(at: index)
+            }
+        }else{
+            self.selected_array_names.append((self.filterName?.options![index].label)!)
+        }
+        
+        
         
         self.tableView.reloadData()
         
-        
-        
-        //        let cellIndex = IndexPath(row: index , section: 0)
-        //        let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
-        //
-        //        if cell.selecteedImage.isHidden{
-        //            cell.selecteedImage.isHidden = false
-        //        }
-        //        else{
-        //            cell.selecteedImage.isHidden = true
-        //        }
         
         
         
@@ -144,7 +150,10 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     
     
     @IBAction func buBack(_ sender: Any) {
+   
+        self.saveData()
         self.navigationController?.popViewController(animated: true)
+   
     }
     
    
@@ -166,8 +175,12 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
     
     @IBAction func buApplyFilter(_ sender: Any) {
         
-        print(self.selectedIndex)
-        
+           self.saveData()
+           categoryGlobeldata.applyFilterApi()
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast(2) // views to pop
+        navigationController?.setViewControllers(viewControllers!, animated: true)
+
     }
     
     func filerLableCall(){
@@ -176,11 +189,50 @@ class CollectionFilterViewController: UIViewController,UITableViewDataSource,UIT
             
             self.filterLabel.append(((self.filterName?.options![i])?.label)!)
         }
+        
+        if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+            self.selected_array_id = array 
+        }
+        
+        
+        if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+            self.selected_array_names = array 
+        }
+        
+        
     }
     //============================================================
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
-        self.selectedIndex.removeAll()
+        self.selected_array_id.removeAll()
         self.tableView.reloadData()
         
     }
+    
+    
+    func saveData()  {
+        
+        if self.selected_array_id.count > 0{
+            categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] =  self.selected_array_id
+        }else{
+            // when user unselect all items
+            if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+                // self.selectedIndex = array
+                categoryGlobeldata.mySelectedItemsIds.removeValue(forKey: (filterName?.code)!)
+            }
+        }
+        
+        
+        if self.selected_array_names.count > 0{
+            categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] =  self.selected_array_names
+        }else{
+            // when user unselect all items
+            if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+                // self.selectedIndex = array
+                categoryGlobeldata.mySelectedItemValues.removeValue(forKey: (filterName?.code)!)
+            }
+        }
+        
+    }
+    
+    
 }

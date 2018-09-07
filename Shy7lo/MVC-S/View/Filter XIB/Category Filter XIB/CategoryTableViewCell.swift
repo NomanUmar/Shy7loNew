@@ -12,6 +12,8 @@ class CategoryTableViewCell: UITableViewCell {
 
     
     
+    @IBOutlet var selectedImageRightMargen: NSLayoutConstraint!
+    
     @IBOutlet var moveButton: NSLayoutConstraint!
     @IBOutlet var buttonNext: UIButton!
     @IBOutlet var selecteedImage: UIImageView!

@@ -73,6 +73,23 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         // Do any additional setup after loading the view.
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        tableView.reloadData()
+        
+//        let check = UserDefaults.standard.bool(forKey: "gotoProduct")
+//        if check
+//        {
+//            UserDefaults.standard.removeObject(forKey: "gotoProduct")
+//            self.navigationController?.popViewController(animated: true)
+//
+//        }
+        
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -117,8 +134,30 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             //for filert selection
             let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
+            
             cell.tapView.addGestureRecognizer(tapFilterView)
             cell.tapView.isUserInteractionEnabled = true
+            
+            if let array = categoryGlobeldata.mySelectedItemValues[ (self.filterRespose?.data?.layeredData![indexPath.row].code)!] {
+    
+                var text  = ""
+                for (i, name) in array.enumerated() {
+                    if i == 0{
+                   text = name
+                    }else{
+                        text = text + "," + name
+                    }
+                }
+                cell.selected_Category_lable.text = text
+
+            
+            
+            }else{
+                cell.selected_Category_lable.text = ""
+            }
+            
+            
+            
             
             return cell
         }
@@ -243,6 +282,13 @@ class FiltersViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
     }
     
-  
+    @IBAction func buApplyFilter(_ sender: Any) {
+        
+        categoryGlobeldata.applyFilterApi()
+        self.navigationController?.popViewController(animated: true)
+        
+        
+    }
+    
     
 }

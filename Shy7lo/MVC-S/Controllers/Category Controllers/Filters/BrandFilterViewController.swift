@@ -24,10 +24,16 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     var imageView : UIImageView!
     var lang:String!
     var filterName:layeredDataObj?
-    var brands = [String]()
-    var brandsDictionary = [String: [String]]()
+    var brands = [optionsObj]()
+    var brandsDictionary = [String: [optionsObj]]()
     var brandsSectionTitles = [String]()
-    var selectedIndex = [IndexPath]()
+    
+    
+    var selected_array_id = [String]()
+    var selected_array_names = [String]()
+
+    
+    
     var code = [String]()
     var brandName:String!
     
@@ -38,7 +44,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         //load image
         self.loadImage()
         
-        
+
         self.tabBarController?.tabBar.isHidden = true
         
         
@@ -62,7 +68,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         self.BrandCall()
         
         
-        
+
         
         
         
@@ -124,7 +130,18 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         // Configure the cell...
         let brandKey = self.brandsSectionTitles[indexPath.section]
         if let brandValues = self.brandsDictionary[brandKey] {
-            cell.laFilterName.text = brandValues[indexPath.row]
+            cell.laFilterName.text = brandValues[indexPath.row].label
+       
+            
+        
+            if selected_array_id.contains(brandValues[indexPath.row].id!) {
+                cell.selecteedImage.isHidden = false
+            }else{
+                cell.selecteedImage.isHidden = true
+            }
+        
+        
+        
         }
         
         
@@ -132,11 +149,7 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         cell.tapView.tag =  indexPath.section*10000 + indexPath.row
         
         
-        if selectedIndex.contains(indexPath) {
-            cell.selecteedImage.isHidden = false
-        }else{
-            cell.selecteedImage.isHidden = true
-        }
+        
         
         //for filert selection
         let tapFilterView = UITapGestureRecognizer(target: self, action: #selector(tapFilterView(sender:)))
@@ -157,24 +170,47 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     @objc func tapFilterView(sender: UITapGestureRecognizer) {
         
         let cellTag = sender.view
-        
-        
         let index  = (cellTag?.tag)!  %  10000
         let section  = (cellTag?.tag)! / 10000
         
         
         print("ind \(index)   sec \(section) ")
         
-        let cellIndex = IndexPath(row: index , section: section)
+        _ = IndexPath(row: index , section: section)
         
-        if self.selectedIndex.contains(cellIndex){
-            if let index = self.selectedIndex.index(of: cellIndex) {
-                self.selectedIndex.remove(at: index)
+        
+        
+        let brandKey = self.brandsSectionTitles[section]
+        if let brandValues = self.brandsDictionary[brandKey] {
+            
+            
+            
+            if selected_array_id.contains(brandValues[index].id!) {
+                if let index = self.selected_array_id.index(of: brandValues[index].id!) {
+                    self.selected_array_id.remove(at: index)
+                }
+            }else{
+                self.selected_array_id.append(brandValues[index].id!)
             }
             
-        }else{
-            self.selectedIndex.append(cellIndex)
-        }
+            
+           
+            if selected_array_names.contains(brandValues[index].label!) {
+                if let index = self.selected_array_names.index(of: brandValues[index].label!) {
+                    self.selected_array_names.remove(at: index)
+                }
+            }else{
+                self.selected_array_names.append(brandValues[index].label!)
+            }
+            
+           
+            
+            
+        } //=---- ----  ----  ---  - - - - -
+        
+        
+        
+      
         
         self.tableView.reloadData()
         
@@ -186,7 +222,13 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     
     //back button
     @IBAction func buBack(_ sender: Any) {
+       
+        self.saveData()
+
         self.navigationController?.popViewController(animated: true)
+   
+    
+    
     }
     //=================================================================
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -264,14 +306,13 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
     func BrandCall() {
         
         for i in 0..<(self.filterName?.options?.count)!{
-            self.brands.append((self.filterName?.options![i].label)!)
+            self.brands.append((self.filterName?.options![i])!)
             print("Brands\(self.brands)")
-            
         }
         
         // 1
         for brand in self.brands {
-            let brandKey = String(brand.prefix(1))
+            let brandKey = String((brand.label?.prefix(1))!)
             if var brandValues = self.brandsDictionary[brandKey] {
                 brandValues.append(brand)
                 self.brandsDictionary[brandKey] = brandValues
@@ -284,42 +325,99 @@ class BrandFilterViewController: UIViewController,UITableViewDataSource,UITableV
         self.brandsSectionTitles = [String](self.brandsDictionary.keys)
         self.brandsSectionTitles = self.brandsSectionTitles.sorted(by: { $0 < $1 })
         
+        
+        
+        if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+            self.selected_array_id = array 
+        }
+       
+        if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+            self.selected_array_names = array 
+        }
+        
+        
+        
         self.tableView.reloadData()
         
         
         
         
     }
+    
+    
+    
     @IBAction func buApplyFilter(_ sender: Any) {
         
-        self.code.removeAll()
-        for i in 0..<self.selectedIndex.count{
-            let cellIndex = selectedIndex[i]
-            
-            print(cellIndex)
-            let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
-            let name = cell.laFilterName.text
-            for j in 0..<(self.filterName?.options?.count)!{
-                
-                if name == self.filterName?.options![j].label{
-                    
-                    self.code.append((self.filterName?.options![j].id)!)
-                }
-                
-            }
-            
-            print(self.code)
-        }
+             self.saveData()
+        
+            categoryGlobeldata.applyFilterApi()
+      
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast(2) // views to pop
+        navigationController?.setViewControllers(viewControllers!, animated: true)
+
+//        for i in 0..<self.selectedIndex.count{
+//            let cellIndex = selectedIndex[i]
+//
+//            print(cellIndex)
+//            let cell: CategoryTableViewCell = self.tableView.cellForRow(at: cellIndex) as! CategoryTableViewCell
+//            let name = cell.laFilterName.text
+//            for j in 0..<(self.filterName?.options?.count)!{
+//
+//                if name == self.filterName?.options![j].label{
+//
+//                    self.code.append((self.filterName?.options![j].id)!)
+//                }
+//
+//            }
+//
+//            print(self.code)
+//        }
         
     }
     //============================================================
     @objc func tapClearFilter(sender: UITapGestureRecognizer) {
         self.code.removeAll()
-        self.selectedIndex.removeAll()
+        self.selected_array_id.removeAll()
         self.tableView.reloadData()
         
         
     }
+    
+    
+    
+    func saveData() {
+        
+        
+        if self.selected_array_id.count > 0{
+            categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] =  self.selected_array_id
+        }else{
+            // when user unselect all items
+            if let array = categoryGlobeldata.mySelectedItemsIds[(filterName?.code)!] {
+                // self.selectedIndex = array
+                categoryGlobeldata.mySelectedItemsIds.removeValue(forKey: (filterName?.code)!)
+                
+            }
+            
+        }
+        
+        
+        if self.selected_array_names.count > 0{
+            categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] =  self.selected_array_names
+        }else{
+            // when user unselect all items
+            if let array = categoryGlobeldata.mySelectedItemValues[(filterName?.code)!] {
+                // self.selectedIndex = array
+                categoryGlobeldata.mySelectedItemValues.removeValue(forKey: (filterName?.code)!)
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
     
     
 }
